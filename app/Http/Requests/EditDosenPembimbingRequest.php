@@ -24,8 +24,7 @@ class EditDosenPembimbingRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama_depan' => 'required|min:3',
-            'nama_belakang' => 'required|min:3',
+            'nama' => 'required|min:5',
             'gelar_belakang' => 'required',
             'nidn' => 'required|numeric',
             'jk' => 'required',
@@ -37,9 +36,7 @@ class EditDosenPembimbingRequest extends FormRequest
     {
         return [
             'nama_depan.required' => 'Nama depan harus diisi.',
-            'nama_depan.min' => 'Nama depan harus diisi minimal 3 karakter.',
-            'nama_belakang.required' => 'Nama belakang harus diisi.',
-            'nama_belakang.min' => 'Nama belakang harus diisi minimal 3 karakter.',
+            'nama_depan.min' => 'Nama depan harus diisi minimal 5 karakter.',
             'gelar_belakang.required' => 'Gelar Belakang harus diisi.',
             'nidn.required' => 'Nomor Induk Dosen Nasional wajib diisi.',
             'nidn.numeric' => 'Nomor Induk Dosen Nasional harus berisi angka.',

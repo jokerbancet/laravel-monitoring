@@ -24,8 +24,7 @@ class CreateDosenPembimbingRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama_depan' => 'required|min:3',
-            'nama_belakang' => 'required|min:3',
+            'nama' => 'required|min:5',
             'gelar_belakang' => 'required',
             'email' => 'required|email|unique:users',
             'nidn' => 'required|numeric',
@@ -37,10 +36,8 @@ class CreateDosenPembimbingRequest extends FormRequest
     public function messages()
     {
         return [
-            'nama_depan.required' => 'Nama depan harus diisi.',
-            'nama_depan.min' => 'Nama depan harus diisi minimal 3 karakter.',
-            'nama_belakang.required' => 'Nama belakang harus diisi.',
-            'nama_belakang.min' => 'Nama belakang harus diisi minimal 3 karakter.',
+            'nama.required' => 'Nama depan harus diisi.',
+            'nama.min' => 'Nama depan harus diisi minimal 5 karakter.',
             'gelar_belakang.required' => 'Gelar Belakang harus diisi.',
             'email.required' => 'Email wajib diisi.',
             'email.email' => 'Email tidak valid.',

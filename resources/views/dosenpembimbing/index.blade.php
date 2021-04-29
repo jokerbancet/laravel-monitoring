@@ -36,7 +36,7 @@
                                 <tbody>
                                     @foreach($data_dosen as $dosen)
                                         <tr>
-                                            <td>{{ $dosen->gelar_depan.' '.$dosen->nama_depan.' '.$dosen->nama_belakang.' '.$dosen->gelar_belakang }}
+                                            <td>{{ $dosen->gelar_depan.' '.$dosen->nama.' '.$dosen->gelar_belakang }}
                                             </td>
                                             <td>{{ $dosen->nidn }}</td>
                                             <td>{{ $dosen->email }}</td>
@@ -77,25 +77,14 @@
             <div class="modal-body">
                 <form action="/dosenpembimbing/create" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="nama_depan">Nama Depan</label>
-                            <input type="text" class="form-control" name="nama_depan" placeholder="Masukan Nama Depan"
-                                value="{{ old('nama_depan') }}">
-                            @if($errors->has('nama_depan'))
-                                <p class="text-danger">{{ $errors->first('nama_depan') }}</p>
+                        <div class="form-group">
+                            <label for="nama">Nama</label>
+                            <input type="text" class="form-control" name="nama" placeholder="Masukan Nama Lengkap"
+                                value="{{ old('nama') }}">
+                            @if($errors->has('nama'))
+                                <p class="text-danger">{{ $errors->first('nama') }}</p>
                             @endif
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="nama_belakang">Nama Belakang</label>
-                            <input type="text" class="form-control" name="nama_belakang"
-                                placeholder="Masukan Nama Belakang"
-                                value="{{ old('nama_belakang') }}">
-                            @if($errors->has('nama_belakang'))
-                                <p class="text-danger">{{ $errors->first('nama_belakang') }}</p>
-                            @endif
-                        </div>
-                    </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="gelar_depan">Gelar Depan</label>

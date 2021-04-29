@@ -11,8 +11,7 @@ class DosenPembimbing extends Model
     protected $table = 'dosenpembimbing';
     protected $fillable = [
         'user_id',
-        'nama_depan',
-        'nama_belakang',
+        'nama',
         'gelar_depan',
         'gelar_belakang',
         'jk',

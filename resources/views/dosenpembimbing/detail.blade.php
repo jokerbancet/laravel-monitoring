@@ -11,7 +11,7 @@
                             <div class="profile-main">
                                 <img src="{{ $dosen->getAvatar() }}" width="35%" class="img-circle" alt="Avatar">
                                 <h3 class="name">
-                                    {{ $dosen->gelar_depan.' '.$dosen->nama_depan.' '.$dosen->nama_belakang.' '.$dosen->gelar_belakang }}
+                                    {{ $dosen->gelar_depan.' '.$dosen->nama. ' '.$dosen->gelar_belakang }}
                                 </h3>
                                 <h5>Dosen Pembimbing Mahasiswa</h5>
                             </div>

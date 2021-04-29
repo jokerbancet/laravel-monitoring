@@ -50,6 +50,7 @@ Route::group(['middleware' => ['auth', 'CheckRole:admin']], function(){
 
     //Data Pemagangan
     Route::get('/pemagangan',[PemaganganController::class, 'index']);
+    Route::post('/pemagangan/create',[PemaganganController::class, 'create']);
 });
 
 Route::group(['middleware' => ['auth', 'CheckRole:admin,mahasiswa,dosenpembimbing,pembimbingindustri']], function(){

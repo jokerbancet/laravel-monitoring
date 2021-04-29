@@ -92,7 +92,7 @@
                                         <tr>
                                             @foreach($mahasiswa->dosenpembimbing as $dosen)
                                                 <td><a
-                                                        href="/dosenpembimbing/{{ $dosen->id }}/detail">{{ $dosen->gelar_depan.' '.$dosen->nama_depan.' '.$dosen->nama_belakang.' '.$dosen->gelar_belakang }}</a>
+                                                        href="/dosenpembimbing/{{ $dosen->id }}/detail">{{ $dosen->gelar_depan.' '.$dosen->nama.' '.$dosen->gelar_belakang }}</a>
                                                 </td>
                                             @endforeach
                                             @foreach($mahasiswa->pembimbingindustri as $pembimbing)

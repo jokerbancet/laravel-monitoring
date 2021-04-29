@@ -15,11 +15,12 @@ class PemaganganController extends Controller
      */
     public function index()
     {
+        //ambil data_bimbingan untuk tabel
         $data_pemagangan = DB::table('data_bimbingan')
         ->join('mahasiswa', 'data_bimbingan.mahasiswa_id', '=', 'mahasiswa.id')
         ->select('data_bimbingan.*', 'mahasiswa.*')
         ->get();
-        // dd($data_pemagangan);
+
         return view('pemagangan.index', ['pemagangan' => $data_pemagangan]);
     }
 
@@ -30,7 +31,8 @@ class PemaganganController extends Controller
      */
     public function create()
     {
-        //
+        // $data_mahasiswa = DB::table('mahasiswa')
+        // ->orderBy('id', 'asc')->get();
     }
 
     /**
