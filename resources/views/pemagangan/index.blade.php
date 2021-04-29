@@ -39,7 +39,7 @@
                                 <tbody>
                                     @foreach($pemagangan as $p)
                                         <tr>
-                                            <td>{{ $p->nama_depan.' '.$p->nama_belakang }}</td>
+                                            <td>{{ $p->nama}}</td>
                                             <td>{{ $p->jurusan }}</td>
                                             <td>{{ $p->mulai_magang }}</td>
                                             <td>{{ $p->selesai_magang }}</td>
@@ -59,7 +59,7 @@
                                                     class="btn btn-warning btn-xs"><i class="lnr lnr-pencil"></i></a>
                                                 <a href="/mahasiswa/{{ $p->id }}/delete"
                                                     class="btn btn-danger btn-xs"
-                                                    onclick="return confirm('Yakin data dengan nama {{ $p->nama_depan }} akan dihapus?')"><i
+                                                    onclick="return confirm('Yakin data dengan nama {{ $p->nama }} akan dihapus?')"><i
                                                         class="lnr lnr-trash"></i></a>
                                             </td>
                                         </tr>

@@ -41,7 +41,7 @@
                             <ul class="nav" role="tablist">
                                 <li class="active"><a href="#tab-bottom-left1" role="tab" data-toggle="tab">Aktifitas
                                         Terkini</a></li>
-                                <li><a href="#tab-bottom-left2" role="tab" data-toggle="tab">Data Pembimbing Magang</a></li>
+                                <li><a href="#tab-bottom-left2" role="tab" data-toggle="tab">Data Mahasiswa Bimbingan</a></li>
                             </ul>
                         </div>
                         {{-- aktifitas --}}
@@ -80,14 +80,25 @@
                                             <th>Mahasiswa Bimbingan</th>
                                             <th>Prodi</th>
                                             <th>Mulai Magang</th>
+                                            <th>Selesai Magang</th>
+                                            <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach($dosen->mahasiswa as $mahasiswa)
                                             <tr>
-                                                <td><a href="/mahasiswa/{{$mahasiswa->id}}/detail">{{ $mahasiswa->nama_depan. ' '.$mahasiswa->nama_belakang }}</a></td>
+                                                <td><a href="/mahasiswa/{{$mahasiswa->id}}/detail">{{ $mahasiswa->nama }}</a></td>
                                                 <td>{{ $mahasiswa->jurusan }}</td>
                                                 <td>{{ $mahasiswa->pivot->mulai_magang}}</td>
+                                                <td>{{ $mahasiswa->pivot->selesai_magang}}</td>
+                                                <td>@php
+                                                    if($mahasiswa->pivot->status_magang == 1){
+                                                        echo '<span class="label label-primary">Mulai Magang</span>';
+                                                    }elseif($mahasiswa->pivot->status_magang == 2){
+                                                        echo '<span class="label label-success">Selesai Magang</span>';
+                                                    }else{
+                                                    }
+                                                    @endphp</td>
                                             </tr>
                                         @endforeach
                                     </tbody>

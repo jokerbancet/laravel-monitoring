@@ -33,7 +33,7 @@ class PembimbingIndustri extends Model
 
     public function mahasiswa()
     {
-        return $this->belongsToMany(mahasiswa::class, 'data_bimbingan', 'pembimbingindustri_id', 'mahasiswa_id')->withPivot(['mulai_magang']);
+        return $this->belongsToMany(mahasiswa::class, 'data_bimbingan', 'pembimbingindustri_id', 'mahasiswa_id')->withPivot(['mulai_magang','selesai_magang','status_magang']);
     }
 
     public function dosenpembimbing()

@@ -35,8 +35,7 @@
                                 <tbody>
                                     @foreach($dpi as $pi)
                                         <tr>
-                                            <td>{{ $pi->nama_depan.' '.$pi->nama_belakang }}
-                                            </td>
+                                            <td>{{ $pi->nama_depan.' '.$pi->nama_belakang }}</td>
                                             <td>{{ $pi->email }}</td>
                                             <td><a href="/pembimbingindustri/{{ $pi->id }}/detail"
                                                     class="btn btn-info btn-xs"><i class="lnr lnr-magnifier"></i></a>

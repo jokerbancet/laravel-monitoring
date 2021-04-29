@@ -31,12 +31,12 @@ class DosenPembimbing extends Model
 
     public function mahasiswa()
     {
-        return $this->belongsToMany(Mahasiswa::class, 'data_bimbingan', 'dosenpembimbing_id', 'mahasiswa_id')->withPivot(['mulai_magang']);
+        return $this->belongsToMany(Mahasiswa::class, 'data_bimbingan', 'dosenpembimbing_id', 'mahasiswa_id')->withPivot(['mulai_magang', 'selesai_magang','status_magang']);
     }
 
     public function pembimbingindustri()
     {
-        return $this->belongsToMany(pembimbingindustri::class,'data_bimbingan', 'dosenpembimbing_id', 'pembimbingindustri_id')->withPivot(['mulai_magang']);
+        return $this->belongsToMany(pembimbingindustri::class,'data_bimbingan', 'dosenpembimbing_id', 'pembimbingindustri_id')->withPivot(['mulai_magang', 'selesai_magang','status_magang']);
     }
 
 }
