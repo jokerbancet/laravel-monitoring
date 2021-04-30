@@ -92,55 +92,58 @@
                     {{ csrf_field() }}
                         <div class="form-group">
                             <label for="exampleInputEmail1">Nama Mahasiswa</label>
-                            <input type="text" class="form-control" name="mahasiswa_id" placeholder="Masukan Nama Mahasiswa" value="{{old('nama_depan')}}">
-                            @if ($errors->has('nama_depan'))
-                                <p class="text-danger">{{$errors->first('nama_depan')}}</p>
-                            @endif
+                            <select name="mahasiswa_id" id="mahasiswa_id" class="form-control">
+                                <option value=""></option>
+                                @foreach ($data1 as $data)
+                                    <option value="{{$data->id}}">{{$data->nama}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Dosen Pembimbing</label>
-                        <input type="text" class="form-control" name="dosenpembimbing_id" placeholder="Masukan Nama Dosen Pembimbing" value="{{old('email')}}">
-                        @if ($errors->has('email'))
-                                <p class="text-danger">{{$errors->first('email')}}</p>
-                            @endif
+                        <select name="dosenpembimbing_id" id="dosenpembimbing_id" class="form-control">
+                            <option value=""></option>
+                            @foreach ($data2 as $data)
+                                <option value="{{$data->id}}">{{$data->nama}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Pembimbing Industri</label>
-                        <input type="text" class="form-control" name="pembimbingindustri_id" placeholder="Masukan Nama Pembimbing Industri" value="{{old('email')}}">
-                        @if ($errors->has('email'))
-                                <p class="text-danger">{{$errors->first('email')}}</p>
-                            @endif
+                        <select name="pembimbingindustri_id" id="pembimbingindustri_id" class="form-control">
+                            <option value=""></option>
+                            @foreach ($data3 as $data)
+                                <option value="{{$data->id}}">{{$data->nama_depan}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Mulai Magang</label>
-                        <input type="date" class="form-control" name="pembimbingindustri_id" placeholder="Masukan Email" value="{{old('email')}}">
-                        @if ($errors->has('email'))
-                                <p class="text-danger">{{$errors->first('email')}}</p>
+                        <input type="date" class="form-control" name="mulai_magang" value="{{old('mulai_magang')}}">
+                        @if ($errors->has('mulai_magang'))
+                                <p class="text-danger">{{$errors->first('mulai_magang')}}</p>
                             @endif
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Selesai Magang</label>
-                        <input type="date" class="form-control" name="pembimbingindustri_id" placeholder="Masukan Email" value="{{old('email')}}">
-                        @if ($errors->has('email'))
-                                <p class="text-danger">{{$errors->first('email')}}</p>
+                        <input type="date" class="form-control" name="selesai_magang" value="{{old('selesai_magang')}}">
+                        @if ($errors->has('selesai_magang'))
+                                <p class="text-danger">{{$errors->first('selesai_magang')}}</p>
                             @endif
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Jenis Pekerjaan</label>
-                        <input type="text" class="form-control" name="jenis_pekerjaan" placeholder="Masukan Jenis Pekerjaan" value="{{old('email')}}">
-                        @if ($errors->has('email'))
-                                <p class="text-danger">{{$errors->first('email')}}</p>
+                        <input type="text" class="form-control" name="jenis_pekerjaan" placeholder="Masukan Jenis Pekerjaan" value="{{old('jenis_pekerjaan')}}">
+                        @if ($errors->has('jenis_pekerjaan'))
+                                <p class="text-danger">{{$errors->first('jenis_pekerjaan')}}</p>
                             @endif
                     </div>
                     <div class="form-group">
                         <label for="status_magang">Status Magang</label>
-                            <select name="jk" id="jk" class="form-control">
-                                <option value="1">Mulai Magang</option>
-                                <option value="2">Selesai Magang</option>
-                            </select>
-                        @if ($errors->has('email'))
-                                <p class="text-danger">{{$errors->first('email')}}</p>
-                            @endif
+                        <select name="status_magang" id="status_magang" class="form-control">
+                            <option value="1">Mulai Magang</option>
+                            <option value="2">Selesai Magang</option>
+                        </select>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

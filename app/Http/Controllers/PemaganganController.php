@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pemagangan as ModelsPemagangan;
+use App\Models\Pemagangan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -21,7 +21,27 @@ class PemaganganController extends Controller
         ->select('data_bimbingan.*', 'mahasiswa.*')
         ->get();
 
-        return view('pemagangan.index', ['pemagangan' => $data_pemagangan]);
+        //ambil data nama mahasiswa
+        $data1 = DB::table('mahasiswa')
+        ->select('id', 'nama')
+        ->get();
+
+        //ambil data nama dosen pembimbing
+        $data2 = DB::table('dosenpembimbing')
+        ->select('id', 'nama')
+        ->get();
+
+        //ambil data nama pembimbing industri
+        $data3 = DB::table('pembimbingindustri')
+        ->select('id', 'nama_depan')
+        ->get();
+
+        return view('pemagangan.index', [
+            'pemagangan' => $data_pemagangan,
+            'data1' => $data1,
+            'data2' => $data2,
+            'data3' => $data3
+            ]);
     }
 
     /**
@@ -29,10 +49,12 @@ class PemaganganController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        // $data_mahasiswa = DB::table('mahasiswa')
-        // ->orderBy('id', 'asc')->get();
+        // dd($request->all());
+        //masukan data ke dalam database
+        Pemagangan::create($request->all());
+        return redirect('/pemagangan')->with('sukses','Data Berhasil di input');
     }
 
     /**
