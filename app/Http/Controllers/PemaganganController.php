@@ -23,12 +23,17 @@ class PemaganganController extends Controller
 
         //ambil data nama mahasiswa
         $data1 = DB::table('mahasiswa')
-        ->select('id', 'nama')
+        ->select('mahasiswa.id','mahasiswa.nama')
+        ->leftJoin('data_bimbingan', 'mahasiswa.id', '=', 'data_bimbingan.mahasiswa_id')
+        ->where('data_bimbingan.mahasiswa_id')
         ->get();
 
         //ambil data nama dosen pembimbing
         $data2 = DB::table('dosenpembimbing')
-        ->select('id', 'nama')
+        ->select('dosenpembimbing.id', 'dosenpembimbing.nama', DB::raw('COUNT(data_bimbingan.mahasiswa_id) AS jumlah_anak'))
+        ->leftJoin('data_bimbingan', 'dosenpembimbing.id', '=', 'data_bimbingan.dosenpembimbing_id')
+        ->groupBy('dosenpembimbing.id')
+        ->having('jumlah_anak', '<', 3)
         ->get();
 
         //ambil data nama pembimbing industri
@@ -36,6 +41,7 @@ class PemaganganController extends Controller
         ->select('id', 'nama_depan')
         ->get();
 
+        // dd($data2);
         return view('pemagangan.index', [
             'pemagangan' => $data_pemagangan,
             'data1' => $data1,

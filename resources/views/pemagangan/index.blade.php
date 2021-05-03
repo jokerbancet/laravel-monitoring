@@ -44,13 +44,18 @@
                                             <td>{{ $p->mulai_magang }}</td>
                                             <td>{{ $p->selesai_magang }}</td>
                                             <td>{{ $p->jenis_pekerjaan }}</td>
+                                            @php
+                                                $tgl_sekarang = strtotime(date("d-m-Y"));
+                                                $tgl_selesai = strtotime($p->selesai_magang);
+
+                                            @endphp
                                             <td>@php
-                                                if($p->status_magang == 1){
+                                                if($tgl_sekarang < $tgl_selesai){
                                                     echo '<span class="label label-primary">Mulai Magang</span>';
-                                                }elseif($p->status_magang == 2){
-                                                    echo '<span class="label label-success">Selesai Magang</span>';
                                                 }else{
+                                                    echo '<span class="label label-success">Selesai Magang</span>';
                                                 }
+
                                                 @endphp
                                             </td>
                                             <td><a href="/mahasiswa/{{ $p->id }}/detail"
@@ -138,6 +143,7 @@
                                 <p class="text-danger">{{$errors->first('jenis_pekerjaan')}}</p>
                             @endif
                     </div>
+
                     <div class="form-group">
                         <label for="status_magang">Status Magang</label>
                         <select name="status_magang" id="status_magang" class="form-control">
