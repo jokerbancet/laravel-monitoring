@@ -8,6 +8,7 @@ use App\Http\Controllers\PembimbingIndustriController;
 use App\Http\Controllers\IndustriController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PemaganganController;
+use App\Http\Controllers\IndikatorCapaianController;
 
 
 Route::get('/', [AuthController::class, 'login'])->name('login');
@@ -51,6 +52,10 @@ Route::group(['middleware' => ['auth', 'CheckRole:admin']], function(){
     //Data Pemagangan
     Route::get('/pemagangan',[PemaganganController::class, 'index']);
     Route::post('/pemagangan/create',[PemaganganController::class, 'create']);
+
+    //Data indikator capaian
+    Route::get('/capaian',[IndikatorCapaianController::class, 'index']);
+
 });
 
 Route::group(['middleware' => ['auth', 'CheckRole:admin,mahasiswa,dosenpembimbing,pembimbingindustri']], function(){

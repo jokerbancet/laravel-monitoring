@@ -12,6 +12,7 @@
                             <li><a href="/dosenpembimbing" class="">Data Dosen Pembimbing</a></li>
                             <li><a href="/pembimbingindustri" class="">Data Pembimbing Industri</a></li>
                             <li><a href="/industri" class="">Data Tempat Industri</a></li>
+                            <li><a href="/capaian" class="">Data Indikator Capaian</a></li>
                         </ul>
                     </div>
                 </li>
