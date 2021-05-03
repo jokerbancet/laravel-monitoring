@@ -90,12 +90,15 @@
                                                 <td>{{ $mahasiswa->jurusan }}</td>
                                                 <td>{{ $mahasiswa->pivot->mulai_magang}}</td>
                                                 <td>{{ $mahasiswa->pivot->selesai_magang}}</td>
+                                                @php
+                                                    $tgl_sekarang = strtotime(date("d-m-Y"));
+                                                    $tgl_selesai = strtotime($mahasiswa->pivot->selesai_magang);
+                                                @endphp
                                                 <td>@php
-                                                    if($mahasiswa->pivot->status_magang == 1){
+                                                    if($tgl_sekarang < $tgl_selesai){
                                                         echo '<span class="label label-primary">Mulai Magang</span>';
-                                                    }elseif($mahasiswa->pivot->status_magang == 2){
-                                                        echo '<span class="label label-success">Selesai Magang</span>';
                                                     }else{
+                                                        echo '<span class="label label-success">Selesai Magang</span>';
                                                     }
                                                     @endphp</td>
                                             </tr>

@@ -38,7 +38,7 @@ class PemaganganController extends Controller
 
         //ambil data nama pembimbing industri
         $data3 = DB::table('pembimbingindustri')
-        ->select('id', 'nama_depan')
+        ->select('id', 'nama')
         ->get();
 
         // dd($data2);

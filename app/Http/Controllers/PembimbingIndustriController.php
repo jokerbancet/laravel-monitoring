@@ -27,7 +27,7 @@ class PembimbingIndustriController extends Controller
     {
         $user = new \App\Models\User;
         $user->role = 'pembimbingindustri';
-        $user->name = $request->nama_depan . ' ' . $request->nama_belakang;
+        $user->name = $request->nama;
         $user->email = $request->email;
         $user->password = bcrypt('passwordpembimbingindustri');
         $user->remember_token = Str::random(60);

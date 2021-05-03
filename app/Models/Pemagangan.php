@@ -16,7 +16,6 @@ class Pemagangan extends Model
         'mulai_magang',
         'selesai_magang',
         'jenis_pekerjaan',
-        'status_magang',
     ];
 
 }

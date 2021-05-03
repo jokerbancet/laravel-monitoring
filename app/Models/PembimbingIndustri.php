@@ -11,8 +11,7 @@ class PembimbingIndustri extends Model
     protected $table = 'pembimbingindustri';
     protected $fillable = [
         'user_id',
-        'nama_depan',
-        'nama_belakang',
+        'nama',
         'email',
         'jk',
         'avatar'
@@ -33,7 +32,7 @@ class PembimbingIndustri extends Model
 
     public function mahasiswa()
     {
-        return $this->belongsToMany(mahasiswa::class, 'data_bimbingan', 'pembimbingindustri_id', 'mahasiswa_id')->withPivot(['mulai_magang','selesai_magang','status_magang']);
+        return $this->belongsToMany(mahasiswa::class, 'data_bimbingan', 'pembimbingindustri_id', 'mahasiswa_id')->withPivot(['mulai_magang','selesai_magang']);
     }
 
     public function dosenpembimbing()

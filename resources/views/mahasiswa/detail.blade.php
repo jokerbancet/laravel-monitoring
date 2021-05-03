@@ -97,17 +97,20 @@
                                             @endforeach
                                             @foreach($mahasiswa->pembimbingindustri as $pembimbing)
                                                 <td><a
-                                                        href="/pembimbingindustri/{{ $pembimbing->id }}/detail">{{ $pembimbing->nama_depan.' '.$pembimbing->nama_belakang }}</a>
+                                                        href="/pembimbingindustri/{{ $pembimbing->id }}/detail">{{ $pembimbing->nama }}</a>
                                                 </td>
                                                 <td>{{ $pembimbing->industri->nama_industri }}</td>
                                                 <td>{{ $pembimbing->pivot->mulai_magang }}</td>
                                                 <td>{{ $pembimbing->pivot->selesai_magang }}</td>
+                                                @php
+                                                    $tgl_sekarang = strtotime(date("d-m-Y"));
+                                                    $tgl_selesai = strtotime($pembimbing->pivot->selesai_magang);
+                                                @endphp
                                                 <td>@php
-                                                    if($pembimbing->pivot->status_magang == 1){
+                                                    if($tgl_sekarang < $tgl_selesai){
                                                         echo '<span class="label label-primary">Mulai Magang</span>';
-                                                    }elseif($pembimbing->pivot->status_magang == 2){
-                                                        echo '<span class="label label-success">Selesai Magang</span>';
                                                     }else{
+                                                        echo '<span class="label label-success">Selesai Magang</span>';
                                                     }
                                                     @endphp</td>
                                             @endforeach

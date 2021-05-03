@@ -44,18 +44,16 @@
                                             <td>{{ $p->mulai_magang }}</td>
                                             <td>{{ $p->selesai_magang }}</td>
                                             <td>{{ $p->jenis_pekerjaan }}</td>
-                                            @php
-                                                $tgl_sekarang = strtotime(date("d-m-Y"));
-                                                $tgl_selesai = strtotime($p->selesai_magang);
-
-                                            @endphp
+                                                @php
+                                                    $tgl_sekarang = strtotime(date("d-m-Y"));
+                                                    $tgl_selesai = strtotime($p->selesai_magang);
+                                                @endphp
                                             <td>@php
                                                 if($tgl_sekarang < $tgl_selesai){
                                                     echo '<span class="label label-primary">Mulai Magang</span>';
                                                 }else{
                                                     echo '<span class="label label-success">Selesai Magang</span>';
                                                 }
-
                                                 @endphp
                                             </td>
                                             <td><a href="/mahasiswa/{{ $p->id }}/detail"
@@ -118,7 +116,7 @@
                         <select name="pembimbingindustri_id" id="pembimbingindustri_id" class="form-control">
                             <option value=""></option>
                             @foreach ($data3 as $data)
-                                <option value="{{$data->id}}">{{$data->nama_depan}}</option>
+                                <option value="{{$data->id}}">{{$data->nama}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -142,14 +140,6 @@
                         @if ($errors->has('jenis_pekerjaan'))
                                 <p class="text-danger">{{$errors->first('jenis_pekerjaan')}}</p>
                             @endif
-                    </div>
-
-                    <div class="form-group">
-                        <label for="status_magang">Status Magang</label>
-                        <select name="status_magang" id="status_magang" class="form-control">
-                            <option value="1">Mulai Magang</option>
-                            <option value="2">Selesai Magang</option>
-                        </select>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
