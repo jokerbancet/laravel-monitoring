@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateIndikatorCapaianRequest;
+use App\Http\Requests\EditIndikatorCapaianRequest;
 use App\Models\IndikatorCapaian;
 use Illuminate\Http\Request;
 
@@ -23,9 +25,10 @@ class IndikatorCapaianController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(CreateIndikatorCapaianRequest $request)
     {
-        //
+        IndikatorCapaian::create($request->all());
+        return redirect('/capaian')->with('sukses','Data Berhasil di input');
     }
 
     /**
@@ -34,21 +37,6 @@ class IndikatorCapaianController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -58,7 +46,8 @@ class IndikatorCapaianController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = IndikatorCapaian::find($id);
+        return view('capaian.edit', ['capaian' => $data]);
     }
 
     /**
@@ -68,9 +57,12 @@ class IndikatorCapaianController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EditIndikatorCapaianRequest $request, $id)
     {
-        //
+        $data = IndikatorCapaian::find($id);
+        $data->update($request->all());
+        // dd($data);
+        return redirect('/capaian')->with('sukses','Data Berhasil di update');
     }
 
     /**
@@ -79,8 +71,10 @@ class IndikatorCapaianController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        $data = IndikatorCapaian::find($id);
+        $data->delete($id);
+        return redirect('/capaian')->with('sukses','Data Berhasil di hapus');
     }
 }

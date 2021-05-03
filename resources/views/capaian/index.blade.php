@@ -41,11 +41,9 @@
                                             <td>{{ $c->deskripsi_capaian }}</td>
                                             <td>{{ $c->kategori_capaian }}</td>
                                             <td>{{ $c->bobot_capaian }}</td>
-                                            <td><a href="/pembimbingindustri/{{ $c->id }}/detail"
-                                                    class="btn btn-info btn-xs"><i class="lnr lnr-magnifier"></i></a>
-                                                <a href="/pembimbingindustri/{{ $c->id }}/edit"
+                                            <td><a href="/capaian/{{ $c->id }}/edit"
                                                     class="btn btn-warning btn-xs"><i class="lnr lnr-pencil"></i></a>
-                                                <a href="/pembimbingindustri/{{ $c->id }}/delete"
+                                                <a href="/capaian/{{ $c->id }}/delete"
                                                     class="btn btn-danger btn-xs"
                                                     onclick="return confirm('Yakin data dengan nama {{ $c->nama_depan }} akan dihapus?')"><i
                                                         class="lnr lnr-trash"></i></a>
@@ -56,7 +54,6 @@
                             </table>
                         </div>
                     </div>
-                    <!-- END TABLE HOVER -->
                 </div>
             </div>
         </div>
@@ -76,40 +73,46 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="/pembimbingindustri/create" method="POST" enctype="multipart/form-data">
+                <form action="/capaian/create" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
                         <div class="form-group">
-                            <label for="nama">Nama</label>
-                            <input type="text" class="form-control" name="nama" placeholder="Masukan Nama"
-                                value="{{ old('nama') }}">
-                            @if($errors->has('nama'))
-                                <p class="text-danger">{{ $errors->first('nama') }}</p>
-                            @endif
+                            <label for="jurusan">Jurusan</label>
+                            <select name="jurusan" id="jurusan" class="form-control">
+                                <option value=""></option>
+                                <option value="Teknologi Geologi"{{old('jurusan') == 'Teknologi Geologi' ? ' selected' : ''}}>Teknologi Geologi</option>
+                                <option value="Teknologi Pertambangan"{{old('jurusan') == 'Teknologi Pertambangan' ? ' selected' : ''}}>Teknologi Pertambangan</option>
+                                <option value="Teknologi Metalurgi"{{old('jurusan') == 'Teknologi Metalurgi' ? ' selected' : ''}}>Teknologi Metalurgi</option>
+                        </select>
                         </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">E-mail</label>
-                        <input type="email" class="form-control" name="email" placeholder="Masukan Email"
-                            value="{{ old('email') }}">
-                        @if($errors->has('email'))
-                            <p class="text-danger">{{ $errors->first('email') }}</p>
+                        <label for="deskripsi_capaian">Deskripsi Capaian</label>
+                        <textarea name="deskripsi_capaian" id="deskripsi_capaian" class="form-control" cols="20" rows="10">{{old('deskripsi_capaian')}}</textarea>
+                        @if($errors->has('deskripsi_capaian'))
+                            <p class="text-danger">{{ $errors->first('deskripsi_capaian') }}</p>
                         @endif
                     </div>
                     <div class="form-group">
-                        <label for="jk">Jenis Kelamin</label>
-                        <select name="jk" id="jk" class="form-control">
-                            <option value="Laki-Laki"
-                                {{ old('jk') == 'Laki-Laki' ? ' selected' : '' }}>
-                                Laki - Laki</option>
-                            <option value="Perempuan"
-                                {{ old('jk') == 'Perempuan' ? ' selected' : '' }}>
-                                Perempuan</option>
+                        <label for="kategori_capaian">Kategori Capaian</label>
+                        <select name="kategori_capaian" id="kategori_capaian" class="form-control">
+                            <option value="sikap"
+                                {{ old('kategori_capaian') == 'sikap' ? ' selected' : '' }}>
+                                Sikap</option>
+                            <option value="pengetahuan"
+                                {{ old('kategori_capaian') == 'pengetahuan' ? ' selected' : '' }}>
+                                Pengetahuan</option>
+                            <option value="keterampilan umum"
+                                {{ old('kategori_capaian') == 'keterampilan umum' ? ' selected' : '' }}>
+                                Keterampilan Umum</option>
+                            <option value="keterampilan khusus"
+                                {{ old('kategori_capaian') == 'keterampilan khusus' ? ' selected' : '' }}>
+                                Keterampilan Khusus</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Foto</label>
-                        <input type="file" class="form-control" name="avatar">
-                        @if($errors->has('avatar'))
-                            <p class="text-danger">{{ $errors->first('avatar') }}</p>
+                        <label for="bobot_capaian">Bobot Nilai</label>
+                        <input type="number" class="form-control" name="bobot_capaian">
+                        @if($errors->has('bobot_capaian'))
+                            <p class="text-danger">{{ $errors->first('bobot_capaian') }}</p>
                         @endif
                     </div>
                     <div class="modal-footer">
