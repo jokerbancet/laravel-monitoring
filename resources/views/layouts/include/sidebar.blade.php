@@ -16,9 +16,6 @@
                         </ul>
                     </div>
                 </li>
-                @endif
-
-                @if (auth()->user()->role == 'admin')
                 <li>
                     <a href="#subPages2" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Data Pemagangan</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                     <div id="subPages2" class="collapse ">
@@ -27,6 +24,11 @@
                         </ul>
                     </div>
                 </li>
+                @endif
+                @if (auth()->user()->role == 'mahasiswa')
+                    <li><a href="/laporan" class=""><i class="lnr lnr-home"></i> <span>Laporan</span></a></li>
+                    <li><a href="/laporan" class=""><i class="lnr lnr-home"></i> <span>Histori Laporan</span></a></li>
+                    <li><a href="/laporan" class=""><i class="lnr lnr-home"></i> <span>Grafik Kinerja</span></a></li>
                 @endif
             </ul>
         </nav>
