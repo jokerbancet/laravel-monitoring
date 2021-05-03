@@ -58,6 +58,7 @@ Route::group(['middleware' => ['auth', 'CheckRole:admin']], function(){
     Route::post('/capaian/create',[IndikatorCapaianController::class, 'create']);
     Route::get('/capaian/{id}/edit',[IndikatorCapaianController::class, 'edit']);
     Route::post('/capaian/{id}/update',[IndikatorCapaianController::class, 'update']);
+    Route::get('/capaian/{id}/delete',[IndikatorCapaianController::class, 'delete']);
 });
 
 Route::group(['middleware' => ['auth', 'CheckRole:admin,mahasiswa,dosenpembimbing,pembimbingindustri']], function(){

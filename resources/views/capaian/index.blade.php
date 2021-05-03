@@ -45,7 +45,7 @@
                                                     class="btn btn-warning btn-xs"><i class="lnr lnr-pencil"></i></a>
                                                 <a href="/capaian/{{ $c->id }}/delete"
                                                     class="btn btn-danger btn-xs"
-                                                    onclick="return confirm('Yakin data dengan nama {{ $c->nama_depan }} akan dihapus?')"><i
+                                                    onclick="return confirm('Yakin data dengan nama {{ $c->deskripsi_capaian }} akan dihapus?')"><i
                                                         class="lnr lnr-trash"></i></a>
                                             </td>
                                         </tr>
