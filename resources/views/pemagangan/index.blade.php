@@ -56,11 +56,11 @@
                                                 }
                                                 @endphp
                                             </td>
-                                            <td><a href="/mahasiswa/{{ $p->id }}/detail"
+                                            <td><a href="/mahasiswa/{{ $p->mahasiswa_id }}/detail"
                                                     class="btn btn-info btn-xs"><i class="lnr lnr-magnifier"></i></a>
-                                                <a href="/mahasiswa/{{ $p->id }}/edit"
+                                                <a href="/pemagangan/{{ $p->id }}/edit"
                                                     class="btn btn-warning btn-xs"><i class="lnr lnr-pencil"></i></a>
-                                                <a href="/mahasiswa/{{ $p->id }}/delete"
+                                                <a href="/pemagangan/{{ $p->id }}/delete"
                                                     class="btn btn-danger btn-xs"
                                                     onclick="return confirm('Yakin data dengan nama {{ $p->nama }} akan dihapus?')"><i
                                                         class="lnr lnr-trash"></i></a>

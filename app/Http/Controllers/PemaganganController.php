@@ -18,7 +18,7 @@ class PemaganganController extends Controller
         //ambil data_bimbingan untuk tabel
         $data_pemagangan = DB::table('data_bimbingan')
         ->join('mahasiswa', 'data_bimbingan.mahasiswa_id', '=', 'mahasiswa.id')
-        ->select('data_bimbingan.*', 'mahasiswa.*')
+        ->select('data_bimbingan.id', 'data_bimbingan.mahasiswa_id','data_bimbingan.mulai_magang', 'data_bimbingan.selesai_magang','data_bimbingan.jenis_pekerjaan', 'mahasiswa.nama','mahasiswa.jurusan')
         ->get();
 
         //ambil data nama mahasiswa
@@ -41,7 +41,7 @@ class PemaganganController extends Controller
         ->select('id', 'nama')
         ->get();
 
-        // dd($data2);
+        // dd($data_pemagangan);
         return view('pemagangan.index', [
             'pemagangan' => $data_pemagangan,
             'data1' => $data1,
@@ -92,7 +92,36 @@ class PemaganganController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Pemagangan::find($id);
+
+        //ambil data nama mahasiswa
+        $data1 = DB::table('data_bimbingan')
+        ->select('data_bimbingan.id','mahasiswa.nama', 'data_bimbingan.mahasiswa_id','data_bimbingan.mulai_magang','data_bimbingan.selesai_magang','data_bimbingan.jenis_pekerjaan')
+        ->join('mahasiswa', 'data_bimbingan.mahasiswa_id', '=', 'mahasiswa.id')
+        ->where('data_bimbingan.mahasiswa_id', '=', $id)
+        ->get();
+
+        //ambil data nama dosen pembimbing
+        $data2 = DB::table('dosenpembimbing')
+        ->select('dosenpembimbing.id', 'dosenpembimbing.nama', DB::raw('COUNT(data_bimbingan.mahasiswa_id) AS jumlah_anak'))
+        ->leftJoin('data_bimbingan', 'dosenpembimbing.id', '=', 'data_bimbingan.dosenpembimbing_id')
+        ->groupBy('dosenpembimbing.id')
+        ->having('jumlah_anak', '<', 3)
+        ->get();
+
+        //ambil data nama pembimbing industri
+        $data3 = DB::table('pembimbingindustri')
+        ->select('id', 'nama')
+        ->get();
+
+        // dd($data1);
+        //ambil data pemagangan where $id
+        return view('pemagangan.edit', [
+            'data' => $data,
+            'data1' => $data1,
+            'data2' => $data2,
+            'data3' => $data3
+            ]);
     }
 
     /**
