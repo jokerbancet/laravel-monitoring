@@ -57,7 +57,6 @@ class PemaganganController extends Controller
      */
     public function create(Request $request)
     {
-        // dd($request->all());
         //masukan data ke dalam database
         Pemagangan::create($request->all());
         return redirect('/pemagangan')->with('sukses','Data Berhasil di input');

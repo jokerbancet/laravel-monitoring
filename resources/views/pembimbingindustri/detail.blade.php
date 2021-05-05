@@ -11,7 +11,7 @@
                             <div class="profile-main">
                                 <img src="{{ $dpi->getAvatar() }}" width="35%" class="img-circle"
                                     alt="Avatar">
-                                <h3 class="name">{{ $dpi->nama_depan.' '.$dpi->nama_belakang }}
+                                <h3 class="name">{{ $dpi->nama }}
                                 </h3>
                                 <h5>Pembimbing Industri</h5>
                             </div>

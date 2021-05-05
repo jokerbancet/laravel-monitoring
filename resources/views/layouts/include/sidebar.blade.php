@@ -24,6 +24,14 @@
                         </ul>
                     </div>
                 </li>
+                <li>
+                    <a href="#subPages3" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Data Laporan</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                    <div id="subPages3" class="collapse ">
+                        <ul class="nav active">
+                            <li><a href="#" class="">Data Laporan</a></li>
+                        </ul>
+                    </div>
+                </li>
                 @endif
                 @if (auth()->user()->role == 'mahasiswa')
                     <li><a href="/laporan" class=""><i class="lnr lnr-home"></i> <span>Laporan</span></a></li>

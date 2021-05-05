@@ -8,14 +8,24 @@ use App\Models\PembimbingIndustri;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class PembimbingIndustriController extends Controller
 {
     public function index()
     {
+
+        //ambil data nama pembimbing industri
+        $data2 = DB::table('industri')
+        ->select('id', 'nama_industri')
+        ->get();
+
         $dpi = PembimbingIndustri::all();
         // dd($dpi);
-        return view('pembimbingindustri.index',['dpi' => $dpi]);
+        return view('pembimbingindustri.index',[
+            'dpi' => $dpi,
+            'data' => $data2
+            ]);
     }
     public function detail($id)
     {

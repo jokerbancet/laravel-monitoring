@@ -58,7 +58,7 @@
                                 </div>
                                 <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Edit Data</button>
-                                <button href="" class="btn btn-primary" onclick="goBack()">Kembali</button>
+                                <button href="/industri" class="btn btn-primary">Kembali</button>
                             </div>
                         </form>
                     </div>

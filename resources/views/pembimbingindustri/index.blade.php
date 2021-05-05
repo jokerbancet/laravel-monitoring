@@ -29,6 +29,7 @@
                                     <tr>
                                         <th>Nama</th>
                                         <th>Email</th>
+                                        <th>Tempat Industri</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -37,6 +38,7 @@
                                         <tr>
                                             <td>{{ $pi->nama }}</td>
                                             <td>{{ $pi->email }}</td>
+                                            <td>{{ $pi->industri->nama_industri }}</td>
                                             <td><a href="/pembimbingindustri/{{ $pi->id }}/detail"
                                                     class="btn btn-info btn-xs"><i class="lnr lnr-magnifier"></i></a>
                                                 <a href="/pembimbingindustri/{{ $pi->id }}/edit"
@@ -99,6 +101,14 @@
                             <option value="Perempuan"
                                 {{ old('jk') == 'Perempuan' ? ' selected' : '' }}>
                                 Perempuan</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="industri_id">Tempat Industri</label>
+                        <select name="industri_id" id="industri_id" class="form-control">
+                            @foreach ($data as $data)
+                                <option value="{{$data->id}}">{{$data->nama_industri}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group">

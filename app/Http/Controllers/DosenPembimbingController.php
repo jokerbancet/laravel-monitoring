@@ -31,7 +31,7 @@ class DosenPembimbingController extends Controller
     {
         $user = new \App\Models\User;
         $user->role = 'dosenpembimbing';
-        $user->name = $request->nama_depan . ' ' . $request->nama_belakang;
+        $user->name = $request->nama;
         $user->email = $request->email;
         $user->password = bcrypt('passworddosen');
         $user->remember_token = Str::random(60);
