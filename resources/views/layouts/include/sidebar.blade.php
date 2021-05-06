@@ -34,9 +34,9 @@
                 </li>
                 @endif
                 @if (auth()->user()->role == 'mahasiswa')
-                    <li><a href="/laporan" class=""><i class="lnr lnr-home"></i> <span>Laporan</span></a></li>
-                    <li><a href="/laporan" class=""><i class="lnr lnr-home"></i> <span>Histori Laporan</span></a></li>
-                    <li><a href="/laporan" class=""><i class="lnr lnr-home"></i> <span>Grafik Kinerja</span></a></li>
+                    <li><a href="/laporan" class=""><i class="lnr lnr-pencil"></i> <span>Laporan</span></a></li>
+                    <li><a href="#" class=""><i class="lnr lnr-history"></i> <span>Histori Laporan</span></a></li>
+                    <li><a href="#" class=""><i class="lnr lnr-chart-bars"></i> <span>Grafik Kinerja</span></a></li>
                 @endif
             </ul>
         </nav>

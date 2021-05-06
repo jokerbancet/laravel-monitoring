@@ -9,6 +9,7 @@ use App\Http\Controllers\IndustriController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PemaganganController;
 use App\Http\Controllers\IndikatorCapaianController;
+use App\Http\Controllers\LaporanController;
 
 
 Route::get('/', [AuthController::class, 'login'])->name('login');
@@ -64,4 +65,8 @@ Route::group(['middleware' => ['auth', 'CheckRole:admin']], function(){
 
 Route::group(['middleware' => ['auth', 'CheckRole:admin,mahasiswa,dosenpembimbing,pembimbingindustri']], function(){
     Route::get('/dashboard', [DashboardController::class, 'index']);
+});
+
+Route::group(['middleware' => ['auth', 'CheckRole:mahasiswa']], function(){
+    Route::get('/laporan', [LaporanController::class, 'index']);
 });
