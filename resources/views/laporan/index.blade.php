@@ -7,7 +7,7 @@
                 <div class="col-md-12">
                     <div class="panel">
                         <div class="panel-body">
-                            <h1>hai aku diatas</h1>
+                            <h3>Halo, {{auth()->user()->name}}.</h3>
                         </div>
                     </div>
                 </div>
