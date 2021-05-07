@@ -10,6 +10,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PemaganganController;
 use App\Http\Controllers\IndikatorCapaianController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\RelasiCapaianController;
 
 
 Route::get('/', [AuthController::class, 'login'])->name('login');
@@ -61,6 +62,10 @@ Route::group(['middleware' => ['auth', 'CheckRole:admin']], function(){
     Route::get('/capaian/{id}/edit',[IndikatorCapaianController::class, 'edit']);
     Route::post('/capaian/{id}/update',[IndikatorCapaianController::class, 'update']);
     Route::get('/capaian/{id}/delete',[IndikatorCapaianController::class, 'delete']);
+
+    //Data Relasi capaian
+    Route::get('/rel_capaian',[RelasiCapaianController::class, 'index']);
+
 });
 
 Route::group(['middleware' => ['auth', 'CheckRole:admin,mahasiswa,dosenpembimbing,pembimbingindustri']], function(){

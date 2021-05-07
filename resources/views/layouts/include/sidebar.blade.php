@@ -20,6 +20,7 @@
                     <a href="#subPages2" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Data Pemagangan</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                     <div id="subPages2" class="collapse ">
                         <ul class="nav active">
+                            <li><a href="/rel_capaian" class="">Data Relasi Capaian</a></li>
                             <li><a href="/pemagangan" class="">Data Pemagangan</a></li>
                         </ul>
                     </div>
