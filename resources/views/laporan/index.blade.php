@@ -25,7 +25,46 @@
                             <h2 class="panel-title">Pelaporan Magang Hari ini.</h2>
                         </div>
                         <div class="panel-body">
-                            <h1>hai</h1>
+                            <form action="/laporan/create" method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    {{ csrf_field() }}
+                                    <label for="">Tanggal</label>
+                                    <h5>@php
+                                        echo date('D, d-m-Y');
+                                    @endphp</h5>
+                                </div>
+                                <div class="form-group">
+                                    <label for="kegiatan_pekerjaan">Kegiatan Pekerjaan</label>
+                                    <input type="text" id="kegiatan_pekerjaan" name="kegiatan_pekerjaan" class="form-control" placeholder="Masukan nama kegiatan...">
+                                    @if ($errors->has('kegiatan_pekerjaan'))
+                                        <p class="text-danger">{{$errors->first('kegiatan_pekerjaan')}}</p>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <label for="deskripsi_pekerjaan">Deskripsi Pekerjaan</label>
+                                    <textarea name="deskripsi_pekerjaan" id="deskripsi_pekerjaan" cols="30" rows="10" class="form-control"></textarea>
+                                    @if ($errors->has('deskripsi_pekerjaan'))
+                                        <p class="text-danger">{{$errors->first('deskripsi_pekerjaan')}}</p>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <label for="durasi">Durasi Pekerjaan</label>
+                                    <input type="number" id="durasi" name="durasi" class="form-control" placeholder="Masukan Durasi">
+                                    @if ($errors->has('durasi'))
+                                        <p class="text-danger">{{$errors->first('durasi')}}</p>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <label for="output">Output Pekerjaan</label>
+                                    <input type="text" id="output" name="output" class="form-control" placeholder="Masukan output kegiatan...">
+                                    @if ($errors->has('output'))
+                                        <p class="text-danger">{{$errors->first('output')}}</p>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <!-- END TABLE HOVER -->

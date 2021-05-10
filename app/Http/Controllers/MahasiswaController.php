@@ -35,6 +35,7 @@ class MahasiswaController extends Controller
      */
     public function create(CreateMahasiswaRequest $request)
     {
+        //inisialisasi store data user
         $user = new \App\Models\User;
         $user->role = 'mahasiswa';
         $user->name = $request->nama;
@@ -43,8 +44,11 @@ class MahasiswaController extends Controller
         $user->remember_token = Str::random(60);
         $user->save();
 
+        //add user_id
         $request->request->add(['user_id' => $user->id]);
+        //store data ke tabel mahasiswa
         $mahasiswa = Mahasiswa::create($request->all());
+        //pengecekan gambar dan mengalihkan gambar ke folder images
         if($request->hasFile('avatar')) {
             $request->file('avatar')->move('images/', $request->file('avatar')->getClientOriginalName());
             $mahasiswa->avatar = $request->file('avatar')->getClientOriginalName();
