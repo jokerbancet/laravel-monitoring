@@ -30,7 +30,8 @@
                                     {{ csrf_field() }}
                                     <label for="">Tanggal</label>
                                     <h5>@php
-                                        echo date('D, d-m-Y');
+                                        date_default_timezone_set('asia/jakarta');
+                                        echo date('D, d-m-Y H:i');
                                     @endphp</h5>
                                 </div>
                                 <div class="form-group">

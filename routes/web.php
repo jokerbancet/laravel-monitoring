@@ -11,6 +11,7 @@ use App\Http\Controllers\PemaganganController;
 use App\Http\Controllers\IndikatorCapaianController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\RelasiCapaianController;
+use App\Http\Controllers\DataLaporanController;
 
 
 Route::get('/', [AuthController::class, 'login'])->name('login');
@@ -66,6 +67,8 @@ Route::group(['middleware' => ['auth', 'CheckRole:admin']], function(){
     //Data Relasi capaian
     Route::get('/rel_capaian',[RelasiCapaianController::class, 'index']);
 
+    //Data Laporan mahasiswa
+    Route::get('/datalaporan',[DataLaporanController::class, 'index']);
 });
 
 Route::group(['middleware' => ['auth', 'CheckRole:admin,mahasiswa,dosenpembimbing,pembimbingindustri']], function(){

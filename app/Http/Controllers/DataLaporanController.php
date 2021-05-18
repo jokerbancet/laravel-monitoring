@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Laporan;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class LaporanController extends Controller
+class DataLaporanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,14 +15,14 @@ class LaporanController extends Controller
      */
     public function index()
     {
-        $data_pemagangan = DB::table('master_capaian')
-        ->select('master_capaian.*')
+        $datalaporan = DB::table('data_laporan')
+        ->join('mahasiswa', 'data_laporan.id_data_kompetensi' , '=', 'mahasiswa.user_id')
+        ->select('mahasiswa.nama','mahasiswa.jurusan', 'data_laporan.tanggal_laporan', 'data_laporan.kegiatan_pekerjaan', 'data_laporan.deskripsi_pekerjaan', 'data_laporan.durasi', 'data_laporan.output', 'data_laporan.approve_dosen', 'data_laporan.approve_industri', 'data_laporan.status_laporan')
         ->get();
 
-        // dd($id_user);
-        return view('laporan.index', [
-            'data' => $data_pemagangan
-        ]);
+        // $datalaporan = Laporan::all();
+        // dd($datalaporan);
+        return view('datalaporan.index', ['data' => $datalaporan]);
     }
 
     /**
@@ -30,22 +30,9 @@ class LaporanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-        $id_user = auth()->user()->id;
-
-        $laporan = new \App\Models\laporan;
-        $laporan->id_data_kompetensi = $id_user;
-        $laporan->kegiatan_pekerjaan = $request->kegiatan_pekerjaan;
-        $laporan->deskripsi_pekerjaan = $request->deskripsi_pekerjaan;
-        $laporan->durasi = $request->durasi;
-        $laporan->output = $request->output;
-        $laporan->approve_dosen = 'pending';
-        $laporan->approve_industri = 'pending';
-        $laporan->status_laporan = 'pending';
-        $laporan->save();
-
-        return redirect('/laporan')->with('sukses','Data Berhasil di input');
+        //
     }
 
     /**

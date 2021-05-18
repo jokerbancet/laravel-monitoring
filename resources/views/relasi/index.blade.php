@@ -18,7 +18,7 @@
                             <h2 class="panel-title">Relasi Capaian dengan mahasiswa.</h2>
                         </div>
                         <div class="panel-body">
-                            <h1>hai</h1>
+                            <h1>Test form</h1>
                         </div>
                     </div>
                     <!-- END TABLE HOVER -->
