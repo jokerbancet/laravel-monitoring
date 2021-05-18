@@ -15,14 +15,8 @@ class LaporanController extends Controller
      */
     public function index()
     {
-        $data_pemagangan = DB::table('master_capaian')
-        ->select('master_capaian.*')
-        ->get();
-
-        // dd($id_user);
-        return view('laporan.index', [
-            'data' => $data_pemagangan
-        ]);
+        // dd($data_pemagangan);
+        return view('laporan.index');
     }
 
     /**

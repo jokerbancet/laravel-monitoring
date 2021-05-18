@@ -8,6 +8,9 @@
                     <div class="panel">
                         <div class="panel-body">
                             <h3>Halo, {{auth()->user()->name}}.</h3>
+                            <p>Industri : </p>
+                            <p>Dosen Pembimbing : </p>
+                            <p>Pembimbing Industri : </p>
                         </div>
                     </div>
                 </div>
