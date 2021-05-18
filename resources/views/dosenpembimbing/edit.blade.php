@@ -90,7 +90,7 @@
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Edit Data</button>
-                                <button href="" class="btn btn-primary" onclick="goBack()">Kembali</button>
+                                <a href="/dosenpembimbing" class="btn btn-warning">Kembali</a>
                             </div>
                         </form>
                     </div>
