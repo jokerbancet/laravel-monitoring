@@ -23,7 +23,7 @@ class PemaganganController extends Controller
 
         //ambil data nama mahasiswa
         $data1 = DB::table('mahasiswa')
-        ->select('mahasiswa.id','mahasiswa.nama')
+        ->select('mahasiswa.id','mahasiswa.nama', 'mahasiswa.jurusan')
         ->leftJoin('data_bimbingan', 'mahasiswa.id', '=', 'data_bimbingan.mahasiswa_id')
         ->where('data_bimbingan.mahasiswa_id')
         ->get();
@@ -38,7 +38,8 @@ class PemaganganController extends Controller
 
         //ambil data nama pembimbing industri
         $data3 = DB::table('pembimbingindustri')
-        ->select('id', 'nama')
+        ->join('industri', 'pembimbingindustri.industri_id', '=', 'industri.id')
+        ->select('pembimbingindustri.id', 'pembimbingindustri.nama', 'industri.nama_industri')
         ->get();
 
         // dd($data_pemagangan);

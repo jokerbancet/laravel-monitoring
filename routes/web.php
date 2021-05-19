@@ -76,6 +76,7 @@ Route::group(['middleware' => ['auth', 'CheckRole:admin,mahasiswa,dosenpembimbin
 });
 
 Route::group(['middleware' => ['auth', 'CheckRole:mahasiswa']], function(){
+    //laporan
     Route::get('/laporan', [LaporanController::class, 'index']);
     Route::post('/laporan/create', [LaporanController::class, 'create']);
 });

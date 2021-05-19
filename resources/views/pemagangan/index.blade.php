@@ -98,7 +98,7 @@
                             <select name="mahasiswa_id" id="mahasiswa_id" class="form-control">
                                 <option value=""></option>
                                 @foreach ($data1 as $data)
-                                    <option value="{{$data->id}}">{{$data->nama}}</option>
+                                    <option value="{{$data->id}}">{{$data->nama.' - '.$data->jurusan}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -116,7 +116,7 @@
                         <select name="pembimbingindustri_id" id="pembimbingindustri_id" class="form-control">
                             <option value=""></option>
                             @foreach ($data3 as $data)
-                                <option value="{{$data->id}}">{{$data->nama}}</option>
+                                <option value="{{$data->id}}">{{$data->nama.' - '.$data->nama_industri}}</option>
                             @endforeach
                         </select>
                     </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Laporan;
 use Illuminate\Support\Facades\DB;
+use SebastianBergmann\CodeCoverage\Driver\Selector;
 
 class LaporanController extends Controller
 {
@@ -15,8 +16,22 @@ class LaporanController extends Controller
      */
     public function index()
     {
-        // dd($data_pemagangan);
-        return view('laporan.index');
+        //ambil id user sedang login
+        $id_user = auth()->user()->id;
+
+        //ambil id data mahasiswa sedang login
+        $id_data_mahasiswa = DB::table('mahasiswa')
+        ->select('*')
+        ->where('mahasiswa.user_id', '=', $id_user)
+        ->value('id');
+
+        //ambil data master_capaian
+        $data = DB::table('master_capaian')
+        ->select('*')
+        ->get();
+
+        // dd($data_bimbingan2);
+        return view('laporan.index', ['data' => $data]);
     }
 
     /**

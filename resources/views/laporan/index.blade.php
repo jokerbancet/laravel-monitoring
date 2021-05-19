@@ -8,9 +8,6 @@
                     <div class="panel">
                         <div class="panel-body">
                             <h3>Halo, {{auth()->user()->name}}.</h3>
-                            <p>Industri : </p>
-                            <p>Dosen Pembimbing : </p>
-                            <p>Pembimbing Industri : </p>
                         </div>
                     </div>
                 </div>
@@ -25,18 +22,14 @@
                     @endif
                     <div class="panel">
                         <div class="panel-heading">
-                            <h2 class="panel-title">Pelaporan Magang Hari ini.</h2>
+                            <h2 class="panel-title">Pelaporan Magang Hari ini. Tanggal :@php
+                                date_default_timezone_set('asia/jakarta');
+                                echo date('D, d-m-Y H:i');
+                            @endphp</h2>
                         </div>
                         <div class="panel-body">
                             <form action="/laporan/create" method="post" enctype="multipart/form-data">
-                                <div class="form-group">
-                                    {{ csrf_field() }}
-                                    <label for="">Tanggal</label>
-                                    <h5>@php
-                                        date_default_timezone_set('asia/jakarta');
-                                        echo date('D, d-m-Y H:i');
-                                    @endphp</h5>
-                                </div>
+                                {{ csrf_field() }}
                                 <div class="form-group">
                                     <label for="kegiatan_pekerjaan">Kegiatan Pekerjaan</label>
                                     <input type="text" id="kegiatan_pekerjaan" name="kegiatan_pekerjaan" class="form-control" placeholder="Masukan nama kegiatan...">
@@ -64,6 +57,15 @@
                                     @if ($errors->has('output'))
                                         <p class="text-danger">{{$errors->first('output')}}</p>
                                     @endif
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Kompetensi Khusus yang tercapai</label>
+                                    <select name="pembimbingindustri_id" id="pembimbingindustri_id" class="form-control">
+                                        <option value=""></option>
+                                        @foreach ($data as $data)
+                                            <option value="{{$data->id}}">{{$data->jurusan.' - '.$data->deskripsi_capaian}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary">Submit</button>
