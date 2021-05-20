@@ -15,6 +15,16 @@ class Laporan extends Model
 
     public function mahasiswa()
     {
-        return $this->hasOne(Mahasiswa::class, 'id','id_data_bimbingan');
+        return $this->hasOneThrough(Mahasiswa::class, Pemagangan::class, 'id', 'id','id_data_bimbingan','mahasiswa_id');
+    }
+
+    public function dosenPembimbing()
+    {
+        return $this->hasOneThrough(DosenPembimbing::class, Pemagangan::class, 'id', 'id','id_data_bimbingan','dosenpembimbing_id');
+    }
+
+    public function pembimbingIndustri()
+    {
+        return $this->hasOneThrough(PembimbingIndustri::class, Pemagangan::class, 'id', 'id','id_data_bimbingan','pembimbingindustri_id');
     }
 }

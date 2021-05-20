@@ -21,12 +21,11 @@
                             <table class="table table-hover mydatatable" id="mydatatable">
                                 <thead>
                                     <tr>
-                                        <th>Id Mhs</th>
+                                        <th>Nama Mahasiswa</th>
+                                        <th>Dosen Pembimbing</th>
+                                        <th>Pembimbing Industri</th>
+                                        <th>Industri</th>
                                         <th>Tanggal Laporan</th>
-                                        <th>Kegiatan</th>
-                                        <th>Deskripsi Pekerjaan</th>
-                                        <th>Durasi</th>
-                                        <th>Output</th>
                                         <th>Persetujuan Dosen</th>
                                         <th>Persetujuan Pembimbing Industri</th>
                                         <th>Status Laporan</th>
@@ -35,15 +34,14 @@
                                 <tbody>
                                     @foreach($data as $d)
                                         <tr>
-                                            <td>{{ $d->id_data_bimbingan }}</td>
+                                            <td>{{ $d->mahasiswa->nama }}</td>
+                                            <td>{{ $d->dosenPembimbing->nama }}</td>
+                                            <td>{{ $d->pembimbingIndustri->nama }}</td>
+                                            <td>{{ $d->pembimbingIndustri->industri->nama_industri }}</td>
                                             <td>{{ $d->tanggal_laporan }}</td>
-                                            <td>{{ $d->kegiatan_pekerjaan }}</td>
-                                            <td>{{ $d->deskripsi_pekerjaan }}</td>
-                                            <td>{{ $d->durasi }}</td>
-                                            <td>{{ $d->output }}</td>
-                                            <td>{{ $d->approve_dosen }}</td>
-                                            <td>{{ $d->approve_industri }}</td>
-                                            <td>{{ $d->status_laporan }}</td>
+                                            <td><span class="label {{cek_status($d->approve_dosen,1)}}">{{ $d->approve_dosen }}</span></td>
+                                            <td><span class="label {{cek_status($d->approve_industri,1)}}">{{ $d->approve_industri }}</span></td>
+                                            <td><span class="label {{cek_status($d->status_laporan,2)}}">{{ $d->status_laporan }}</span></td>
                                             {{-- <td><a href="/mahasiswa/{{ $d->id }}/detail"
                                                     class="btn btn-info btn-xs"><i class="lnr lnr-magnifier"></i></a>
                                                 <a href="/mahasiswa/{{ $d->id }}/edit"

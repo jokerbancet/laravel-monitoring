@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Laporan;
 use App\Models\Mahasiswa;
+use App\Models\Pemagangan;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use SebastianBergmann\CodeCoverage\Driver\Selector;
@@ -32,16 +33,24 @@ class LaporanController extends Controller
         $data = DB::table('master_capaian')->where('jurusan',$mahasiswa->jurusan)->get();
 
         // Hari yang dikecualikan untuk laporan ['sabtu','minggu'];
-        $excepted_day=['Sat','Sun'];
+        $excepted_days=['Sat','Sun'];
         $this_day=date('D');
-        $hari_libur=in_array($this_day,$excepted_day);
+        $hari_libur=in_array($this_day,$excepted_days);
 
         // Cek apakah hari ini sudah melakukan laporan apa belum
-        $hasLaporanToday=Laporan::where('id_data_bimbingan',auth()->user()->mahasiswa->id)->whereDate('tanggal_laporan', '=', date('Y-m-d'))->first();
+        $hasLaporanToday=!is_null(auth()->user()->mahasiswa->pemagangan)?
+                    Laporan::where('id_data_bimbingan',auth()->user()->mahasiswa->pemagangan->id)
+                            ->whereDate('tanggal_laporan', '=', date('Y-m-d'))->first()
+                    :null;
+
+        // Cek apakah si user nya sudah melewati masa akhir magang
+        $masa_magang=!is_null($hasLaporanToday)?Pemagangan::where('mahasiswa_id',auth()->user()->mahasiswa->id)
+                                ->whereDate('mulai_magang','<=',date('Y-m-d'))
+                                ->whereDate('selesai_magang','>=',date('Y-m-d'))->first():null;
 
         // dd($data_bimbingan2); lebih indah pake compact
         // return view('laporan.index', ['data' => $data]);
-        return view('laporan.index', compact('data','hari_libur','hasLaporanToday'));
+        return view('laporan.index', compact('data','hari_libur','hasLaporanToday','masa_magang'));
     }
 
     /**
@@ -63,7 +72,7 @@ class LaporanController extends Controller
         // $laporan->approve_industri = 'pending';
         // $laporan->status_laporan = 'pending';
         // $laporan->save();
-        Laporan::create(collect($request)->put('id_data_bimbingan',auth()->user()->mahasiswa->id)->toArray()); //Cuma sebaris kang
+        Laporan::create(collect($request)->put('id_data_bimbingan',auth()->user()->mahasiswa->pemagangan->id)->toArray()); //Cuma sebaris kang
 
         return redirect('/laporan')->with('sukses','Data Berhasil di input');
     }
