@@ -11,13 +11,13 @@ class AuthController extends Controller
     {
         return view('auths.login');
     }
-    
+
     public function postlogin(Request $request)
     {
         if (Auth::attempt($request->only('email','password'))) {
             return redirect('/dashboard');
         }else{
-            return redirect('/login');
+            return redirect('/login')->with('failed','Username atau sandi salah');
         }
     }
     public function logout()

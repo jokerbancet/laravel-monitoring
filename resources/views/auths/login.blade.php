@@ -48,6 +48,9 @@
 								<div class="bottom">
 									<span class="helper-text"><i class="fa fa-lock"></i> <a href="#">Forgot password?</a></span>
 								</div>
+                                @if (session()->has('failed'))
+                                    <span class="text-danger">{{session('failed')}}</span>
+                                @endif
 							</form>
 						</div>
 					</div>

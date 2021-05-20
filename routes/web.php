@@ -12,12 +12,16 @@ use App\Http\Controllers\IndikatorCapaianController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\RelasiCapaianController;
 use App\Http\Controllers\DataLaporanController;
-
+use App\Http\Controllers\PersetujuanController;
 
 Route::get('/', [AuthController::class, 'login'])->name('login');
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/postlogin', [AuthController::class, 'postlogin']);
 Route::get ('/logout', [AuthController::class, 'logout']);
+
+Route::group(['middleware'=>['auth']],function(){
+    Route::get('/dashboard',[DashboardController::class, 'index']);
+});
 
 Route::group(['middleware' => ['auth', 'CheckRole:admin']], function(){
     //Data Master Mahasiswa
@@ -71,11 +75,17 @@ Route::group(['middleware' => ['auth', 'CheckRole:admin']], function(){
     Route::get('/datalaporan',[DataLaporanController::class, 'index']);
 });
 
-Route::group(['middleware' => ['auth', 'CheckRole:admin,mahasiswa,dosenpembimbing,pembimbingindustri']], function(){
-    Route::get('/dashboard', [DashboardController::class, 'index']);
+Route::get('/capaian/{mahasiswa?}', [IndikatorCapaianController::class, 'show']);
+
+Route::group(['middleware' => ['auth', 'CheckRole:admin,dosenpembimbing,pembimbingindustri']], function(){
+    // Route::get('/dashboard', [DashboardController::class, 'index']);
+    Route::get('/persetujuan', [PersetujuanController::class, 'index']);
+    Route::get('/persetujuan/{laporan}', [PersetujuanController::class, 'show']);
+    Route::post('/persetujuan/{laporan}/approve', [PersetujuanController::class, 'approve']);
 });
 
 Route::group(['middleware' => ['auth', 'CheckRole:mahasiswa']], function(){
+    // Route::get('/dashboard', [DashboardController::class, 'index']);
     //laporan
     Route::get('/laporan', [LaporanController::class, 'index']);
     Route::post('/laporan/create', [LaporanController::class, 'create']);

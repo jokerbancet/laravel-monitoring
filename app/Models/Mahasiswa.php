@@ -37,6 +37,11 @@ class Mahasiswa extends Model
         return $this->hasOne(Laporan::class, 'id_data_bimbingan','id');
     }
 
+    public function laporans()
+    {
+        return $this->hasMany(Laporan::class, 'id_data_bimbingan','id');
+    }
+
     public function getAvatar()
     {
         if (!$this->avatar) {

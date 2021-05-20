@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateIndikatorCapaianRequest;
 use App\Http\Requests\EditIndikatorCapaianRequest;
 use App\Models\IndikatorCapaian;
+use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 
 class IndikatorCapaianController extends Controller
@@ -37,6 +38,11 @@ class IndikatorCapaianController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function show(Request $request,Mahasiswa $mahasiswa)
+    {
+        $capaian = IndikatorCapaian::where('jurusan',$mahasiswa->jurusan)->get();
+        return $request->ajax()?response()->json($capaian):abort(403, 'permintaan harus ajax');
+    }
 
     /**
      * Show the form for editing the specified resource.

@@ -62,7 +62,8 @@
         function goBack() {
             window.history.back();
         }
-        </script>
+    </script>
+    @stack('js')
 </body>
 
 </html>

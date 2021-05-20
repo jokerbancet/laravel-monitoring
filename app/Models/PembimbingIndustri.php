@@ -40,4 +40,9 @@ class PembimbingIndustri extends Model
     {
         return $this->belongsToMany(DosenPembimbing::class, 'data_bimbingan', 'pembimbingindustri_id', 'dosenpembimbing_id')->withPivot(['mulai_magang']);
     }
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'user_id','id');
+    }
 }
