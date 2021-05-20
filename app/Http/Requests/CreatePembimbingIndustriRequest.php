@@ -29,8 +29,8 @@ class CreatePembimbingIndustriRequest extends FormRequest
     public function messages()
     {
         return [
-            'nama.required' => 'Nama depan harus diisi.',
-            'nama.min' => 'Nama depan harus diisi minimal 5 karakter.',
+            'nama.required' => 'Nama harus diisi.',
+            'nama.min' => 'Nama harus diisi minimal 5 karakter.',
             'email.required' => 'Email wajib diisi.',
             'email.email' => 'Email tidak valid.',
             'email.unique' => 'Email sudah terdaftar.',
