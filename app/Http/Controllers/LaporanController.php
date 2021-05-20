@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Laporan;
+use App\Models\Mahasiswa;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use SebastianBergmann\CodeCoverage\Driver\Selector;
 
@@ -17,21 +19,29 @@ class LaporanController extends Controller
     public function index()
     {
         //ambil id user sedang login
-        $id_user = auth()->user()->id;
+        // $id_user = auth()->user()->id;
 
         //ambil id data mahasiswa sedang login
-        $id_data_mahasiswa = DB::table('mahasiswa')
-        ->select('*')
-        ->where('mahasiswa.user_id', '=', $id_user)
-        ->value('id');
+        // $id_data_mahasiswa = DB::table('mahasiswa')
+        // ->select('*')
+        // ->where('mahasiswa.user_id', '=', $id_user)
+        // ->value('id'); gini aja cukup kang
+        $mahasiswa = auth()->user()->mahasiswa;
 
         //ambil data master_capaian
-        $data = DB::table('master_capaian')
-        ->select('*')
-        ->get();
+        $data = DB::table('master_capaian')->where('jurusan',$mahasiswa->jurusan)->get();
 
-        // dd($data_bimbingan2);
-        return view('laporan.index', ['data' => $data]);
+        // Hari yang dikecualikan untuk laporan ['sabtu','minggu'];
+        $excepted_day=['Sat','Sun'];
+        $this_day=date('D');
+        $hari_libur=in_array($this_day,$excepted_day);
+
+        // Cek apakah hari ini sudah melakukan laporan apa belum
+        $hasLaporanToday=Laporan::where('id_data_bimbingan',auth()->user()->mahasiswa->id)->whereDate('tanggal_laporan', '=', date('Y-m-d'))->first();
+
+        // dd($data_bimbingan2); lebih indah pake compact
+        // return view('laporan.index', ['data' => $data]);
+        return view('laporan.index', compact('data','hari_libur','hasLaporanToday'));
     }
 
     /**
@@ -41,18 +51,19 @@ class LaporanController extends Controller
      */
     public function create(Request $request)
     {
-        $id_user = auth()->user()->id;
+        // $id_user = auth()->user()->id;
 
-        $laporan = new \App\Models\laporan;
-        $laporan->id_data_kompetensi = $id_user;
-        $laporan->kegiatan_pekerjaan = $request->kegiatan_pekerjaan;
-        $laporan->deskripsi_pekerjaan = $request->deskripsi_pekerjaan;
-        $laporan->durasi = $request->durasi;
-        $laporan->output = $request->output;
-        $laporan->approve_dosen = 'pending';
-        $laporan->approve_industri = 'pending';
-        $laporan->status_laporan = 'pending';
-        $laporan->save();
+        // $laporan = new \App\Models\laporan;
+        // $laporan->id_data_kompetensi = $id_user; //kok id user? bukanya id yang di data kompetensi?
+        // $laporan->kegiatan_pekerjaan = $request->kegiatan_pekerjaan;
+        // $laporan->deskripsi_pekerjaan = $request->deskripsi_pekerjaan;
+        // $laporan->durasi = $request->durasi;
+        // $laporan->output = $request->output;
+        // $laporan->approve_dosen = 'pending';
+        // $laporan->approve_industri = 'pending';
+        // $laporan->status_laporan = 'pending';
+        // $laporan->save();
+        Laporan::create(collect($request)->put('id_data_bimbingan',auth()->user()->mahasiswa->id)->toArray()); //Cuma sebaris kang
 
         return redirect('/laporan')->with('sukses','Data Berhasil di input');
     }

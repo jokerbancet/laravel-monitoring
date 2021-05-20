@@ -37,8 +37,8 @@
                                     @foreach($data as $d)
                                         <tr>
                                             <td>{{ $d->tanggal_laporan }}</td>
-                                            <td>{{ $d->nama }}</td>
-                                            <td>{{ $d->jurusan }}</td>
+                                            <td>{{ $d->mahasiswa->nama }}</td>
+                                            <td>{{ $d->mahasiswa->jurusan }}</td>
                                             <td>{{ $d->kegiatan_pekerjaan }}</td>
                                             <td>{{ $d->deskripsi_pekerjaan }}</td>
                                             <td>{{ $d->durasi }}</td>

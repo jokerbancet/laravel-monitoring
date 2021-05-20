@@ -18,4 +18,9 @@ class Pemagangan extends Model
         'jenis_pekerjaan',
     ];
 
+    public function mahasiswa()
+    {
+        return $this->hasOne(Mahasiswa::class, 'mahasiswa_id','id');
+    }
+
 }

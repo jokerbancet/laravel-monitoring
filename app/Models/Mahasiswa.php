@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Mahasiswa extends Model
 {
     use HasFactory;
-    protected $table = 'Mahasiswa';
+    protected $table = 'mahasiswa';
     protected $fillable = [
         'user_id',
         'nama',
@@ -21,6 +21,21 @@ class Mahasiswa extends Model
         'tahun_angkatan',
         'avatar'
     ];
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'user_id','id');
+    }
+
+    public function pemagangan()
+    {
+        return $this->hasOne(Pemagangan::class, 'mahasiswa_id','id');
+    }
+
+    public function laporan()
+    {
+        return $this->hasOne(Laporan::class, 'id_data_bimbingan','id');
+    }
 
     public function getAvatar()
     {
