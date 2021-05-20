@@ -120,3 +120,11 @@
     </div>
 </div>
 @endsection
+
+@push('js')
+    <script>
+        $('#subPages').addClass('in').prev().addClass('active').removeClass('collapsed');
+        $('#industri').addClass('active')
+    </script>
+@endpush
+

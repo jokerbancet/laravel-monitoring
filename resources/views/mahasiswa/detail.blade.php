@@ -126,4 +126,11 @@
         </div>
     </div>
 </div>
-@stop
+@endsection
+
+@push('js')
+<script>
+    $('#subPages').addClass('in').prev().addClass('active').removeClass('collapsed');
+    $('#mahasiswa').addClass('active')
+</script>
+@endpush

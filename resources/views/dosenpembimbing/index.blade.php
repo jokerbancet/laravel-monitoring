@@ -147,3 +147,10 @@
     </div>
 </div>
 @endsection
+
+@push('js')
+    <script>
+        $('#subPages').addClass('in').prev().addClass('active').removeClass('collapsed');
+        $('#dosenpembimbing').addClass('active')
+    </script>
+@endpush

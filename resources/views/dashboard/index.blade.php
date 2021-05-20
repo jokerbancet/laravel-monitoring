@@ -55,3 +55,7 @@
     </div>
 </div>
 @endsection
+
+@push('js')
+    <script>$('#dashboard').addClass('active')</script>
+@endpush

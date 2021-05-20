@@ -66,3 +66,10 @@
     </div>
 </div>
 @endsection
+
+@push('js')
+    <script>
+        $('#subPages3').addClass('in').prev().addClass('active').removeClass('collapsed');
+        $('#data-laporan').addClass('active')
+    </script>
+@endpush

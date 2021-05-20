@@ -28,3 +28,10 @@
     </div>
 </div>
 @endsection
+
+@push('js')
+    <script>
+        $('#subPages2').addClass('in').prev().addClass('active').removeClass('collapsed');
+        $('#data-relasi-capaian').addClass('active')
+    </script>
+@endpush

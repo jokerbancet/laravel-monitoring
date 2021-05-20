@@ -80,3 +80,11 @@
     </div>
 </div>
 @endsection
+
+@push('js')
+    <script>
+        $('#subPages').addClass('in').prev().addClass('active').removeClass('collapsed');
+        $('#capaian').addClass('active')
+    </script>
+@endpush
+

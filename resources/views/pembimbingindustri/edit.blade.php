@@ -69,4 +69,12 @@
         </div>
     </div>
 </div>
-@stop
+@endsection
+
+@push('js')
+    <script>
+        $('#subPages').addClass('in').prev().addClass('active').removeClass('collapsed');
+        $('#pembimbingindustri').addClass('active')
+    </script>
+@endpush
+
