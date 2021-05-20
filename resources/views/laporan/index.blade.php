@@ -66,8 +66,8 @@
                                                 @endif
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Kompetensi Khusus yang tercapai</label>
-                                                <select name="pembimbingindustri_id" id="pembimbingindustri_id" class="form-control">
+                                                <label for="capaian_id">Kompetensi Khusus yang tercapai</label>
+                                                <select name="capaian_id" id="capaian_id" class="form-control">
                                                     <option value=""></option>
                                                     @foreach ($data as $data)
                                                         <option value="{{$data->id}}">{{$data->jurusan.' - '.$data->deskripsi_capaian}}</option>
