@@ -21,9 +21,8 @@
                             <table class="table table-hover mydatatable" id="mydatatable">
                                 <thead>
                                     <tr>
-                                        <th>Tanggal Laporan</th>
                                         <th>Id Mhs</th>
-                                        <th>Jurusan</th>
+                                        <th>Tanggal Laporan</th>
                                         <th>Kegiatan</th>
                                         <th>Deskripsi Pekerjaan</th>
                                         <th>Durasi</th>
@@ -36,9 +35,8 @@
                                 <tbody>
                                     @foreach($data as $d)
                                         <tr>
+                                            <td>{{ $d->id_data_bimbingan }}</td>
                                             <td>{{ $d->tanggal_laporan }}</td>
-                                            <td>{{ $d->mahasiswa->nama }}</td>
-                                            <td>{{ $d->mahasiswa->jurusan }}</td>
                                             <td>{{ $d->kegiatan_pekerjaan }}</td>
                                             <td>{{ $d->deskripsi_pekerjaan }}</td>
                                             <td>{{ $d->durasi }}</td>
