@@ -20,7 +20,12 @@ class Pemagangan extends Model
 
     public function mahasiswa()
     {
-        return $this->hasOne(Mahasiswa::class, 'mahasiswa_id','id');
+        return $this->hasOne(Mahasiswa::class, 'id','mahasiswa_id');
+    }
+
+    public function laporan()
+    {
+        return $this->hasMany(Laporan::class, 'id_data_bimbingan','id');
     }
 
 }

@@ -27,4 +27,9 @@ class Laporan extends Model
     {
         return $this->hasOneThrough(PembimbingIndustri::class, Pemagangan::class, 'id', 'id','id_data_bimbingan','pembimbingindustri_id');
     }
+
+    public function pemagangan()
+    {
+        return $this->belongsTo(Pemagangan::class, 'id_data_bimbingan','id');
+    }
 }

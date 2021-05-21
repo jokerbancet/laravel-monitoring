@@ -34,7 +34,8 @@
                                     </thead>
                                     <tbody>
                                         @foreach($mahasiswa as $laporan)
-                                        @foreach ($laporan->laporans as $lprn)
+                                            {{-- @dump($laporan->mahasiswa) --}}
+                                            @foreach ($laporan->laporan as $lprn)
                                                 <tr>
                                                     <td>{{ $lprn->tanggal_laporan }}</td>
                                                     <td>{{ $lprn->mahasiswa->nama }}</td>
@@ -180,6 +181,7 @@
 @endsection
 @push('js')
     <script>
+        $('#persetujuan').addClass('active');
         function detail(laporan_id){
             $.ajax({
                 url: `{{url('/persetujuan/${laporan_id}')}}`,

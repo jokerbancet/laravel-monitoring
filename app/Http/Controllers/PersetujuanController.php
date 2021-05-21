@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Laporan;
-use App\Models\Mahasiswa;
+use App\Models\Pemagangan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -11,8 +11,12 @@ class PersetujuanController extends Controller
 {
     public function index()
     {
-        $mahasiswa = auth()->user()->dosenPembimbing->mahasiswa??auth()->user()->pembimbingIndustri->mahasiswa;
-        // dd($mahasiswa[0]->laporan);
+        $clause=auth()->user()->role=='dosenpembimbing'?
+                ['dosenpembimbing_id'=>auth()->user()->dosenPembimbing->id]:
+                ['pembimbingindustri_id'=>auth()->user()->pembimbingIndustri->id];
+        $mahasiswa = Pemagangan::with(['laporan'=>function($laporan){
+            return $laporan->where('status_laporan','pending')->get();
+        }])->where($clause)->get();
 
         return view('persetujuan.index', compact('mahasiswa'));
     }

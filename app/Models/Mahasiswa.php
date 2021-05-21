@@ -34,12 +34,12 @@ class Mahasiswa extends Model
 
     public function laporan()
     {
-        return $this->hasOne(Laporan::class, 'id_data_bimbingan','id');
+        return $this->hasOneThrough(Laporan::class, Pemagangan::class,'mahasiswa_id','id_data_bimbingan', 'id','id');
     }
 
     public function laporans()
     {
-        return $this->hasMany(Laporan::class, 'id_data_bimbingan','id');
+        return $this->hasManyThrough(Laporan::class, Pemagangan::class,'mahasiswa_id','id_data_bimbingan', 'id','id');
     }
 
     public function getAvatar()

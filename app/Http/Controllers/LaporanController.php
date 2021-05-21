@@ -44,9 +44,9 @@ class LaporanController extends Controller
                     :null;
 
         // Cek apakah si user nya sudah melewati masa akhir magang
-        $masa_magang=!is_null($hasLaporanToday)?Pemagangan::where('mahasiswa_id',auth()->user()->mahasiswa->id)
+        $masa_magang=Pemagangan::where('mahasiswa_id',auth()->user()->mahasiswa->id)
                                 ->whereDate('mulai_magang','<=',date('Y-m-d'))
-                                ->whereDate('selesai_magang','>=',date('Y-m-d'))->first():null;
+                                ->whereDate('selesai_magang','>=',date('Y-m-d'))->first();
 
         // dd($data_bimbingan2); lebih indah pake compact
         // return view('laporan.index', ['data' => $data]);
