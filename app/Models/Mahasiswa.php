@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Symfony\Component\VarDumper\Cloner\Data;
 
 class Mahasiswa extends Model
 {
@@ -42,12 +43,12 @@ class Mahasiswa extends Model
         return $this->hasManyThrough(Laporan::class, Pemagangan::class,'mahasiswa_id','id_data_bimbingan', 'id','id');
     }
 
-    public function getAvatar()
+    public function getAvatar($withAsset = true)
     {
         if (!$this->avatar) {
-            return asset('images/default.png');
+            return $withAsset?asset('images/default.png'):'images/default.png';
         }
-        return asset('images/'.$this->avatar);
+        return $withAsset?asset('images/'.$this->avatar):'images/'.$this->avatar;
     }
 
     public function dosenpembimbing()
@@ -58,5 +59,10 @@ class Mahasiswa extends Model
     public function pembimbingindustri()
     {
         return $this->belongsToMany(pembimbingindustri::class, 'data_bimbingan', 'mahasiswa_id', 'pembimbingindustri_id')->withPivot(['mulai_magang','selesai_magang']);
+    }
+
+    public function dataKompetensi()
+    {
+        return $this->hasMany(DataKompetensi::class, 'mahasiswa_id', 'id');
     }
 }

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataKompetensi;
+use App\Models\Pemagangan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RelasiCapaianController extends Controller
 {
@@ -13,7 +16,8 @@ class RelasiCapaianController extends Controller
      */
     public function index()
     {
-        return view('relasi.index');
+        $pemagang=Pemagangan::all();;
+        return view('relasi.index', compact('pemagang'));
     }
 
     /**
@@ -43,9 +47,19 @@ class RelasiCapaianController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Pemagangan $pemagang)
     {
-        //
+        $pemagang->kompetensi->map(function($data){
+            return $data->capaian;
+        });
+        $pemagang->mahasiswa;
+        return request()->ajax()?response()->json($pemagang):abort(403, 'permintaan harus ajax');
+    }
+
+    public function print(Pemagangan $pemagang)
+    {
+        $pdf = \PDF::loadView('pdf.index',compact('pemagang'))->setPaper('a4','landscape');
+        return $pdf->stream('Hasil Laporan David.pdf');
     }
 
     /**

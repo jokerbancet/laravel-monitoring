@@ -28,4 +28,19 @@ class Pemagangan extends Model
         return $this->hasMany(Laporan::class, 'id_data_bimbingan','id');
     }
 
+    public function kompetensi()
+    {
+        return $this->hasMany(DataKompetensi::class, 'mahasiswa_id','mahasiswa_id');
+    }
+
+    public function dosenPembimbing()
+    {
+        return $this->belongsTo(DosenPembimbing::class, 'dosenpembimbing_id','id');
+    }
+
+    public function pembimbingIndustri()
+    {
+        return $this->belongsTo(PembimbingIndustri::class, 'pembimbingindustri_id','id');
+    }
+
 }

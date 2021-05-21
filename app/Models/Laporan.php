@@ -32,4 +32,9 @@ class Laporan extends Model
     {
         return $this->belongsTo(Pemagangan::class, 'id_data_bimbingan','id');
     }
+
+    public function capaian()
+    {
+        return $this->belongsTo(IndikatorCapaian::class, 'capaian_id', 'id');
+    }
 }

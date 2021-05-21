@@ -47,6 +47,11 @@ class User extends Authenticatable
         return $this->hasOne(Mahasiswa::class, 'user_id','id');
     }
 
+    public function pemagang()
+    {
+        return $this->hasOneThrough(Pemagangan::class, Mahasiswa::class);
+    }
+
     public function dosenPembimbing()
     {
         return $this->hasOne(DosenPembimbing::class, 'user_id','id');

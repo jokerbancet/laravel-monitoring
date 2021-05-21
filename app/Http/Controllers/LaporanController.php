@@ -94,9 +94,10 @@ class LaporanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function history()
     {
-        //
+        $laporan = auth()->user()->pemagang?Laporan::where('id_data_bimbingan',auth()->user()->pemagang->id)->get():null;
+        return view('laporan.histori',compact('laporan'));
     }
 
     /**

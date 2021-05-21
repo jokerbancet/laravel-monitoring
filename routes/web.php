@@ -13,6 +13,7 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\RelasiCapaianController;
 use App\Http\Controllers\DataLaporanController;
 use App\Http\Controllers\PersetujuanController;
+use App\Models\Laporan;
 
 Route::get('/', [AuthController::class, 'login'])->name('login');
 Route::get('/login', [AuthController::class, 'login'])->name('login');
@@ -70,6 +71,8 @@ Route::group(['middleware' => ['auth', 'CheckRole:admin']], function(){
 
     //Data Relasi capaian
     Route::get('/rel_capaian',[RelasiCapaianController::class, 'index']);
+    Route::get('/rel_capaian/{pemagang}',[RelasiCapaianController::class, 'show']);
+    Route::get('/rel_capaian/{pemagang}/print',[RelasiCapaianController::class, 'print']);
 
     //Data Laporan mahasiswa
     Route::get('/datalaporan',[DataLaporanController::class, 'index']);
@@ -89,4 +92,6 @@ Route::group(['middleware' => ['auth', 'CheckRole:mahasiswa']], function(){
     //laporan
     Route::get('/laporan', [LaporanController::class, 'index']);
     Route::post('/laporan/create', [LaporanController::class, 'create']);
+    Route::get('/histori-laporan', [LaporanController::class, 'history']);
 });
+

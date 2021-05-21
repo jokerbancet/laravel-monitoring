@@ -15,4 +15,14 @@ class IndikatorCapaian extends Model
         'kategori_capaian',
         'bobot_capaian',
     ];
+
+    public function kompetensi()
+    {
+        return $this->hasOne(DataKompetensi::class, 'capaian_id','id');
+    }
+
+    public function laporan()
+    {
+        return $this->hasMany(Laporan::class, 'capaian_id','id');
+    }
 }
