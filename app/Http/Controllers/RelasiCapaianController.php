@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DataKompetensi;
 use App\Models\Pemagangan;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class RelasiCapaianController extends Controller
 {
@@ -58,6 +56,7 @@ class RelasiCapaianController extends Controller
 
     public function print(Pemagangan $pemagang)
     {
+        // dd($pemagang->kompetensi);
         $pdf = \PDF::loadView('pdf.index',compact('pemagang'))->setPaper('a4','landscape');
         return $pdf->stream('Hasil Laporan David.pdf');
     }

@@ -14,16 +14,21 @@
     <style>
         body{
             background: #fff;
+            font-size: 13px;
         }
-        #top tr td{
+        .top tr td{
             vertical-align: top;
+            padding-left: 5px;
+        }
+        th{
+            padding:5px;
         }
     </style>
 </head>
 <body>
     <center style="margin-top: 40px">
-        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('pdf/logo.png'))) }}" alt="" width="70" height="70">
-        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('pdf/header.png'))) }}" alt="" width="350" height="70" style="margin-left: 30px">
+        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('pdf/logo.png'))) }}" alt="" width="50" height="50">
+        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('pdf/header.png'))) }}" alt="" width="300" height="50" style="margin-left: 30px">
     </center>
     <h4 class="text-center">DAFTAR CAPAIAN MAHASISWA DAN REKAP LAPORAN MAHASISWA MAGANG INDUSTRI POLITEKNIK ENERGI DAN PERTAMBANGAN BANDUNG</h4>
     <p style="font-size: 18px; margin-top: 30px">Berikut data detail mahasiswa yang melakukan magang.</p>
@@ -88,6 +93,24 @@
             </table>
         </div>
     </div>
+    <table class="table-bordered" style="width: 100%">
+        <thead>
+            <tr>
+                <th style="width: 10px">NO</th>
+                <th>Keterampilan Khusus yang Tercapai</th>
+                <th style="width: 150px">Tanggal Ketercapai</th>
+            </tr>
+        </thead>
+        <tbody class="top">
+            @foreach ($pemagang->kompetensi as $kompetensi)
+                <tr>
+                    <td style="padding-left: 0" class="text-center">{{$loop->iteration}}</td>
+                    <td>{{$kompetensi->capaian->deskripsi_capaian}}</td>
+                    <td>{{$kompetensi->created_at}}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
     <p style="font-size: 18px; margin-top: 20px">Berikut rekap laporan mahasiswa magang industry.</p>
     <table class="table-bordered">
         <thead class="text-xs-center">
@@ -104,10 +127,10 @@
                 <th>Status Laporan</th>
             </tr>
         </thead>
-        <tbody id="top">
+        <tbody class="top">
             @foreach ($pemagang->laporan as $laporan)
                 <tr>
-                    <td>{{$loop->iteration}}</td>
+                    <td style="padding-left: 0" class="text-center">{{$loop->iteration}}</td>
                     <td>{{$laporan->tanggal_laporan}}</td>
                     <td>{{$laporan->capaian->deskripsi_capaian}}</td>
                     <td>{{$laporan->kegiatan_pekerjaan}}</td>
