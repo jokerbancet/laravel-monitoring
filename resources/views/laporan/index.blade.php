@@ -8,9 +8,6 @@
                     <div class="panel">
                         <div class="panel-body">
                             <span class="h3">Halo, {{auth()->user()->name}}.</span>
-                            <span class="h3" style="float: right; margin-top: 1px">
-                                {{(auth()->user()->mahasiswa->dosenpembimbing->isNotEmpty()?'Dosen Pembimbing: '.auth()->user()->mahasiswa->dosenpembimbing[0]->nama:'')}}
-                            </span>
                         </div>
                     </div>
                 </div>
@@ -19,8 +16,11 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-body">
-                                <span class="h3">Pembimbing Industri: {{auth()->user()->mahasiswa->pembimbingindustri[0]->nama}}.</span>
-                                <span class="h3" style="float: right; margin-top: 1px">Nama Industri: {{auth()->user()->mahasiswa->pembimbingindustri[0]->industri->nama_industri}}.</span>
+                                <span class="h4">
+                                    {{(auth()->user()->mahasiswa->dosenpembimbing->isNotEmpty()?'Dosen Pembimbing: '.auth()->user()->mahasiswa->dosenpembimbing[0]->nama:'')}}
+                                </span><br>
+                                <span class="h4">Pembimbing Industri: {{auth()->user()->mahasiswa->pembimbingindustri[0]->nama}}.</span><br>
+                                <span class="h4">Nama Industri: {{auth()->user()->mahasiswa->pembimbingindustri[0]->industri->nama_industri}}.</span>
                             </div>
                         </div>
                     </div>

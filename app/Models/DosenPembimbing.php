@@ -28,6 +28,7 @@ class DosenPembimbing extends Model
         return asset('images/'.$this->avatar);
     }
 
+    //relasi ke tabel mahasiswa dengan many to many
     public function mahasiswa()
     {
         return $this->belongsToMany(Mahasiswa::class, 'data_bimbingan', 'dosenpembimbing_id', 'mahasiswa_id')->withPivot(['mulai_magang', 'selesai_magang']);

@@ -9,6 +9,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        //mengambil data dari setiap tabel
         $data = DB::table('mahasiswa')->get();
         $data2 = DB::table('dosenpembimbing')->get();
         $data3 = DB::table('pembimbingindustri')->get();

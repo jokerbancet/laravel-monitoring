@@ -46,7 +46,7 @@
                                     <tbody>
                                         @foreach ($laporan as $lprn)
                                             <tr>
-                                                <td>{{ $lprn->waktu }}</td>
+                                                <td>{{ $lprn->tanggal_laporan }}</td>
                                                 <td>{{ $lprn->kegiatan_pekerjaan }}</td>
                                                 <td>{{ $lprn->deskripsi_pekerjaan }}</td>
                                                 <td class="text-center">{{ $lprn->durasi }}</td>

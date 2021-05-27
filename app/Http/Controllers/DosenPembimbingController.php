@@ -18,6 +18,7 @@ class DosenPembimbingController extends Controller
      */
     public function index()
     {
+        //ambil semua data dosen
         $data_dosen = DosenPembimbing::all();
         return view('dosenpembimbing.index', ['data_dosen' => $data_dosen]);
     }
@@ -29,6 +30,7 @@ class DosenPembimbingController extends Controller
      */
     public function create(CreateDosenPembimbingRequest $request)
     {
+        //inisialisasi untuk input data ke tabel user
         $user = new \App\Models\User;
         $user->role = 'dosenpembimbing';
         $user->name = $request->nama;
@@ -39,6 +41,7 @@ class DosenPembimbingController extends Controller
 
         $request->request->add(['user_id' => $user->id]);
         $mahasiswa = DosenPembimbing::create($request->all());
+        //pengecekan jika request memiliki foto yang di unggah
         if($request->hasFile('avatar')) {
             $request->file('avatar')->move('images/', $request->file('avatar')->getClientOriginalName());
             $mahasiswa->avatar = $request->file('avatar')->getClientOriginalName();
@@ -66,6 +69,7 @@ class DosenPembimbingController extends Controller
      */
     public function detail($id)
     {
+        //ambil data dosen sesuai dengan $id
         $data_dosen = DosenPembimbing::find($id);
         return view('dosenpembimbing.detail', ['dosen' => $data_dosen]);
     }
@@ -109,6 +113,7 @@ class DosenPembimbingController extends Controller
      */
     public function delete($id)
     {
+        //menghapus record dosen di tabel dosen_pembimbing dan di tabel user sesuai $id
         $data_dosen = DosenPembimbing::find($id);
         $email = $data_dosen->email;
         User::where('email', $email)->delete();
