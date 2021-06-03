@@ -47,8 +47,8 @@
                                 <li><a href="#tab-bottom-left2" role="tab" data-toggle="tab">Dosen Pembimbing</a></li>
                             </ul>
                         </div>
-                        {{-- aktifitas --}}
                         <div class="tab-content">
+                            {{-- aktifitas --}}
                             <div class="tab-pane fade in active" id="tab-bottom-left1">
                                 <ul class="list-unstyled activity-timeline">
                                     <li>
