@@ -43,4 +43,9 @@ class Pemagangan extends Model
         return $this->belongsTo(PembimbingIndustri::class, 'pembimbingindustri_id','id');
     }
 
+    // public function industri()
+    // {
+    //     return $this->hasOneThrough(Industri::class,PembimbingIndustri::class,'id','industri_id','id','id');
+    // }
+
 }

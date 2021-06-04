@@ -41,6 +41,7 @@
                     <li><a href="#"><i class="lnr lnr-chart-bars"></i> <span>Grafik Kinerja</span></a></li>
                 @endif
                 @if (auth()->user()->role == 'dosenpembimbing'||auth()->user()->role == 'pembimbingindustri')
+                    <li><a href="/data-bimbingan" id="data-bimbingan"><i class="lnr lnr-chart-bars"></i> <span>Mahasiswa Bimbingan</span></a></li>
                     <li><a href="/persetujuan" id="persetujuan"><i class="lnr lnr-chart-bars"></i> <span>Persetujuan</span></a></li>
                 @endif
             </ul>

@@ -6,6 +6,7 @@ use App\Http\Requests\CreateMahasiswaRequest;
 use App\Http\Requests\EditMahasiswaRequest;
 use Illuminate\Http\Request;
 use App\Models\Mahasiswa;
+use App\Models\Pemagangan;
 use App\Models\User;
 use Illuminate\Support\Str;
 
@@ -66,6 +67,18 @@ class MahasiswaController extends Controller
         //
     }
 
+    public function dataBimbingan()
+    {
+        // dd(auth()->user()->pembimbingIndustri->id);
+
+        $id=auth()->user()->dosenPembimbing->id??
+            auth()->user()->pembimbingIndustri->id;
+        $where=!is_null(auth()->user()->dosenPembimbing)?
+                ['dosenpembimbing_id'=>$id]:['pembimbingindustri_id'=>$id];
+        $mahasiswa = Pemagangan::where($where)->get();
+        return view('mahasiswa.data',compact('mahasiswa'));
+    }
+
     /**
      * Display the specified resource.
      *
@@ -76,6 +89,12 @@ class MahasiswaController extends Controller
     {
         $data_mahasiswa = Mahasiswa::find($id);
         return view('mahasiswa.detail', ['mahasiswa' => $data_mahasiswa]);
+    }
+
+    public function detail_bimbingan($id)
+    {
+        $mahasiswa = Pemagangan::find($id);
+        return view('mahasiswa.detail-histori', compact('mahasiswa'));
     }
 
     /**
