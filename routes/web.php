@@ -13,7 +13,7 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\RelasiCapaianController;
 use App\Http\Controllers\DataLaporanController;
 use App\Http\Controllers\PersetujuanController;
-use App\Models\Laporan;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', [AuthController::class, 'login'])->name('login');
 Route::get('/login', [AuthController::class, 'login'])->name('login');
@@ -22,6 +22,8 @@ Route::get ('/logout', [AuthController::class, 'logout']);
 
 Route::group(['middleware'=>['auth']],function(){
     Route::get('/dashboard',[DashboardController::class, 'index']);
+    Route::get('/ganti-password', [ProfileController::class, 'index']);
+    Route::put('/ganti-password', [ProfileController::class, 'password']);
 });
 
 Route::group(['middleware' => ['auth', 'CheckRole:admin']], function(){
@@ -88,7 +90,6 @@ Route::group(['middleware' => ['auth', 'CheckRole:admin,dosenpembimbing,pembimbi
 });
 
 Route::group(['middleware' => ['auth', 'CheckRole:mahasiswa']], function(){
-    // Route::get('/dashboard', [DashboardController::class, 'index']);
     //laporan
     Route::get('/laporan', [LaporanController::class, 'index']);
     Route::post('/laporan/create', [LaporanController::class, 'create']);
