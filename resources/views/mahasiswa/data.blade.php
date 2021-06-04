@@ -14,7 +14,7 @@
             @endif
             <div class="panel">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Data Mahasiswa Bimbingan, {{auth()->user()->dosenPembimbing->nama}}</h3>
+                    <h3 class="panel-title">Data Mahasiswa Bimbingan, {{auth()->user()->dosenPembimbing->nama??auth()->user()->pembimbingIndustri->nama}}</h3>
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
