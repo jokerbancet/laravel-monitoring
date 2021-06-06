@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\DashboardController;
@@ -28,6 +29,7 @@ Route::group(['middleware'=>['auth']],function(){
 
 Route::group(['middleware' => ['auth', 'CheckRole:admin']], function(){
     //Data Master Mahasiswa
+    Route::post('/mahasiswa/excel', [AdminController::class, 'excel_mahasiswa']);
     Route::get('/mahasiswa', [MahasiswaController::class, 'index']);
     Route::post('/mahasiswa/create', [MahasiswaController::class, 'create']);
     Route::get('/mahasiswa/{id}/detail', [MahasiswaController::class, 'detail']);

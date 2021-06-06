@@ -43,6 +43,7 @@
     <!-- Javascript -->
     <script src="{{ asset('admin/assets/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('admin/assets/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script
     src="{{ asset('admin/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js') }}">
     </script>
@@ -52,7 +53,6 @@
     <script src="{{ asset('admin/assets/vendor/chartist/js/chartist.min.js') }}"></script>
     <script src="{{ asset('admin/assets/scripts/klorofil-common.js') }}"></script>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.js"></script>

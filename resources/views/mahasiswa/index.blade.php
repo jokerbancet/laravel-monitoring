@@ -17,6 +17,7 @@
                         <div class="panel-heading">
                             <h3 class="panel-title">Data Mahasiswa</h3>
                             <div class="right">
+                                <button type="button" class="btn" data-toggle="modal" data-target="#importExcel">Import Excel</button>
                                 <button type="button" class="btn" data-toggle="modal"
                                     data-target="#tambahdatamahasiswa">
                                     <i class="lnr lnr-plus-circle"></i>
@@ -65,9 +66,52 @@
     </div>
 </div>
 
+<!-- Modal Form Import Excel -->
+<div class="modal fade" id="importExcel" role="dialog" aria-labelledby="importExcelLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="/mahasiswa/excel" id="formExcel" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title" id="importExcelLabel">Import Data Mahasiswa</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group margin-bottom-10">
+                        <label for="excel">Pilih Excel</label>
+                        <input type="file" name="excel" id="excel" class="form-control">
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-excel table-striped">
+                            <th>NIM</th>
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>EMAIL</th>
+                                    <th>Jenis Kelamin</th>
+                                    <th>Agama</th>
+                                    <th>Alamat</th>
+                                    <th>Jurusan</th>
+                                    <th>Tahun Angkatan</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-info">Import</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <!-- Modal -->
-<div class="modal fade" id="tambahdatamahasiswa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="tambahdatamahasiswa" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -101,7 +145,7 @@
                                 <p class="text-danger">{{$errors->first('nim')}}</p>
                             @endif
                     </div>
-                    <div class="form-row">
+                    <div class="row g-1">
                         <div class="form-group col-md-4">
                             <label for="jk">Jenis Kelamin</label>
                             <select name="jk" id="jk" class="form-control">
@@ -158,11 +202,38 @@
         </div>
     </div>
 </div>
+
+
 @endsection
 
 @push('js')
     <script>
         $('#subPages').addClass('in').prev().addClass('active').removeClass('collapsed');
         $('#mahasiswa').addClass('active')
+        $('.table-excel').hide();
+        $('#excel').change(function(){
+            let fd = new FormData();
+            let files = $(this)[0].files;
+
+            // Check file selected or not
+            if(files.length > 0 ){
+                fd.append('excel',files[0]);
+                fd.append('_token',$('input[name=_token]').val());
+                $.ajax({
+                    method: 'post',
+                    url: '/mahasiswa/excel',
+                    data: fd,
+                    contentType: false,
+                    processData: false,
+                    success: function(result){
+                        $('.table-excel tbody').empty();
+                        $('.table-excel').show().DataTable({
+                            data: result,
+                            destroy:true
+                        });
+                    }
+                })
+            }
+        })
     </script>
 @endpush
