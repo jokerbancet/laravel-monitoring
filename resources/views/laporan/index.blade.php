@@ -24,21 +24,25 @@
                             </div>
                         </div>
                     </div>
+
+                    @if(session('sukses'))
+                    <div class="col-md-12">
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                    aria-hidden="true">×</span></button>
+                            <i class="fa fa-check-circle"></i> {{ session('sukses') }}
+                        </div>
+                    </div>
+                    @endif
+
                     {{-- Cek apakah masa menjadi pemagang masih berlaku atau tidak --}}
                     @if (!is_null($masa_magang))
                         {{-- Cek apakah hari ini hari libur atau bukan ['Minggu', 'Sabtu'] -> cek di LaporanController method index variable $excepted_days --}}
                         @if (!$hari_libur)
                             {{-- Cek apakah si pemagang sudah melakukan laporan hari ini atau belum --}}
-                            @if (is_null($hasLaporanToday))
+                            @if ($hasLaporanToday->count()<2)
                                 <div class="col-md-12">
                                     <!-- TABLE HOVER -->
-                                    @if(session('sukses'))
-                                        <div class="alert alert-success alert-dismissible" role="alert">
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                                                    aria-hidden="true">×</span></button>
-                                            <i class="fa fa-check-circle"></i> {{ session('sukses') }}
-                                        </div>
-                                    @endif
                                     <div class="panel">
                                         <div class="panel-heading">
                                             <h2 class="panel-title">Pelaporan Magang Hari ini. Tanggal :@php
@@ -98,7 +102,8 @@
                                     </div>
                                     <!-- END TABLE HOVER -->
                                 </div>
-                            @else
+                            @endif
+                            @if ($hasLaporanToday->count()>0)
                             <div class="col-md-12">
                                 <div class="panel">
                                     <div class="panel-heading">
@@ -118,24 +123,17 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>{{ $hasLaporanToday->kegiatan_pekerjaan }}</td>
-                                                    <td>{{ $hasLaporanToday->deskripsi_pekerjaan }}</td>
-                                                    <td>{{ $hasLaporanToday->durasi }}</td>
-                                                    <td>{{ $hasLaporanToday->output }}</td>
-                                                    <td><span class="label {{cek_status($hasLaporanToday->approve_dosen,1)}}">{{ $hasLaporanToday->approve_dosen }}</span></td>
-                                                    <td><span class="label {{cek_status($hasLaporanToday->approve_industri,1)}}">{{ $hasLaporanToday->approve_industri }}</span></td>
-                                                    <td><span class="label {{cek_status($hasLaporanToday->status_laporan,2)}}">{{ $hasLaporanToday->status_laporan }}</span></td>
-                                                    {{-- <td><a href="/mahasiswa/{{ $hasLaporanToday->id }}/detail"
-                                                            class="btn btn-info btn-xs"><i class="lnr lnr-magnifier"></i></a>
-                                                        <a href="/mahasiswa/{{ $hasLaporanToday->id }}/edit"
-                                                            class="btn btn-warning btn-xs"><i class="lnr lnr-pencil"></i></a>
-                                                        <a href="/mahasiswa/{{ $hasLaporanToday->id }}/delete"
-                                                            class="btn btn-danger btn-xs"
-                                                            onclick="return confirm('Yakin data dengan nama {{ $hasLaporanToday->nama_depan }} akan dihapus?')"><i
-                                                                class="lnr lnr-trash"></i></a>
-                                                    </td> --}}
-                                                </tr>
+                                                @foreach ($hasLaporanToday as $laporan)
+                                                    <tr>
+                                                        <td>{{ $laporan->kegiatan_pekerjaan }}</td>
+                                                        <td>{{ $laporan->deskripsi_pekerjaan }}</td>
+                                                        <td>{{ $laporan->durasi }}</td>
+                                                        <td>{{ $laporan->output }}</td>
+                                                        <td><span class="label {{cek_status($laporan->approve_dosen,1)}}">{{ $laporan->approve_dosen }}</span></td>
+                                                        <td><span class="label {{cek_status($laporan->approve_industri,1)}}">{{ $laporan->approve_industri }}</span></td>
+                                                        <td><span class="label {{cek_status($laporan->status_laporan,2)}}">{{ $laporan->status_laporan }}</span></td>
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
