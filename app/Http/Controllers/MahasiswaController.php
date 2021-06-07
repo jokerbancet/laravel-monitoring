@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateMahasiswaRequest;
 use App\Http\Requests\EditMahasiswaRequest;
+use App\Models\Laporan;
 use Illuminate\Http\Request;
 use App\Models\Mahasiswa;
 use App\Models\Pemagangan;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class MahasiswaController extends Controller
@@ -141,5 +143,15 @@ class MahasiswaController extends Controller
         User::where('email', $email)->delete();
         $data_mahasiswa->delete($id);
         return redirect('/mahasiswa')->with('sukses','Data Berhasil di hapus');
+    }
+
+    public function absen(Request $request)
+    {
+        $absen = Laporan::select(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') as tanggal"))
+                          ->where('id_data_bimbingan', auth()->user()->pemagang->id)
+                          ->whereMonth('created_at',$request->month+1)
+                          ->whereYear('created_at',$request->year)
+                          ->pluck('tanggal');
+        return $request->ajax()?response()->json($absen):view('mahasiswa.absen');
     }
 }

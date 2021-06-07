@@ -37,11 +37,15 @@ class LaporanController extends Controller
         $this_day=date('D');
         $hari_libur=in_array($this_day,$excepted_days);
 
-        // Cek apakah hari ini sudah melakukan laporan apa belum
+        // Cek apakah hari ini sudah melakukan 2x laporan apa belum
         $hasLaporanToday=!is_null(auth()->user()->mahasiswa->pemagangan)?
                     Laporan::where('id_data_bimbingan',auth()->user()->mahasiswa->pemagangan->id)
-                            ->whereDate('tanggal_laporan', '=', date('Y-m-d'))->first()
-                    :null;
+                            ->whereDate('tanggal_laporan', '=', date('Y-m-d'))->get()
+                    :collect([]);
+        // $hasLaporanToday=!is_null(auth()->user()->mahasiswa->pemagangan)?
+        //             Laporan::where('id_data_bimbingan',auth()->user()->mahasiswa->pemagangan->id)
+        //                     ->whereDate('tanggal_laporan', '=', date('Y-m-d'))->first()
+        //             :null;
 
         // Cek apakah si user nya sudah melewati masa akhir magang
         $masa_magang=Pemagangan::where('mahasiswa_id',auth()->user()->mahasiswa->id)
