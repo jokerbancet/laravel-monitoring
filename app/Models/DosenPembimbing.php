@@ -36,7 +36,7 @@ class DosenPembimbing extends Model
 
     public function pembimbingindustri()
     {
-        return $this->belongsToMany(pembimbingindustri::class,'data_bimbingan', 'dosenpembimbing_id', 'pembimbingindustri_id')->withPivot(['mulai_magang', 'selesai_magang']);
+        return $this->belongsToMany(PembimbingIndustri::class,'data_bimbingan', 'dosenpembimbing_id', 'pembimbingindustri_id')->withPivot(['mulai_magang', 'selesai_magang']);
     }
 
     public function user()

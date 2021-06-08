@@ -18,6 +18,6 @@ class Industri extends Model
 
     public function pembimbingindustri()
     {
-        return $this->hasOne(pembimbingindustri::class);
+        return $this->hasOne(PembimbingIndustri::class);
     }
 }
