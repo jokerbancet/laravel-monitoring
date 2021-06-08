@@ -96,6 +96,8 @@ Route::group(['middleware' => ['auth', 'CheckRole:admin,dosenpembimbing,pembimbi
 Route::group(['middleware' => ['auth', 'CheckRole:mahasiswa']], function(){
     //laporan
     Route::get('/laporan', [LaporanController::class, 'index']);
+    Route::get('/laporan/{id}/edit', [LaporanController::class, 'edit']);
+    Route::put('/laporan/{id}/edit', [LaporanController::class, 'update']);
     Route::post('/laporan/create', [LaporanController::class, 'create']);
     Route::get('/histori-laporan', [LaporanController::class, 'history']);
     Route::get('/absen-ku', [MahasiswaController::class, 'absen']);

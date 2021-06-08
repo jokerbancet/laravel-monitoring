@@ -37,4 +37,25 @@ class Laporan extends Model
     {
         return $this->belongsTo(IndikatorCapaian::class, 'capaian_id', 'id');
     }
+
+    public function cek_status($column, $type)
+    {
+        $type1=[
+            'mengamati'=>'info',
+            'mengikuti'=>'primary',
+            'terampil'=>'success',
+            'pending'=>'warning',
+        ];
+        $type2=[
+            'approve'=>'success',
+            'rejected'=>'danger',
+            'pending'=>'warning',
+        ];
+        switch($type){
+            case 1:
+                return '<span class="label label-'.$type1[$this->$column].'">'.$this->$column.'</span>';
+            default:
+                return '<span class="label label-'.$type2[$this->$column].'">'.$this->$column.'</span>';
+        }
+    }
 }

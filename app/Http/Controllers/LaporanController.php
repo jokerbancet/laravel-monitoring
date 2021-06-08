@@ -19,14 +19,6 @@ class LaporanController extends Controller
      */
     public function index()
     {
-        //ambil id user sedang login
-        // $id_user = auth()->user()->id;
-
-        //ambil id data mahasiswa sedang login
-        // $id_data_mahasiswa = DB::table('mahasiswa')
-        // ->select('*')
-        // ->where('mahasiswa.user_id', '=', $id_user)
-        // ->value('id'); gini aja cukup kang
         $mahasiswa = auth()->user()->mahasiswa;
 
         //ambil data master_capaian
@@ -64,18 +56,6 @@ class LaporanController extends Controller
      */
     public function create(Request $request)
     {
-        // $id_user = auth()->user()->id;
-
-        // $laporan = new \App\Models\laporan;
-        // $laporan->id_data_kompetensi = $id_user; //kok id user? bukanya id yang di data kompetensi?
-        // $laporan->kegiatan_pekerjaan = $request->kegiatan_pekerjaan;
-        // $laporan->deskripsi_pekerjaan = $request->deskripsi_pekerjaan;
-        // $laporan->durasi = $request->durasi;
-        // $laporan->output = $request->output;
-        // $laporan->approve_dosen = 'pending';
-        // $laporan->approve_industri = 'pending';
-        // $laporan->status_laporan = 'pending';
-        // $laporan->save();
         Laporan::create(collect($request)->put('id_data_bimbingan',auth()->user()->mahasiswa->pemagangan->id)->toArray()); //Cuma sebaris kang
 
         return redirect('/laporan')->with('sukses','Data Berhasil di input');
@@ -110,9 +90,17 @@ class LaporanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
-        //
+        $mahasiswa = auth()->user()->mahasiswa;
+
+        //ambil data master_capaian
+        $data = DB::table('master_capaian')->where('jurusan',$mahasiswa->jurusan)->get();
+
+        $id_data_mahasiswa = auth()->user()->pemagang?auth()->user()->pemagang->id:0;
+        $laporan = Laporan::where('id_data_bimbingan', $id_data_mahasiswa)
+                   ->where('id',$id)->firstOrFail();
+        return $request->ajax()?response()->json($laporan):view('laporan.edit',compact('laporan','data'));
     }
 
     /**
@@ -122,9 +110,10 @@ class LaporanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Laporan $id)
     {
-        //
+        $id->update($request->all());
+        return back()->with('sukses', 'Laporan berhasi diperbarui.');
     }
 
     /**

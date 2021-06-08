@@ -51,49 +51,8 @@
                                             @endphp</h2>
                                         </div>
                                         <div class="panel-body">
-                                            <form action="/laporan/create" method="post" enctype="multipart/form-data">
-                                                {{-- {{ csrf_field() }} simple pake ini --}}
-                                                @csrf
-                                                <div class="form-group">
-                                                    <label for="kegiatan_pekerjaan">Kegiatan Pekerjaan</label>
-                                                    <input type="text" id="kegiatan_pekerjaan" name="kegiatan_pekerjaan" class="form-control" placeholder="Masukan nama kegiatan...">
-                                                    {{-- @if ($errors->has('kegiatan_pekerjaan'))
-                                                        <p class="text-danger">{{$errors->first('kegiatan_pekerjaan')}}</p>
-                                                    @endif simple ngangge iyeu kang --}}
-                                                    @error('kegiatan_pekerjaan')
-                                                        <p class="text-danger">{{$message}}</p>
-                                                    @enderror
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="deskripsi_pekerjaan">Deskripsi Pekerjaan</label>
-                                                    <textarea name="deskripsi_pekerjaan" id="deskripsi_pekerjaan" cols="30" rows="10" class="form-control"></textarea>
-                                                    @if ($errors->has('deskripsi_pekerjaan'))
-                                                        <p class="text-danger">{{$errors->first('deskripsi_pekerjaan')}}</p>
-                                                    @endif
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="durasi">Durasi Pekerjaan</label>
-                                                    <input type="number" id="durasi" name="durasi" class="form-control" placeholder="Masukan Durasi">
-                                                    @if ($errors->has('durasi'))
-                                                        <p class="text-danger">{{$errors->first('durasi')}}</p>
-                                                    @endif
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="output">Output Pekerjaan</label>
-                                                    <input type="text" id="output" name="output" class="form-control" placeholder="Masukan output kegiatan...">
-                                                    @if ($errors->has('output'))
-                                                        <p class="text-danger">{{$errors->first('output')}}</p>
-                                                    @endif
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="capaian_id">Kompetensi Khusus yang tercapai</label>
-                                                    <select name="capaian_id" id="capaian_id" class="form-control">
-                                                        <option value=""></option>
-                                                        @foreach ($data as $data)
-                                                            <option value="{{$data->id}}">{{$data->jurusan.' - '.$data->deskripsi_capaian}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
+                                            <form action="/laporan/create" method="post">
+                                                @include('laporan._form')
                                                 <div class="form-group">
                                                     <button type="submit" class="btn btn-primary">Submit</button>
                                                 </div>
@@ -110,32 +69,43 @@
                                         <h3 class="panel-title">Laporan Harian</h3>
                                     </div>
                                     <div class="panel-body">
-                                        <table class="table table-hover mydatatable" id="mydatatable">
-                                            <thead>
-                                                <tr>
-                                                    <th>Kegiatan</th>
-                                                    <th>Deskripsi Pekerjaan</th>
-                                                    <th>Durasi</th>
-                                                    <th>Output</th>
-                                                    <th>Persetujuan Dosen</th>
-                                                    <th>Persetujuan Pembimbing Industri</th>
-                                                    <th>Status Laporan</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($hasLaporanToday as $laporan)
-                                                    <tr>
-                                                        <td>{{ $laporan->kegiatan_pekerjaan }}</td>
-                                                        <td>{{ $laporan->deskripsi_pekerjaan }}</td>
-                                                        <td>{{ $laporan->durasi }}</td>
-                                                        <td>{{ $laporan->output }}</td>
-                                                        <td><span class="label {{cek_status($laporan->approve_dosen,1)}}">{{ $laporan->approve_dosen }}</span></td>
-                                                        <td><span class="label {{cek_status($laporan->approve_industri,1)}}">{{ $laporan->approve_industri }}</span></td>
-                                                        <td><span class="label {{cek_status($laporan->status_laporan,2)}}">{{ $laporan->status_laporan }}</span></td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
+                                        <ul class="list-unstyled activity-timeline history-laporan">
+                                            @foreach ($hasLaporanToday->sortBy('id') as $laporan)
+                                                <li>
+                                                    <i class="fa fa-check activity-icon"></i>
+                                                    <p><b style="margin-right: 7px">{{$laporan->kegiatan_pekerjaan}}</b>
+                                                        @if ($laporan->status_laporan=='pending')
+                                                        <a href="/laporan/{{$laporan->id}}/edit" class="label label-success">
+                                                            <i class="lnr lnr-pencil"></i>
+                                                            Edit
+                                                        </a>
+                                                        @endif
+                                                        <br>
+                                                        <span class="text-sm text-muted shrinkable" id="{{$loop->iteration}}">
+                                                            {{$laporan->deskripsi_pekerjaan}}
+                                                        </span><br>
+                                                        <span class="timestamp">{{date('d-m-Y',strtotime($laporan->tanggal_laporan))}}</span>
+                                                        <table class="table table-bordered" style="margin-left: 36px; width: 95%; margin-top: 10px">
+                                                            <tr>
+                                                                <th>Durasi</th>
+                                                                <th>Output</th>
+                                                                <th>Persetujuan Dosen</th>
+                                                                <th>Persetujuan Pembimbing Industri</th>
+                                                                <th>Status Laporan</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>{{$laporan->durasi}}</td>
+                                                                <td>{{$laporan->output}}</td>
+                                                                <td>{!! $laporan->cek_status('approve_dosen',1) !!}</td>
+                                                                <td>{!! $laporan->cek_status('approve_industri',1)!!}</td>
+                                                                <td>{!! $laporan->cek_status('status_laporan',2) !!}</td>
+                                                            </tr>
+                                                        </table>
+
+                                                    </p>
+                                                </li>
+                                            @endforeach
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -176,5 +146,49 @@
 @push('js')
     <script>
         $('#laporan').addClass('active');
+
+        function showMore(id){
+            document.getElementById(id+'Overflow').className='';
+            document.getElementById(id+'MoreLink').className='hidden';
+            document.getElementById(id+'LessLink').className='';
+        }
+
+        function showLess(id){
+            document.getElementById(id+'Overflow').className='hidden';
+            document.getElementById(id+'MoreLink').className='';
+            document.getElementById(id+'LessLink').className='hidden';
+        }
+
+        var len = 300;
+        var shrinkables = document.getElementsByClassName('shrinkable');
+        if (shrinkables.length > 0) {
+            for (var i = 0; i < shrinkables.length; i++){
+                var fullText = shrinkables[i].innerHTML;
+                if(fullText.length > len){
+                    var trunc = fullText.substring(0, len).replace(/\w+$/, '');
+                    var remainder = "";
+                    var id = shrinkables[i].id;
+                    remainder = fullText.substring(len, fullText.length);
+                    shrinkables[i].innerHTML = '<span>' + trunc + '<span class="hidden" id="' + id + 'Overflow">'+ remainder +'</span></span>&nbsp;<a id="' + id + 'MoreLink" href="#!" onclick="showMore(\''+ id + '\');">...Lihat Selengkapnya</a><a class="hidden" href="#!" id="' + id + 'LessLink" onclick="showLess(\''+ id + '\');">Tampilkan Sedikit</a>';
+                }
+            }
+        }
+
+        let laporan = $('.history-laporan li');
+        let batas = 4;
+        if(laporan.length>=batas){
+            laporan.each((v,k)=>{
+                if(v>batas-1){
+                    k.classList.add('hide');
+                }
+            })
+        }else{
+            $('#see-all').hide();
+        }
+        $('#see-all').click(function(){
+            laporan.each((v,k)=>{
+                k.classList.remove('hide');
+            })
+        })
     </script>
 @endpush

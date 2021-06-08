@@ -30,34 +30,48 @@
                                 <h3 class="panel-title">Histori Laporan</h3>
                             </div>
                             <div class="panel-body">
-                                <table class="table table-hover mydatatable" id="mydatatable">
-                                    <thead>
-                                        <tr>
-                                            <th>Waktu</th>
-                                            <th>Kegiatan</th>
-                                            <th>Deskripsi Pekerjaan</th>
-                                            <th>Durasi</th>
-                                            <th>Output</th>
-                                            <th>Persetujuan Dosen</th>
-                                            <th>Persetujuan Pembimbing Industri</th>
-                                            <th>Status Laporan</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($laporan as $lprn)
-                                            <tr>
-                                                <td>{{ $lprn->tanggal_laporan }}</td>
-                                                <td>{{ $lprn->kegiatan_pekerjaan }}</td>
-                                                <td>{{ $lprn->deskripsi_pekerjaan }}</td>
-                                                <td class="text-center">{{ $lprn->durasi }}</td>
-                                                <td>{{ $lprn->output }}</td>
-                                                <td><span class="label {{cek_status($lprn->approve_dosen,1)}}">{{ $lprn->approve_dosen }}</span></td>
-                                                <td><span class="label {{cek_status($lprn->approve_industri,1)}}">{{ $lprn->approve_industri }}</span></td>
-                                                <td><span class="label {{cek_status($lprn->status_laporan,2)}}">{{ $lprn->status_laporan }}</span></td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                <ul class="list-unstyled activity-timeline history-laporan">
+                                    @foreach ($laporan->sortByDesc('id') as $laporan)
+                                        <li>
+                                            <i class="fa fa-check activity-icon"></i>
+                                            <p><b style="margin-right: 7px">{{$laporan->kegiatan_pekerjaan}}</b>
+                                                @if ($laporan->status_laporan=='pending')
+                                                <a href="/laporan/{{$laporan->id}}/edit" class="label label-success">
+                                                    <i class="lnr lnr-pencil"></i>
+                                                    Edit
+                                                </a>
+                                                @endif
+                                                <br>
+                                                <span class="text-sm text-muted shrinkable" id="{{$loop->iteration}}">
+                                                    {{$laporan->deskripsi_pekerjaan}}
+                                                </span><br>
+                                                <span class="timestamp">{{date('d-m-Y',strtotime($laporan->tanggal_laporan))}}</span>
+                                                <table class="table table-bordered" style="margin-left: 36px; width: 95%; margin-top: 10px">
+                                                    <tr>
+                                                        <th>Durasi</th>
+                                                        <th>Output</th>
+                                                        <th>Persetujuan Dosen</th>
+                                                        <th>Persetujuan Pembimbing Industri</th>
+                                                        <th>Status Laporan</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{{$laporan->durasi}}</td>
+                                                        <td>{{$laporan->output}}</td>
+                                                        <td>{!! $laporan->cek_status('approve_dosen',1) !!}</td>
+                                                        <td>{!! $laporan->cek_status('approve_industri',1)!!}</td>
+                                                        <td>{!! $laporan->cek_status('status_laporan',2) !!}</td>
+                                                    </tr>
+                                                </table>
+
+                                            </p>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                                <div class="text-center">
+                                    <button id="see-all" class="btn btn-default">
+                                    Lihat Semua Histori
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -79,5 +93,49 @@
 @push('js')
     <script>
         $('#histori-laporan').addClass('active');
+
+        function showMore(id){
+            document.getElementById(id+'Overflow').className='';
+            document.getElementById(id+'MoreLink').className='hidden';
+            document.getElementById(id+'LessLink').className='';
+        }
+
+        function showLess(id){
+            document.getElementById(id+'Overflow').className='hidden';
+            document.getElementById(id+'MoreLink').className='';
+            document.getElementById(id+'LessLink').className='hidden';
+        }
+
+        var len = 300;
+        var shrinkables = document.getElementsByClassName('shrinkable');
+        if (shrinkables.length > 0) {
+            for (var i = 0; i < shrinkables.length; i++){
+                var fullText = shrinkables[i].innerHTML;
+                if(fullText.length > len){
+                    var trunc = fullText.substring(0, len).replace(/\w+$/, '');
+                    var remainder = "";
+                    var id = shrinkables[i].id;
+                    remainder = fullText.substring(len, fullText.length);
+                    shrinkables[i].innerHTML = '<span>' + trunc + '<span class="hidden" id="' + id + 'Overflow">'+ remainder +'</span></span>&nbsp;<a id="' + id + 'MoreLink" href="#!" onclick="showMore(\''+ id + '\');">...Lihat Selengkapnya</a><a class="hidden" href="#!" id="' + id + 'LessLink" onclick="showLess(\''+ id + '\');">Tampilkan Sedikit</a>';
+                }
+            }
+        }
+
+        let laporan = $('.history-laporan li');
+        let batas = 4;
+        if(laporan.length>batas){
+            laporan.each((v,k)=>{
+                if(v>batas-1){
+                    k.classList.add('hide');
+                }
+            })
+        }else{
+            $('#see-all').hide();
+        }
+        $('#see-all').click(function(){
+            laporan.each((v,k)=>{
+                k.classList.remove('hide');
+            })
+        })
     </script>
 @endpush
