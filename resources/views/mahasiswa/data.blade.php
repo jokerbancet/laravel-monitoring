@@ -26,7 +26,13 @@
                                     <th>NIM</th>
                                     <th>Jurusan</th>
                                     <th>Industri</th>
-                                    <th>Pembimbing Industri</th>
+                                    <th>
+                                        @if (auth()->user()->pembimbingIndustri)
+                                            Dosen Pembimbing
+                                        @else
+                                            Pembimbing Industri
+                                        @endif
+                                    </th>
                                     <th>Status Magang</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -39,9 +45,15 @@
                                         <td>{{ $data->mahasiswa->nim }}</td>
                                         <td>{{ $data->mahasiswa->jurusan }}</td>
                                         <td>{{ $data->pembimbingIndustri->industri->nama_industri }}</td>
-                                        <td>{{ $data->pembimbingIndustri->nama }}</td>
                                         <td>
-                                            @if(date('Y-m-d') < $data->selesai_magang){
+                                            @if (auth()->user()->pembimbingIndustri)
+                                                {{ $data->dosenPembimbing->nama }}
+                                            @else
+                                                {{ $data->pembimbingIndustri->nama }}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if(date('Y-m-d') < $data->selesai_magang)
                                                 <span class="label label-primary">Mulai Magang</span>
                                             @else
                                                 <span class="label label-success">Selesai Magang</span>
