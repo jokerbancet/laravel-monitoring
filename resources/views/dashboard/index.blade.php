@@ -48,6 +48,9 @@
                                 </p>
                             </div>
                         </div>
+                        @if (auth()->user()->dosenPembimbing || auth()->user()->pembimbingIndustri)
+                            @include('dashboard.pembimbing')
+                        @endif
                     </div>
                 </div>
             </div>

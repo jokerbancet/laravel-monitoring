@@ -138,7 +138,14 @@
                             </tr>
                         `)
                     }
-                    $('#link-print').attr('href',`{{url('/rel_capaian/${pemagang.id}/print')}}`)
+                    let today = new Date;
+                    let tanggal = today.getFullYear()+'-'+today.getMonth()+'-'+today.getDate();
+                    if(tanggal>=pemagang.selesai_magang){
+                        $('#link-print').show();
+                        $('#link-print').attr('href',`{{url('/rel_capaian/${pemagang.id}/print')}}`)
+                    }else{
+                        $('#link-print').hide();
+                    }
                     pemagang.kompetensi.forEach((v,k)=>{
                         $('#capaian-mahasiswa').append(`
                             <tr>

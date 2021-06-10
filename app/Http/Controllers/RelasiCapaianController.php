@@ -56,9 +56,11 @@ class RelasiCapaianController extends Controller
 
     public function print(Pemagangan $pemagang)
     {
-        // dd($pemagang->kompetensi);
+        if($pemagang->selesai_magang>=date('Y-m-d')){
+            abort(403, 'Maaf mahasiswa ini belum selesai magang');
+        }
         $pdf = \PDF::loadView('pdf.index',compact('pemagang'))->setPaper('a4','landscape');
-        return $pdf->stream('Hasil Laporan David.pdf');
+        return $pdf->stream("Hasil Laporan ".$pemagang->mahasiswa->nama.".pdf");
     }
 
     /**
