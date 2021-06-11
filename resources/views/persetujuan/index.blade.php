@@ -115,9 +115,6 @@
                             <div class="form-group">
                                 <label for="kegiatan_pekerjaan">Kegiatan Pekerjaan</label>
                                 <input type="text" id="kegiatan_pekerjaan" name="kegiatan_pekerjaan" class="form-control" placeholder="Masukan nama kegiatan...">
-                                {{-- @if ($errors->has('kegiatan_pekerjaan'))
-                                    <p class="text-danger">{{$errors->first('kegiatan_pekerjaan')}}</p>
-                                @endif simple ngangge iyeu kang --}}
                                 @error('kegiatan_pekerjaan')
                                     <p class="text-danger">{{$message}}</p>
                                 @enderror
@@ -157,14 +154,25 @@
                                     <option value="approve">Approve</option>
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label for="{{auth()->user()->role=='dosenpembimbing'?'approve_dosen':'approve_industri'}}">Approval</label>
-                                <select name="{{auth()->user()->role=='dosenpembimbing'?'approve_dosen':'approve_industri'}}" id="{{auth()->user()->role=='dosenpembimbing'?'approve_dosen':'approve_industri'}}" class="form-control">
-                                    <option value="pending">Pending</option>
-                                    <option value="mengamati">Mengamati</option>
-                                    <option value="mengikuti">Mengikuti</option>
-                                    <option value="terampil">Terampil</option>
-                                </select>
+                            <div class="form-group row">
+                                <div class="col-md-6">
+                                    <label for="approve_industri">Approval Industri</label>
+                                    <select name="approve_industri" id="approve_industri" class="form-control" {{auth()->user()->pembimbingIndustri?'':'disabled'}}>
+                                        <option value="pending">Pending</option>
+                                        <option value="mengamati">Mengamati</option>
+                                        <option value="mengikuti">Mengikuti</option>
+                                        <option value="terampil">Terampil</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="approve_dosen">Approval Dosen</label>
+                                    <select name="approve_dosen" id="approve_dosen" class="form-control"{{auth()->user()->dosenPembimbing?'':'disabled="true"'}}>
+                                        <option value="pending">Pending</option>
+                                        <option value="mengamati">Mengamati</option>
+                                        <option value="mengikuti">Mengikuti</option>
+                                        <option value="terampil">Terampil</option>
+                                    </select>
+                                </div>
                             </div>
                             <i class="text-muted text-sm">Jika approval dosen dan industri bukan pending, maka status laporan akan berubah.</i>
                         </div>
@@ -205,8 +213,11 @@
                     }
                     for(i in result){
                         let is_approve = i=='approve_dosen'||i=='approve_industri';
-                        $('#'+i).val(result[i]).attr('disabled',!is_approve);
+                        $('#'+i).val(result[i]);
+                        if(!is_approve)
+                        $('#'+i).attr('disabled',!is_approve);
                     }
+                    $('#approve_dosen').attr('disabled',result.approve_industri=='pending');
                 }
             })
         }
