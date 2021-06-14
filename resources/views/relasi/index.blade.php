@@ -109,7 +109,6 @@
                 <div class="modal-footer">
                     <a id="link-print" href="#" class="btn btn-success" target="_blank">Print</a>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </form>
         </div>

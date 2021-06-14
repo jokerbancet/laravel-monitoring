@@ -143,8 +143,10 @@ class PemaganganController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        $data_magang = Pemagangan::find($id);
+        $data_magang->delete($id);
+        return redirect('/pemagangan')->with('sukses','Data Berhasil di hapus');
     }
 }
