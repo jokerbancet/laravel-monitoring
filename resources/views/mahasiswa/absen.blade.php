@@ -191,7 +191,7 @@
                         let cell = document.createElement("td");
                         let cellText = document.createTextNode(date);
                         if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
-                            cell.classList.add("bg-info"); // color today's date
+                            cell.classList.add("bg-info"); cell.style.color = 'green';// color today's date
                         } else if(tanggal_sebelumnya<tanggal_sekarang){
                             let bulan = ('0'+(month+1)).substr(('0'+(month+1)).length-2,('0'+(month+1)));
                             let hari = ('0'+(date)).substr(('0'+(date)).length-2,('0'+(date)));
