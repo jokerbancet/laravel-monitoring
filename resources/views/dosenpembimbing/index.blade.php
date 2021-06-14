@@ -46,7 +46,7 @@
                                                     class="btn btn-warning btn-xs"><i class="lnr lnr-pencil"></i></a>
                                                 <a href="/dosenpembimbing/{{ $dosen->id }}/delete"
                                                     class="btn btn-danger btn-xs"
-                                                    onclick="return confirm('Yakin data dengan nama {{ $dosen->nama_depan }} akan dihapus?')"><i
+                                                    onclick="return confirm('Yakin data dengan nama {{ $dosen->nama }} akan dihapus?')"><i
                                                         class="lnr lnr-trash"></i></a>
                                             </td>
                                         </tr>

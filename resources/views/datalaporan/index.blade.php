@@ -38,7 +38,7 @@
                                             <td>{{ $d->dosenPembimbing->nama }}</td>
                                             <td>{{ $d->pembimbingIndustri->nama }}</td>
                                             <td>{{ $d->pembimbingIndustri->industri->nama_industri }}</td>
-                                            <td>{{ $d->tanggal_laporan }}</td>
+                                            <td>{{ $d->updated_at }}</td>
                                             <td><span class="label {{cek_status($d->approve_dosen,1)}}">{{ $d->approve_dosen }}</span></td>
                                             <td><span class="label {{cek_status($d->approve_industri,1)}}">{{ $d->approve_industri }}</span></td>
                                             <td><span class="label {{cek_status($d->status_laporan,2)}}">{{ $d->status_laporan }}</span></td>

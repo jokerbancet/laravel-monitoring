@@ -45,7 +45,7 @@
                                                     class="btn btn-warning btn-xs"><i class="lnr lnr-pencil"></i></a>
                                                 <a href="/pembimbingindustri/{{ $pi->id }}/delete"
                                                     class="btn btn-danger btn-xs"
-                                                    onclick="return confirm('Yakin data dengan nama {{ $pi->nama_depan }} akan dihapus?')"><i
+                                                    onclick="return confirm('Yakin data dengan nama {{ $pi->nama }} akan dihapus?')"><i
                                                         class="lnr lnr-trash"></i></a>
                                             </td>
                                         </tr>
