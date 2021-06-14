@@ -136,13 +136,16 @@
 
         function showCalendar(month, year) {
             var absenan;
+            var mulai_magang,selesai_magang;
             // Ajax laporan data
             $.ajax({
                 url: '',
                 async: false,
                 data: {month,year},
                 success: function(result){
-                    absenan = result
+                    absenan = result.absen
+                    mulai_magang = result.pemagang.mulai_magang
+                    selesai_magang = result.pemagang.selesai_magang
                 }
             });
 
@@ -161,6 +164,7 @@
 
             // creating all cells
             let date = 1;
+            let bulan,hari;
             for (let i = 0; i < 6; i++) {
                 // creates a table row
                 let row = document.createElement("tr");
@@ -178,8 +182,12 @@
                     }
 
                     else {
-                        let tanggal_sebelumnya = year+'-'+month+'-'+('0'+date).substr(('0'+date).length-2,('0'+date).length);
-                        let tanggal_sekarang = today.getFullYear()+'-'+today.getMonth()+'-'+('0'+today.getDate()).substr(('0'+today.getDate()).length-2,('0'+today.getDate()).length);
+                        bulan = ('0'+month).substr(('0'+month).length-2,('0'+month).length);
+                        hari = ('0'+date).substr(('0'+date).length-2,('0'+date).length);
+                        let tanggal_sebelumnya = year+'-'+bulan+'-'+hari;
+                        bulan = ('0'+today.getMonth()).substr(('0'+today.getMonth()).length-2,('0'+today.getMonth()).length);
+                        hari = ('0'+today.getDate()).substr(('0'+today.getDate()).length-2,('0'+today.getDate()).length);
+                        let tanggal_sekarang = today.getFullYear()+'-'+bulan+'-'+hari;
                         let cell = document.createElement("td");
                         let cellText = document.createTextNode(date);
                         if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
@@ -188,12 +196,17 @@
                             let bulan = ('0'+(month+1)).substr(('0'+(month+1)).length-2,('0'+(month+1)));
                             let hari = ('0'+(date)).substr(('0'+(date)).length-2,('0'+(date)));
                             let tanggal = year+'-'+bulan+'-'+hari;
+                            bulan = ('0'+(month+1)).substr(('0'+(month+1)).length-2,('0'+(month+1)).length);
+                            hari = ('0'+date).substr(('0'+date).length-2,('0'+date).length);
+                            let tanggal_sebelumnya = year+'-'+bulan+'-'+hari;
+                            cell.style.color = 'white';
                             if(absenan.includes(tanggal)){
                                 cell.classList.add('bg-success')
-                            }else{
+                            }else if(mulai_magang<=tanggal_sebelumnya&&tanggal_sebelumnya<=selesai_magang){
                                 cell.classList.add('bg-danger')
-                            }
-                            cell.style.color = 'white';
+                            }else{cell.style.color = 'black'}
+                        }else if(tanggal_sebelumnya<=selesai_magang){
+                            cell.style.color='blue'
                         }
                         cell.appendChild(cellText);
                         row.appendChild(cell);
