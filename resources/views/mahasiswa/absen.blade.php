@@ -30,18 +30,18 @@
                     <form class="form-inline" >
                         <label class="lead" for="month" style="margin-top: 10px; display: inline">Loncat ke: </label>
                         <select class="form-control col-sm-4" name="month" id="month" onchange="jump()">
-                            <option value=0>Jan</option>
-                            <option value=1>Feb</option>
-                            <option value=2>Mar</option>
-                            <option value=3>Apr</option>
-                            <option value=4>May</option>
-                            <option value=5>Jun</option>
-                            <option value=6>Jul</option>
-                            <option value=7>Aug</option>
-                            <option value=8>Sep</option>
-                            <option value=9>Oct</option>
-                            <option value=10>Nov</option>
-                            <option value=11>Dec</option>
+                            <option value="01">Jan</option>
+                            <option value="02">Feb</option>
+                            <option value="03">Mar</option>
+                            <option value="04">Apr</option>
+                            <option value="05">May</option>
+                            <option value="06">Jun</option>
+                            <option value="07">Jul</option>
+                            <option value="08">Aug</option>
+                            <option value="09">Sep</option>
+                            <option value="10">Oct</option>
+                            <option value="11">Nov</option>
+                            <option value="12">Dec</option>
                         </select>
                         <label for="year"></label>
                         <select class="form-control col-sm-4" name="year" id="year" onchange="jump()">
@@ -104,60 +104,63 @@
     crossorigin="anonymous"></script>
     <script>
         $('#absen-ku').addClass('active');
-        let today = new Date();
-        let currentMonth = today.getMonth();
-        let currentYear = today.getFullYear();
+        let today = moment(new Date).tz("Asia/Jakarta");
+        let currentMonth = today.format('MM');
+        let currentYear = today.format('YYYY');
+        let currentDate = today.format('DD');
         let selectYear = document.getElementById("year");
         let selectMonth = document.getElementById("month");
 
-        let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        var absenan;
+        var mulai_magang,selesai_magang;
+        // Ajax laporan data
+        $.ajax({
+            url: '',
+            async: false,
+            success: function(result){
+                absenan = result.absen
+                mulai_magang = result.pemagang.mulai_magang
+                selesai_magang = result.pemagang.selesai_magang
+            }
+        });
+        // console.log(absenan,mulai_magang,selesai_magang);
 
+        let months = {"01":"Jan", "02":"Feb", "03":"Mar", "04":"Apr", "05":"May", "06":"Jun",
+                        "07":"Jul", "08":"Aug", "09":"Sep", "10":"Oct", "11":"Nov", "12":"Dec"};
         let monthAndYear = document.getElementById("monthAndYear");
         showCalendar(currentMonth, currentYear);
 
 
         function next() {
-            currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
+            currentYear = (currentMonth === 12) ? currentYear + 1 : currentYear;
             currentMonth = (currentMonth + 1) % 12;
             showCalendar(currentMonth, currentYear);
         }
 
         function previous() {
-            currentYear = (currentMonth === 0) ? currentYear - 1 : currentYear;
-            currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
+            currentYear = (currentMonth === 1) ? currentYear - 1 : currentYear;
+            currentMonth = (currentMonth === 1) ? 12 : currentMonth - 1;
             showCalendar(currentMonth, currentYear);
         }
 
         function jump() {
             currentYear = parseInt(selectYear.value);
-            currentMonth = parseInt(selectMonth.value);
+            currentMonth = selectMonth.value;
             showCalendar(currentMonth, currentYear);
         }
 
         function showCalendar(month, year) {
-            var absenan;
-            var mulai_magang,selesai_magang;
-            // Ajax laporan data
-            $.ajax({
-                url: '',
-                async: false,
-                data: {month,year},
-                success: function(result){
-                    absenan = result.absen
-                    mulai_magang = result.pemagang.mulai_magang
-                    selesai_magang = result.pemagang.selesai_magang
-                }
-            });
-
-            let firstDay = (new Date(year, month)).getDay();
-            let daysInMonth = 32 - new Date(year, month, 32).getDate();
+            // var firstDay = today.startOf('month').format('D');
+            let firstDay = (new Date(year, parseInt(month)-1)).getDay();
+            let daysInMonth = moment([year,parseInt(month)-1]).daysInMonth();
 
             let tbl = document.getElementById("calendar-body"); // body of the calendar
 
             // clearing all previous cells
             tbl.innerHTML = "";
 
-            // filing data about month and in the page via DOM.
+            // filing data about month and in the page via DOM
+            month = ("0"+month).substr(("0"+month).length-2,("0"+month).length);
             monthAndYear.innerHTML = months[month] + " " + year;
             selectYear.value = year;
             selectMonth.value = month;
@@ -185,20 +188,14 @@
                         bulan = ('0'+month).substr(('0'+month).length-2,('0'+month).length);
                         hari = ('0'+date).substr(('0'+date).length-2,('0'+date).length);
                         let tanggal_sebelumnya = year+'-'+bulan+'-'+hari;
-                        bulan = ('0'+today.getMonth()).substr(('0'+today.getMonth()).length-2,('0'+today.getMonth()).length);
-                        hari = ('0'+today.getDate()).substr(('0'+today.getDate()).length-2,('0'+today.getDate()).length);
-                        let tanggal_sekarang = today.getFullYear()+'-'+bulan+'-'+hari;
+                        let tanggal_sekarang = today.format('YYYY-MM-DD');
                         let cell = document.createElement("td");
                         let cellText = document.createTextNode(date);
-                        if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
+                        if (date == currentDate && year == today.format('YYYY') && month == today.format('MM')) {
                             cell.classList.add("bg-info"); cell.style.color = 'green';// color today's date
                         } else if(tanggal_sebelumnya<tanggal_sekarang){
-                            let bulan = ('0'+(month+1)).substr(('0'+(month+1)).length-2,('0'+(month+1)));
                             let hari = ('0'+(date)).substr(('0'+(date)).length-2,('0'+(date)));
-                            let tanggal = year+'-'+bulan+'-'+hari;
-                            bulan = ('0'+(month+1)).substr(('0'+(month+1)).length-2,('0'+(month+1)).length);
-                            hari = ('0'+date).substr(('0'+date).length-2,('0'+date).length);
-                            let tanggal_sebelumnya = year+'-'+bulan+'-'+hari;
+                            let tanggal = year+'-'+month+'-'+hari;
                             cell.style.color = 'white';
                             if(absenan.includes(tanggal)){
                                 cell.classList.add('bg-success')
