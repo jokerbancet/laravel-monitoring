@@ -6,22 +6,50 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <?php
-        echo '<style>';
-        echo file_get_contents(base_path('public/admin/assets/vendor/bootstrap/css/bootstrap.min.css'));
-        echo '</style>';
-    ?>
     <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        *,
+        *::before,
+        *::after {
+        box-sizing: border-box;
+        }
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+        .no-gutters {
+            margin-right: 0;
+            margin-left: 0;
+        }
+        .col-5 {
+            flex: 0 0 41.6666666667%;
+            max-width: 41.6666666667%;
+        }
         body{
-            background: #fff;
-            font-size: 13px;
+            margin-left: 100px;
+            margin-right: 100px;
+
+            font-family: 'Times New Roman',Verdana, Geneva, Tahoma, sans-serif;
         }
         .top tr td{
             vertical-align: top;
             padding-left: 5px;
         }
-        th{
-            padding:5px;
+        .table-bordered{
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        .table-bordered tr td,.table-bordered tr th{
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        .page-break {
+            page-break-before: always;
         }
     </style>
 </head>
@@ -29,20 +57,20 @@
     <center style="margin-top: 40px">
         <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('pdf/logo.png'))) }}" alt="" width="50" height="50">
         <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('pdf/header.png'))) }}" alt="" width="300" height="50" style="margin-left: 30px">
+        <h4>DAFTAR CAPAIAN MAHASISWA DAN REKAP LAPORAN MAHASISWA MAGANG INDUSTRI POLITEKNIK ENERGI DAN<br> PERTAMBANGAN BANDUNG</h4>
     </center>
-    <h4 class="text-center">DAFTAR CAPAIAN MAHASISWA DAN REKAP LAPORAN MAHASISWA MAGANG INDUSTRI POLITEKNIK ENERGI DAN PERTAMBANGAN BANDUNG</h4>
-    <p style="font-size: 18px; margin-top: 30px">Berikut data detail mahasiswa yang melakukan magang.</p>
-    <div class="row no-gutters">
-        <div class="col-xs-2">
-            <img style="margin-top: 14px" src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('/'.$pemagang->mahasiswa->getAvatar(false))))}}" width="160" height="166" alt="Avatar">
+    <p style="font-size: 18px; margin-top: 30px;margin-bottom: 50px">Berikut data detail mahasiswa yang melakukan magang.</p>
+    <div class="row no-gutters" style="margin-top: 30px;">
+        <div class="col-5">
+            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('/'.$pemagang->mahasiswa->getAvatar(false))))}}" style="width: 270px; height: 300px;margin-top: 30px;margin-left: 20px" alt="Avatar">
         </div>
-        <div class="col-xs-6">
-            <table class="table-borderless" style="margin-left: -35px; width: 100%; line-height: .45cm">
+        <div class="col-5">
+            <table style="width: 100%; line-height: 25px;margin-left: 310px">
                 <tbody>
                     <tr>
-                        <td style="width: 40%">Nama</td>
-                        <td style="width: 15px; text-align: center"> :</td>
-                        <td>{{$pemagang->mahasiswa->nama}}</td>
+                        <td style="width: 160px">Nama</td>
+                        <td style="width: 15px"> :</td>
+                        <td style="width: 300">{{$pemagang->mahasiswa->nama}}</td>
                     </tr>
                     <tr>
                         <td>NIM</td>
@@ -92,8 +120,8 @@
                 </tbody>
             </table>
         </div>
-    </div>
-    <table class="table-bordered" style="width: 100%">
+    </div><br><br>
+    <table class="table-bordered" style="width: 100%;">
         <thead>
             <tr>
                 <th style="width: 10px">NO</th>
