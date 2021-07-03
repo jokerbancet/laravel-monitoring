@@ -18,7 +18,6 @@
                             <h2 class="panel-title">Relasi Capaian dengan mahasiswa.</h2>
                         </div>
                         <div class="panel-body">
-                            <h1>Test form</h1>
                             <table class="table mydatatable">
                                 <thead>
                                     <tr>
