@@ -38,7 +38,7 @@
                     {{-- Cek apakah masa menjadi pemagang masih berlaku atau tidak --}}
                     @if (!is_null($masa_magang))
                         {{-- Cek apakah hari ini hari libur atau bukan ['Minggu', 'Sabtu'] -> cek di LaporanController method index variable $excepted_days --}}
-                        @if (!$hari_libur)
+                        {{-- @if (!$hari_libur) --}}
                             {{-- Cek apakah si pemagang sudah melakukan laporan hari ini atau belum --}}
                             @if ($hasLaporanToday->count()<2)
                                 <div class="col-md-12">
@@ -110,7 +110,7 @@
                                 </div>
                             </div>
                             @endif
-                        @else
+                        {{-- @else
                             <div class="col-md-12">
                                 <div class="panel">
                                     <div class="panel-heading">
@@ -118,7 +118,7 @@
                                     </div>
                                 </div>
                             </div>
-                        @endif
+                        @endif --}}
                     @else
                         <div class="col-md-12">
                             <div class="panel">
