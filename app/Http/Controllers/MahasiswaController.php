@@ -147,10 +147,10 @@ class MahasiswaController extends Controller
 
     public function absen(Request $request)
     {
-        $id = auth()->user()->pemagang->id;
+        $id = auth()->user()->pemagang->id??0;
         $pemagang=Pemagangan::select('mulai_magang','selesai_magang')->where('id',$id)->first();
         $absen = Laporan::with('pemagangan')->select(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') as tanggal"))
-                          ->where('id_data_bimbingan', auth()->user()->pemagang->id)->pluck('tanggal');
+                          ->where('id_data_bimbingan', auth()->user()->pemagang->id??0)->pluck('tanggal');
         return $request->ajax()?response()->json(compact('pemagang','absen')):view('mahasiswa.absen');
     }
 }

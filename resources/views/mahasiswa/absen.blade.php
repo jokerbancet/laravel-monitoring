@@ -3,6 +3,8 @@
 <div class="main">
     <div class="main-content">
         <div class="container-fluid">
+            {{-- Cek apakah si mahasiswa terdaftar sebagai pemagang atau tidak --}}
+            @if (!is_null(auth()->user()->mahasiswa->pemagangan))
             <div class="panel">
                 <h3 class="panel-heading" id="monthAndYear"></h3>
                 <div class="panel-body">
@@ -90,132 +92,141 @@
                     </form>
                 </div>
             </div>
+            @else
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="alert alert-warning">Maaf anda belum menjadi peserta magang.</div>
+                </div>
+            </div>
+            @endif
         </div>
     </div>
 </div>
 @endsection
 
-@push('js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
-    integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
-    crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
-    integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
-    crossorigin="anonymous"></script>
-    <script>
-        $('#absen-ku').addClass('active');
-        let today = moment(new Date).tz("Asia/Jakarta");
-        let currentMonth = today.format('MM');
-        let currentYear = today.format('YYYY');
-        let currentDate = today.format('DD');
-        let selectYear = document.getElementById("year");
-        let selectMonth = document.getElementById("month");
+@if (!is_null(auth()->user()->mahasiswa->pemagangan))
+    @push('js')
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
+        <script>
+            $('#absen-ku').addClass('active');
+            let today = moment(new Date).tz("Asia/Jakarta");
+            let currentMonth = today.format('MM');
+            let currentYear = today.format('YYYY');
+            let currentDate = today.format('DD');
+            let selectYear = document.getElementById("year");
+            let selectMonth = document.getElementById("month");
 
-        var absenan;
-        var mulai_magang,selesai_magang;
-        // Ajax laporan data
-        $.ajax({
-            url: '',
-            async: false,
-            success: function(result){
-                absenan = result.absen
-                mulai_magang = result.pemagang.mulai_magang
-                selesai_magang = result.pemagang.selesai_magang
+            var absenan;
+            var mulai_magang,selesai_magang;
+            // Ajax laporan data
+            $.ajax({
+                url: '',
+                async: false,
+                success: function(result){
+                    absenan = result.absen
+                    mulai_magang = result.pemagang.mulai_magang
+                    selesai_magang = result.pemagang.selesai_magang
+                }
+            });
+            // console.log(absenan,mulai_magang,selesai_magang);
+
+            let months = {"01":"Jan", "02":"Feb", "03":"Mar", "04":"Apr", "05":"May", "06":"Jun",
+                            "07":"Jul", "08":"Aug", "09":"Sep", "10":"Oct", "11":"Nov", "12":"Dec"};
+            let monthAndYear = document.getElementById("monthAndYear");
+            showCalendar(currentMonth, currentYear);
+
+
+            function next() {
+                currentYear = (currentMonth === 12) ? currentYear + 1 : currentYear;
+                currentMonth = (currentMonth + 1) % 12;
+                showCalendar(currentMonth, currentYear);
             }
-        });
-        // console.log(absenan,mulai_magang,selesai_magang);
 
-        let months = {"01":"Jan", "02":"Feb", "03":"Mar", "04":"Apr", "05":"May", "06":"Jun",
-                        "07":"Jul", "08":"Aug", "09":"Sep", "10":"Oct", "11":"Nov", "12":"Dec"};
-        let monthAndYear = document.getElementById("monthAndYear");
-        showCalendar(currentMonth, currentYear);
+            function previous() {
+                currentYear = (currentMonth === 1) ? currentYear - 1 : currentYear;
+                currentMonth = (currentMonth === 1) ? 12 : currentMonth - 1;
+                showCalendar(currentMonth, currentYear);
+            }
 
+            function jump() {
+                currentYear = parseInt(selectYear.value);
+                currentMonth = selectMonth.value;
+                showCalendar(currentMonth, currentYear);
+            }
 
-        function next() {
-            currentYear = (currentMonth === 12) ? currentYear + 1 : currentYear;
-            currentMonth = (currentMonth + 1) % 12;
-            showCalendar(currentMonth, currentYear);
-        }
+            function showCalendar(month, year) {
+                // var firstDay = today.startOf('month').format('D');
+                let firstDay = (new Date(year, parseInt(month)-1)).getDay();
+                let daysInMonth = moment([year,parseInt(month)-1]).daysInMonth();
 
-        function previous() {
-            currentYear = (currentMonth === 1) ? currentYear - 1 : currentYear;
-            currentMonth = (currentMonth === 1) ? 12 : currentMonth - 1;
-            showCalendar(currentMonth, currentYear);
-        }
+                let tbl = document.getElementById("calendar-body"); // body of the calendar
 
-        function jump() {
-            currentYear = parseInt(selectYear.value);
-            currentMonth = selectMonth.value;
-            showCalendar(currentMonth, currentYear);
-        }
+                // clearing all previous cells
+                tbl.innerHTML = "";
 
-        function showCalendar(month, year) {
-            // var firstDay = today.startOf('month').format('D');
-            let firstDay = (new Date(year, parseInt(month)-1)).getDay();
-            let daysInMonth = moment([year,parseInt(month)-1]).daysInMonth();
+                // filing data about month and in the page via DOM
+                month = ("0"+month).substr(("0"+month).length-2,("0"+month).length);
+                monthAndYear.innerHTML = months[month] + " " + year;
+                selectYear.value = year;
+                selectMonth.value = month;
 
-            let tbl = document.getElementById("calendar-body"); // body of the calendar
+                // creating all cells
+                let date = 1;
+                let bulan,hari;
+                for (let i = 0; i < 6; i++) {
+                    // creates a table row
+                    let row = document.createElement("tr");
 
-            // clearing all previous cells
-            tbl.innerHTML = "";
-
-            // filing data about month and in the page via DOM
-            month = ("0"+month).substr(("0"+month).length-2,("0"+month).length);
-            monthAndYear.innerHTML = months[month] + " " + year;
-            selectYear.value = year;
-            selectMonth.value = month;
-
-            // creating all cells
-            let date = 1;
-            let bulan,hari;
-            for (let i = 0; i < 6; i++) {
-                // creates a table row
-                let row = document.createElement("tr");
-
-                //creating individual cells, filing them up with data.
-                for (let j = 0; j < 7; j++) {
-                    if (i === 0 && j < firstDay) {
-                        let cell = document.createElement("td");
-                        let cellText = document.createTextNode("");
-                        cell.appendChild(cellText);
-                        row.appendChild(cell);
-                    }
-                    else if (date > daysInMonth) {
-                        break;
-                    }
-
-                    else {
-                        bulan = ('0'+month).substr(('0'+month).length-2,('0'+month).length);
-                        hari = ('0'+date).substr(('0'+date).length-2,('0'+date).length);
-                        let tanggal_sebelumnya = year+'-'+bulan+'-'+hari;
-                        let tanggal_sekarang = today.format('YYYY-MM-DD');
-                        let cell = document.createElement("td");
-                        let cellText = document.createTextNode(date);
-                        if (date == currentDate && year == today.format('YYYY') && month == today.format('MM')) {
-                            cell.classList.add("bg-info"); cell.style.color = 'green';// color today's date
-                        } else if(tanggal_sebelumnya<tanggal_sekarang){
-                            let hari = ('0'+(date)).substr(('0'+(date)).length-2,('0'+(date)));
-                            let tanggal = year+'-'+month+'-'+hari;
-                            cell.style.color = 'white';
-                            if(absenan.includes(tanggal)){
-                                cell.classList.add('bg-success')
-                            }else if(mulai_magang<=tanggal_sebelumnya&&tanggal_sebelumnya<=selesai_magang){
-                                cell.classList.add('bg-danger')
-                            }else{cell.style.color = 'black'}
-                        }else if(tanggal_sebelumnya<=selesai_magang){
-                            cell.style.color='blue'
+                    //creating individual cells, filing them up with data.
+                    for (let j = 0; j < 7; j++) {
+                        if (i === 0 && j < firstDay) {
+                            let cell = document.createElement("td");
+                            let cellText = document.createTextNode("");
+                            cell.appendChild(cellText);
+                            row.appendChild(cell);
                         }
-                        cell.appendChild(cellText);
-                        row.appendChild(cell);
-                        date++;
+                        else if (date > daysInMonth) {
+                            break;
+                        }
+
+                        else {
+                            bulan = ('0'+month).substr(('0'+month).length-2,('0'+month).length);
+                            hari = ('0'+date).substr(('0'+date).length-2,('0'+date).length);
+                            let tanggal_sebelumnya = year+'-'+bulan+'-'+hari;
+                            let tanggal_sekarang = today.format('YYYY-MM-DD');
+                            let cell = document.createElement("td");
+                            let cellText = document.createTextNode(date);
+                            if (date == currentDate && year == today.format('YYYY') && month == today.format('MM')) {
+                                cell.classList.add("bg-info"); cell.style.color = 'green';// color today's date
+                            } else if(tanggal_sebelumnya<tanggal_sekarang){
+                                let hari = ('0'+(date)).substr(('0'+(date)).length-2,('0'+(date)));
+                                let tanggal = year+'-'+month+'-'+hari;
+                                cell.style.color = 'white';
+                                if(absenan.includes(tanggal)){
+                                    cell.classList.add('bg-success')
+                                }else if(mulai_magang<=tanggal_sebelumnya&&tanggal_sebelumnya<=selesai_magang){
+                                    cell.classList.add('bg-danger')
+                                }else{cell.style.color = 'black'}
+                            }else if(tanggal_sebelumnya<=selesai_magang){
+                                cell.style.color='blue'
+                            }
+                            cell.appendChild(cellText);
+                            row.appendChild(cell);
+                            date++;
+                        }
+
+
                     }
 
-
+                    tbl.appendChild(row); // appending each row into calendar body.
                 }
 
-                tbl.appendChild(row); // appending each row into calendar body.
             }
-
-        }
-    </script>
-@endpush
+        </script>
+    @endpush
+@endif
