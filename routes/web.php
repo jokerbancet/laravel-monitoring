@@ -64,7 +64,8 @@ Route::group(['middleware' => ['auth', 'CheckRole:admin']], function(){
     //Data Pemagangan
     Route::get('/pemagangan',[PemaganganController::class, 'index']);
     Route::post('/pemagangan/create',[PemaganganController::class, 'create']);
-    Route::get('/pemagangan/{id}/edit', [PemaganganController::class, 'edit']);
+    Route::get('/pemagangan/{pemagang}/edit', [PemaganganController::class, 'edit']);
+    Route::put('/pemagangan/{pemagang}/update', [PemaganganController::class, 'update']);
     Route::get('/pemagangan/{id}/delete', [PemaganganController::class, 'delete']);
 
     //Data indikator capaian

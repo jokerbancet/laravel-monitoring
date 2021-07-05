@@ -17,63 +17,61 @@
                         @endif
                     </div>
                     <div class="panel-body">
-                        <form action="/pemagangan/{{ $data->id }}/update" method="POST" enctype="multipart/form-data">
-                            {{ csrf_field() }}
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Nama Mahasiswa</label>
-                                <select name="mahasiswa_id" id="mahasiswa_id" class="form-control">
-                                    @foreach($data1 as $data)
-                                        <option value="{{ $data->id }}">{{ $data->nama }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Dosen Pembimbing</label>
-                                <select name="dosenpembimbing_id" id="dosenpembimbing_id" class="form-control">
-                                    <option value=""></option>
-                                    @foreach($data2 as $data)
-                                        <option value="{{ $data->id }}">{{ $data->nama }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Pembimbing Industri</label>
-                                <select name="pembimbingindustri_id" id="pembimbingindustri_id" class="form-control">
-                                    <option value=""></option>
-                                    @foreach($data3 as $data)
-                                        <option value="{{ $data->id }}">{{ $data->nama }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Mulai Magang</label>
-                                @foreach ($data1 as $data)
-                                    <input type="date" class="form-control" name="mulai_magang" value="{{ $data->mulai_magang }}">
-                                @endforeach
-                                @if($errors->has('mulai_magang'))
-                                    <p class="text-danger">{{ $errors->first('mulai_magang') }}
-                                    </p>
-                                @endif
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Selesai Magang</label>
-                                @foreach ($data1 as $data)
-                                    <input type="date" class="form-control" name="mulai_magang" value="{{ $data->selesai_magang }}">
-                                @endforeach
-                                @if($errors->has('selesai_magang'))
-                                    <p class="text-danger">{{ $errors->first('selesai_magang') }}
-                                    </p>
-                                @endif
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Jenis Pekerjaan</label>
-                                @foreach ($data1 as $data)
-                                    <input type="text" class="form-control" name="jenis_pekerjaan" value="{{ $data->jenis_pekerjaan }}">
-                                @endforeach
-                                @if($errors->has('jenis_pekerjaan'))
-                                    <p class="text-danger">{{ $errors->first('jenis_pekerjaan') }}
-                                    </p>
-                                @endif
+                        <form action="/pemagangan/{{ $pemagang->id }}/update" method="POST">
+                            @csrf
+                            @method('put')
+                            <div class="row">
+                                <div class="col-md-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label for="mahasiswa_id">Nama Mahasiswa</label>
+                                        <select name="mahasiswa_id" id="mahasiswa_id" class="form-control">
+                                            @foreach($mahasiswa as $data)
+                                                <option value="{{ $data->id }}">{{ $data->nama }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="dosenpembimbing_id">Dosen Pembimbing</label>
+                                        <select name="dosenpembimbing_id" id="dosenpembimbing_id" class="form-control">
+                                            <option value=""></option>
+                                            @foreach($dosenPembimbing as $data)
+                                                <option value="{{ $data->id }}">{{ $data->nama }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pembimbingindustri_id">Pembimbing Industri</label>
+                                        <select name="pembimbingindustri_id" id="pembimbingindustri_id" class="form-control">
+                                            <option value=""></option>
+                                            @foreach($pembimbingIndustri as $data)
+                                                <option value="{{ $data->id }}">{{ $data->nama }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label for="mulai">Mulai Magang</label>
+                                        <input type="date" class="form-control" id="mulai_magang" name="mulai_magang">
+                                        @error('mulai_magang')
+                                            <i class="text-sm text-danger">{{$message}}</i>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="selesai_magang">Selesai Magang</label>
+                                        <input type="date" class="form-control" id="selesai_magang" name="selesai_magang">
+                                        @error('selesai_magang')
+                                            <i class="text-sm text-danger">{{$message}}</i>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="jenis_pekerjaan">Jenis Pekerjaan</label>
+                                        <input type="text" class="form-control" id="jenis_pekerjaan" name="jenis_pekerjaan">
+                                        @error('jenis_pekerjaan')
+                                            <i class="text-sm text-danger">{{$message}}</i>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Edit Data</button>
@@ -92,6 +90,14 @@
     <script>
         $('#subPages2').addClass('in').prev().addClass('active').removeClass('collapsed');
         $('#data-pemagang').addClass('active')
+        $.ajax({
+            url: '',
+            success: function(pemagang){
+                for(let index in pemagang){
+                    $('#'+index).val(pemagang[index]);
+                }
+            }
+        })
     </script>
 @endpush
 

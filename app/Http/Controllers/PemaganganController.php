@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DosenPembimbing;
+use App\Models\Mahasiswa;
 use App\Models\Pemagangan;
+use App\Models\PembimbingIndustri;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -91,38 +94,42 @@ class PemaganganController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Pemagangan $pemagang)
     {
-        $data = Pemagangan::find($id);
+        // $data = Pemagangan::find($id);
 
-        //ambil data nama mahasiswa
-        $data1 = DB::table('data_bimbingan')
-        ->select('data_bimbingan.id','mahasiswa.nama', 'data_bimbingan.mahasiswa_id','data_bimbingan.mulai_magang','data_bimbingan.selesai_magang','data_bimbingan.jenis_pekerjaan')
-        ->join('mahasiswa', 'data_bimbingan.mahasiswa_id', '=', 'mahasiswa.id')
-        ->where('data_bimbingan.mahasiswa_id', '=', $id)
-        ->get();
+        // //ambil data nama mahasiswa
+        // $data1 = DB::table('data_bimbingan')
+        // ->select('data_bimbingan.id','mahasiswa.nama', 'data_bimbingan.mahasiswa_id','data_bimbingan.mulai_magang','data_bimbingan.selesai_magang','data_bimbingan.jenis_pekerjaan')
+        // ->join('mahasiswa', 'data_bimbingan.mahasiswa_id', '=', 'mahasiswa.id')
+        // ->where('data_bimbingan.mahasiswa_id', '=', $id)
+        // ->get();
 
-        //ambil data nama dosen pembimbing
-        $data2 = DB::table('dosenpembimbing')
-        ->select('dosenpembimbing.id', 'dosenpembimbing.nama', DB::raw('COUNT(data_bimbingan.mahasiswa_id) AS jumlah_anak'))
-        ->leftJoin('data_bimbingan', 'dosenpembimbing.id', '=', 'data_bimbingan.dosenpembimbing_id')
-        ->groupBy('dosenpembimbing.id')
-        ->having('jumlah_anak', '<', 10)
-        ->get();
+        // //ambil data nama dosen pembimbing
+        // $data2 = DB::table('dosenpembimbing')
+        // ->select('dosenpembimbing.id', 'dosenpembimbing.nama', DB::raw('COUNT(data_bimbingan.mahasiswa_id) AS jumlah_anak'))
+        // ->leftJoin('data_bimbingan', 'dosenpembimbing.id', '=', 'data_bimbingan.dosenpembimbing_id')
+        // ->groupBy('dosenpembimbing.id')
+        // ->having('jumlah_anak', '<', 10)
+        // ->get();
 
-        //ambil data nama pembimbing industri
-        $data3 = DB::table('pembimbingindustri')
-        ->select('id', 'nama')
-        ->get();
+        // //ambil data nama pembimbing industri
+        // $data3 = DB::table('pembimbingindustri')
+        // ->select('id', 'nama')
+        // ->get();
 
         // dd($data1);
         //ambil data pemagangan where $id
-        return view('pemagangan.edit', [
-            'data' => $data,
-            'data1' => $data1,
-            'data2' => $data2,
-            'data3' => $data3
-            ]);
+        // return view('pemagangan.edit', [
+        //     'data' => $data,
+        //     'data1' => $data1,
+        //     'data2' => $data2,
+        //     'data3' => $data3
+        //     ]);
+        $mahasiswa          = Mahasiswa::all();
+        $dosenPembimbing    = DosenPembimbing::all();
+        $pembimbingIndustri = PembimbingIndustri::all();
+        return request()->ajax()?response()->json($pemagang):view('pemagangan.edit',compact('pemagang','mahasiswa','dosenPembimbing','pembimbingIndustri'));
     }
 
     /**
@@ -132,9 +139,11 @@ class PemaganganController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Pemagangan $pemagang)
     {
-        //
+        $nama = $pemagang->mahasiswa->nama;
+        $pemagang->update($request->all());
+        return redirect('/pemagangan')->with('sukses',"Pemangan $nama berhasil diperbarui.");
     }
 
     /**
