@@ -217,7 +217,8 @@
                         if(!is_approve)
                         $('#'+i).attr('disabled',!is_approve);
                     }
-                    $('#approve_dosen').attr('disabled',result.approve_industri=='pending');
+                    let is_dosen="{{is_null(auth()->user()->pembimbingIndustri)}}";
+                    $('#approve_dosen').attr('disabled',result.approve_industri=='pending'||!is_dosen);
                 }
             })
         }
