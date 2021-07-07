@@ -27,7 +27,11 @@
                                             <th>Nama Mahasiswa</th>
                                             <th>Jurusan</th>
                                             <th>Kegiatan</th>
-                                            <th>Persetujuan Dosen</th>
+                                            @if (auth()->user()->role=='dosenpembimbing')
+                                                <th>Persetujuan Dosen Pembimbing</th>
+                                                @else
+                                                <th>Persetujuan Pembimbing Industri</th>
+                                            @endif
                                             <th>Status Laporan</th>
                                             <th>Aksi</th>
                                         </tr>
