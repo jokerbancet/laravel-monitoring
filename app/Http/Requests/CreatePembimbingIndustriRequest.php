@@ -22,7 +22,8 @@ class CreatePembimbingIndustriRequest extends FormRequest
             'nama' => 'required|min:5',
             'email' => 'required|email|unique:users',
             'jk' => 'required',
-            'avatar' => 'image|mimes:jpg,jpeg,png'
+            'avatar' => 'image|mimes:jpg,jpeg,png',
+            'industri_id' => 'required'
         ];
     }
 

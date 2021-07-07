@@ -35,11 +35,12 @@ class PembimbingIndustriController extends Controller
 
     public function create(CreatePembimbingIndustriRequest  $request)
     {
+        // dd($request);
         $user = new \App\Models\User;
         $user->role = 'pembimbingindustri';
         $user->name = $request->nama;
         $user->email = $request->email;
-        $user->password = bcrypt('passwordpembimbingindustri');
+        $user->password = bcrypt('passworddpi');
         $user->remember_token = Str::random(60);
         $user->save();
 
