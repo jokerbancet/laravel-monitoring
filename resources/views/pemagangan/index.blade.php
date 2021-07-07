@@ -31,7 +31,7 @@
                                         <th>Prodi</th>
                                         <th>Mulai Magang</th>
                                         <th>Selesai Magang</th>
-                                        <th>Jenis Pekerjaan</th>
+                                        {{-- <th>Jenis Pekerjaan</th> --}}
                                         <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -43,7 +43,7 @@
                                             <td>{{ $p->jurusan }}</td>
                                             <td>{{ $p->mulai_magang }}</td>
                                             <td>{{ $p->selesai_magang }}</td>
-                                            <td>{{ $p->jenis_pekerjaan }}</td>
+                                            {{-- <td>{{ $p->jenis_pekerjaan }}</td> --}}
                                                 @php
                                                     $tgl_sekarang = strtotime(date("d-m-Y"));
                                                     $tgl_selesai = strtotime($p->selesai_magang);
@@ -134,13 +134,13 @@
                                 <p class="text-danger">{{$errors->first('selesai_magang')}}</p>
                             @endif
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="exampleInputEmail1">Jenis Pekerjaan</label>
                         <input type="text" class="form-control" name="jenis_pekerjaan" placeholder="Masukan Jenis Pekerjaan" value="{{old('jenis_pekerjaan')}}">
                         @if ($errors->has('jenis_pekerjaan'))
                                 <p class="text-danger">{{$errors->first('jenis_pekerjaan')}}</p>
                             @endif
-                    </div>
+                    </div> --}}
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Submit</button>
