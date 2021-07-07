@@ -160,7 +160,7 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-6">
-                                    <label for="approve_industri">Approval Industri</label>
+                                    <label for="approve_industri" class="text-success">Approval Industri</label>
                                     <select name="approve_industri" id="approve_industri" class="form-control" {{auth()->user()->pembimbingIndustri?'':'disabled'}}>
                                         <option value="pending">Pending</option>
                                         <option value="mengamati">Mengamati</option>
@@ -169,7 +169,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="approve_dosen">Approval Dosen</label>
+                                    <label for="approve_dosen" class="text-success">Approval Dosen</label>
                                     <select name="approve_dosen" id="approve_dosen" class="form-control"{{auth()->user()->dosenPembimbing?'':'disabled="true"'}}>
                                         <option value="pending">Pending</option>
                                         <option value="mengamati">Mengamati</option>
