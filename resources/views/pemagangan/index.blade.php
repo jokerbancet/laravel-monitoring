@@ -50,7 +50,7 @@
                                                 @endphp
                                             <td>@php
                                                 if($tgl_sekarang < $tgl_selesai){
-                                                    echo '<span class="label label-primary">Mulai Magang</span>';
+                                                    echo '<span class="label label-primary">Sedang Magang</span>';
                                                 }else{
                                                     echo '<span class="label label-success">Selesai Magang</span>';
                                                 }

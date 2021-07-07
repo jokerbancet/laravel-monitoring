@@ -54,7 +54,7 @@
                                         </td>
                                         <td>
                                             @if(date('Y-m-d') < $data->selesai_magang)
-                                                <span class="label label-primary">Mulai Magang</span>
+                                                <span class="label label-primary">Sedang Magang</span>
                                             @else
                                                 <span class="label label-success">Selesai Magang</span>
                                             @endif
