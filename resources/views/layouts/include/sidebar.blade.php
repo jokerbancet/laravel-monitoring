@@ -44,6 +44,7 @@
                 @if (auth()->user()->role == 'dosenpembimbing'||auth()->user()->role == 'pembimbingindustri')
                     <li><a href="/data-bimbingan" id="data-bimbingan"><i class="lnr lnr-database"></i> <span>Mahasiswa Bimbingan</span></a></li>
                     <li><a href="/persetujuan" id="persetujuan"><i class="lnr lnr-chart-bars"></i> <span>Persetujuan</span></a></li>
+                    <li><a href="/histori-approval" id="persetujuan"><i class="lnr lnr-history"></i> <span>Histori Persetujuan</span></a></li>
                 @endif
             </ul>
         </nav>

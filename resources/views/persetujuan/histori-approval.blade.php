@@ -16,7 +16,7 @@
                     @endif
                     <div class="panel">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Data Laporan Mahasiswa</h3>
+                            <h3 class="panel-title">Histori Laporan Mahasiswa</h3>
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -27,13 +27,9 @@
                                             <th>Nama Mahasiswa</th>
                                             <th>Jurusan</th>
                                             <th>Kegiatan</th>
-                                            @if (auth()->user()->role=='dosenpembimbing')
-                                                <th>Persetujuan Dosen Pembimbing</th>
-                                                @else
-                                                <th>Persetujuan Pembimbing Industri</th>
-                                            @endif
+                                            <th>Persetujuan Dosen Pembimbing</th>
+                                            <th>Persetujuan Pembimbing Industri</th>
                                             <th>Status Laporan</th>
-                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -45,17 +41,9 @@
                                                     <td>{{ $lprn->mahasiswa->nama }}</td>
                                                     <td>{{ $lprn->mahasiswa->jurusan }}</td>
                                                     <td>{{ $lprn->kegiatan_pekerjaan }}</td>
-                                                    @if (auth()->user()->role=='dosenpembimbing')
-                                                        <td class="text-center"><span class="label {{cek_status($lprn->approve_dosen,1)}}">{{ $lprn->approve_dosen }}</span></td>
-                                                    @else
-                                                        <td class="text-center"><span class="label {{cek_status($lprn->approve_industri,1)}}">{{ $lprn->approve_industri }}</span></td>
-                                                    @endif
+                                                    <td class="text-center"><span class="label {{cek_status($lprn->approve_dosen,1)}}">{{ $lprn->approve_dosen }}</span></td>
+                                                    <td class="text-center"><span class="label {{cek_status($lprn->approve_industri,1)}}">{{ $lprn->approve_industri }}</span></td>
                                                     <td class="text-center"><span class="label {{cek_status($lprn->status_laporan,2)}}">{{ $lprn->status_laporan }}</span></td>
-                                                    <td>
-                                                        <button class="btn btn-info" onclick="detail({{$lprn->id}})" data-toggle="modal" data-target="#modalLaporan">
-                                                            Detail
-                                                        </button>
-                                                    </td>
                                                 </tr>
                                             @endforeach
                                         @endforeach
@@ -71,7 +59,7 @@
     </div>
 </div>
 
-<!-- Modal -->
+{{-- <!-- Modal -->
 <div class="modal fade" id="modalLaporan" tabindex="-1" role="dialog" aria-labelledby="modalLaporanLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -189,9 +177,9 @@
             </form>
         </div>
     </div>
-</div>
+</div> --}}
 @endsection
-@push('js')
+{{-- @push('js')
     <script>
         $('#persetujuan').addClass('active');
         function detail(laporan_id){
@@ -227,4 +215,4 @@
             })
         }
     </script>
-@endpush
+@endpush --}}

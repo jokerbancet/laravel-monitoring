@@ -80,7 +80,7 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="tambahdatamagang" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="tambahdatamagang" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -93,19 +93,19 @@
             <div class="modal-body">
                 <form action="/pemagangan/create" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Nama Mahasiswa</label>
-                            <select name="mahasiswa_id" id="mahasiswa_id" class="form-control">
-                                <option value=""></option>
-                                @foreach ($data1 as $data)
-                                    <option value="{{$data->id}}">{{$data->nama.' - '.$data->jurusan}}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                    <div class="form-group">
+                        <label for="mahasiswa_id">Nama Mahasiswa</label>
+                        <select name="mahasiswa_id" data-width="100%" id="mahasiswa_id" class="form-control">
+                            <option value="">Pilih Mahasiswa</option>
+                            @foreach ($data1 as $data)
+                                <option value="{{$data->id}}">{{$data->nama.' - '.$data->jurusan}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Dosen Pembimbing</label>
-                        <select name="dosenpembimbing_id" id="dosenpembimbing_id" class="form-control">
-                            <option value=""></option>
+                        <select name="dosenpembimbing_id" data-width="100%" id="dosenpembimbing_id" class="form-control">
+                            <option value="">Pilih Dosen Pembimbing</option>
                             @foreach ($data2 as $data)
                                 <option value="{{$data->id}}">{{$data->nama}}</option>
                             @endforeach
@@ -113,8 +113,8 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Pembimbing Industri</label>
-                        <select name="pembimbingindustri_id" id="pembimbingindustri_id" class="form-control">
-                            <option value=""></option>
+                        <select name="pembimbingindustri_id" data-width="100%" id="pembimbingindustri_id" class="form-control">
+                            <option value="">Pilih Pembimbing Industri</option>
                             @foreach ($data3 as $data)
                                 <option value="{{$data->id}}">{{$data->nama.' - '.$data->nama_industri}}</option>
                             @endforeach
@@ -155,5 +155,16 @@
     <script>
         $('#subPages2').addClass('in').prev().addClass('active').removeClass('collapsed');
         $('#data-pemagang').addClass('active')
+        $(document).ready(function() {
+            $('#mahasiswa_id').select2({
+                theme : 'classic'
+            });
+            $('#dosenpembimbing_id').select2({
+                theme : 'classic'
+            });
+            $('#pembimbingindustri_id').select2({
+                theme : 'classic'
+            });
+        });
     </script>
 @endpush

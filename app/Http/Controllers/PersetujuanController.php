@@ -41,4 +41,16 @@ class PersetujuanController extends Controller
         }
         return back()->with('sukses', 'Laporan telah diapprove');
     }
+
+    public function historiApproval(){
+        $clause=auth()->user()->role=='dosenpembimbing'?
+                ['dosenpembimbing_id'=>auth()->user()->dosenPembimbing->id]:
+                ['pembimbingindustri_id'=>auth()->user()->pembimbingIndustri->id];
+        $mahasiswa = Pemagangan::with(['laporan'=>function($laporan){
+            return $laporan->where('status_laporan','approve')->get();
+        }])->where($clause)->get();
+
+        // dd($mahasiswa);
+        return view('persetujuan.histori-approval', compact('mahasiswa'));
+    }
 }
