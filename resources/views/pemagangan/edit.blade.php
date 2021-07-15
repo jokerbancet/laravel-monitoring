@@ -30,14 +30,25 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="dosenpembimbing_id">Dosen Pembimbing</label>
-                                        <select name="dosenpembimbing_id" id="dosenpembimbing_id" class="form-control">
-                                            <option value=""></option>
-                                            @foreach($dosenPembimbing as $data)
-                                                <option value="{{ $data->id }}">{{ $data->nama }}</option>
-                                            @endforeach
-                                        </select>
+                                    <div class="form-group row no-gutters gt-1">
+                                        <div class="col-sm-6">
+                                            <label for="dosenpembimbing_id">Dosen Pembimbing 1</label>
+                                            <select name="dosenpembimbing_id" id="dosenpembimbing_id" class="form-control">
+                                                <option value=""></option>
+                                                @foreach($dosenPembimbing as $data)
+                                                    <option value="{{ $data->id }}">{{ $data->nama }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="dosenpembimbing_id">Dosen Pembimbing 2</label>
+                                            <select name="dosenpembimbing2_id" id="dosenpembimbing2_id" class="form-control">
+                                                <option value=""></option>
+                                                @foreach($dosenPembimbing as $data)
+                                                    <option value="{{ $data->id }}">{{ $data->nama }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="pembimbingindustri_id">Pembimbing Industri</label>

@@ -71,6 +71,9 @@ class DosenPembimbingController extends Controller
     {
         //ambil data dosen sesuai dengan $id
         $data_dosen = DosenPembimbing::find($id);
+        foreach($data_dosen->mahasiswa2 as $mhs){
+            $data_dosen->mahasiswa->push($mhs);
+        }
         return view('dosenpembimbing.detail', ['dosen' => $data_dosen]);
     }
 

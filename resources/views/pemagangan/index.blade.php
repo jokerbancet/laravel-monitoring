@@ -95,25 +95,36 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="mahasiswa_id">Nama Mahasiswa</label>
-                        <select name="mahasiswa_id" data-width="100%" id="mahasiswa_id" class="form-control">
+                        <select name="mahasiswa_id" data-width="100%" id="mahasiswa_id" class="form-control select2">
                             <option value="">Pilih Mahasiswa</option>
                             @foreach ($data1 as $data)
                                 <option value="{{$data->id}}">{{$data->nama.' - '.$data->jurusan}}</option>
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Dosen Pembimbing</label>
-                        <select name="dosenpembimbing_id" data-width="100%" id="dosenpembimbing_id" class="form-control">
-                            <option value="">Pilih Dosen Pembimbing</option>
-                            @foreach ($data2 as $data)
-                                <option value="{{$data->id}}">{{$data->nama}}</option>
-                            @endforeach
-                        </select>
+                    <div class="form-group row no-gutters gt-3">
+                        <div class="col-sm-6">
+                            <label for="exampleInputEmail1">Dosen Pembimbing 1</label>
+                            <select name="dosenpembimbing_id" data-width="100%" id="dosenpembimbing_id" class="form-control select2">
+                                <option value="">Pilih Dosen Pembimbing</option>
+                                @foreach ($data2 as $data)
+                                    <option value="{{$data->id}}">{{$data->nama}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="exampleInputEmail1">Dosen Pembimbing 2</label>
+                            <select name="dosenpembimbing2_id" data-width="100%" id="dosenpembimbing2_id" class="form-control select2">
+                                <option value="">Pilih Dosen Pembimbing</option>
+                                @foreach ($data2 as $data)
+                                    <option value="{{$data->id}}">{{$data->nama}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Pembimbing Industri</label>
-                        <select name="pembimbingindustri_id" data-width="100%" id="pembimbingindustri_id" class="form-control">
+                        <select name="pembimbingindustri_id" data-width="100%" id="pembimbingindustri_id" class="form-control select2">
                             <option value="">Pilih Pembimbing Industri</option>
                             @foreach ($data3 as $data)
                                 <option value="{{$data->id}}">{{$data->nama.' - '.$data->nama_industri}}</option>
@@ -156,15 +167,9 @@
         $('#subPages2').addClass('in').prev().addClass('active').removeClass('collapsed');
         $('#data-pemagang').addClass('active')
         $(document).ready(function() {
-            $('#mahasiswa_id').select2({
-                theme : 'classic'
-            });
-            $('#dosenpembimbing_id').select2({
-                theme : 'classic'
-            });
-            $('#pembimbingindustri_id').select2({
-                theme : 'classic'
-            });
+            $('.select2').select2({
+                theme: 'classic'
+            })
         });
     </script>
 @endpush

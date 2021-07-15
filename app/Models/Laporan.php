@@ -21,6 +21,11 @@ class Laporan extends Model
         return $this->hasOneThrough(DosenPembimbing::class, Pemagangan::class, 'id', 'id','id_data_bimbingan','dosenpembimbing_id');
     }
 
+    public function dosenPembimbing2()
+    {
+        return $this->hasOneThrough(DosenPembimbing::class, Pemagangan::class, 'id', 'id','id_data_bimbingan','dosenpembimbing2_id');
+    }
+
     public function pembimbingIndustri()
     {
         return $this->hasOneThrough(PembimbingIndustri::class, Pemagangan::class, 'id', 'id','id_data_bimbingan','pembimbingindustri_id');

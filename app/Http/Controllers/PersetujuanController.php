@@ -16,21 +16,25 @@ class PersetujuanController extends Controller
                 ['pembimbingindustri_id'=>auth()->user()->pembimbingIndustri->id];
         $mahasiswa = Pemagangan::with(['laporan'=>function($laporan){
             return $laporan->where('status_laporan','pending')->get();
-        }])->where($clause)->get();
+        }])->where($clause);
+        if(auth()->user()->role=='dosenpembimbing'){
+            $mahasiswa->orWhere(['dosenpembimbing2_id'=>auth()->user()->dosenPembimbing->id]);
+        }
+        $mahasiswa=$mahasiswa->get();
 
         return view('persetujuan.index', compact('mahasiswa'));
     }
 
     public function show(Request $request,Laporan $laporan)
     {
-        $laporan->mahasiswa;
+        $laporan->mahasiswa->pemagangan;
         return $request->ajax()?response()->json($laporan):abort(403,'Permintaan harus ajax');
     }
 
     public function approve(Request $request, Laporan $laporan)
     {
         $laporan->update($request->toArray());
-        if($laporan->approve_dosen!=='pending'&&$laporan->approve_industri!=='pending'){
+        if($laporan->approve_dosen!=='pending'&&$laporan->approve_dosen2!=='pending'&&$laporan->approve_industri!=='pending'){
             $laporan->update(['status_laporan'=>'approve']);
             DB::table('data_kompetensi')->insert([
                 'mahasiswa_id'=>$laporan->mahasiswa->id,

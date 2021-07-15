@@ -77,7 +77,11 @@ class MahasiswaController extends Controller
             auth()->user()->pembimbingIndustri->id;
         $where=!is_null(auth()->user()->dosenPembimbing)?
                 ['dosenpembimbing_id'=>$id]:['pembimbingindustri_id'=>$id];
-        $mahasiswa = Pemagangan::where($where)->get();
+        $mahasiswa = Pemagangan::where($where);
+        if(!is_null(auth()->user()->dosenPembimbing)){
+            $mahasiswa->orWhere(['dosenpembimbing2_id'=>$id]);
+        }
+        $mahasiswa=$mahasiswa->get();
         return view('mahasiswa.data',compact('mahasiswa'));
     }
 

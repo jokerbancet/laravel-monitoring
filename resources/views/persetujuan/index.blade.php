@@ -28,8 +28,8 @@
                                             <th>Jurusan</th>
                                             <th>Kegiatan</th>
                                             @if (auth()->user()->role=='dosenpembimbing')
-                                                <th>Persetujuan Dosen Pembimbing</th>
-                                                @else
+                                                <th>Persetujuan Dosen Pembimbing 1&2</th>
+                                            @else
                                                 <th>Persetujuan Pembimbing Industri</th>
                                             @endif
                                             <th>Status Laporan</th>
@@ -46,7 +46,10 @@
                                                     <td>{{ $lprn->mahasiswa->jurusan }}</td>
                                                     <td>{{ $lprn->kegiatan_pekerjaan }}</td>
                                                     @if (auth()->user()->role=='dosenpembimbing')
-                                                        <td class="text-center"><span class="label {{cek_status($lprn->approve_dosen,1)}}">{{ $lprn->approve_dosen }}</span></td>
+                                                        <td class="text-center">
+                                                            <span class="label {{cek_status($lprn->approve_dosen,1)}}">{{ $lprn->approve_dosen }}</span> &
+                                                            <span class="label {{cek_status($lprn->approve_dosen2,1)}}">{{ $lprn->approve_dosen2 }}</span>
+                                                        </td>
                                                     @else
                                                         <td class="text-center"><span class="label {{cek_status($lprn->approve_industri,1)}}">{{ $lprn->approve_industri }}</span></td>
                                                     @endif
@@ -150,16 +153,17 @@
 
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label for="status_laporan">Status Laporan</label>
-                                <select name="status_laporan" id="status_laporan" class="form-control">
-                                    <option value="pending">Pending</option>
-                                    <option value="rejected">Rejected</option>
-                                    <option value="approve">Approve</option>
-                                </select>
-                            </div>
                             <div class="form-group row">
-                                <div class="col-md-6">
+                                <div class="col-sm-6">
+                                    <label for="status_laporan">Status Laporan</label>
+                                    <select name="status_laporan" id="status_laporan" class="form-control">
+                                        <option value="pending">Pending</option>
+                                        <option value="rejected">Rejected</option>
+                                        <option value="approve">Approve</option>
+                                    </select>
+
+                                </div>
+                                <div class="col-sm-6">
                                     <label for="approve_industri" class="text-success">Approval Industri</label>
                                     <select name="approve_industri" id="approve_industri" class="form-control" {{auth()->user()->pembimbingIndustri?'':'disabled'}}>
                                         <option value="pending">Pending</option>
@@ -168,9 +172,20 @@
                                         <option value="terampil">Terampil</option>
                                     </select>
                                 </div>
-                                <div class="col-md-6">
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-6">
                                     <label for="approve_dosen" class="text-success">Approval Dosen</label>
                                     <select name="approve_dosen" id="approve_dosen" class="form-control"{{auth()->user()->dosenPembimbing?'':'disabled="true"'}}>
+                                        <option value="pending">Pending</option>
+                                        <option value="mengamati">Mengamati</option>
+                                        <option value="mengikuti">Mengikuti</option>
+                                        <option value="terampil">Terampil</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="approve_dosen2" class="text-success">Approval Dosen 2</label>
+                                    <select name="approve_dosen2" id="approve_dosen2" class="form-control"{{auth()->user()->dosenPembimbing?'':'disabled="true"'}}>
                                         <option value="pending">Pending</option>
                                         <option value="mengamati">Mengamati</option>
                                         <option value="mengikuti">Mengikuti</option>
@@ -223,6 +238,15 @@
                     }
                     let is_dosen="{{is_null(auth()->user()->pembimbingIndustri)}}";
                     $('#approve_dosen').attr('disabled',result.approve_industri=='pending'||!is_dosen);
+                    $('#approve_dosen2').attr('disabled',result.approve_industri=='pending'||!is_dosen);
+                    if(is_dosen){
+                        let myIdDosen = "{{auth()->user()->dosenPembimbing->id}}"
+                        if(result.mahasiswa.pemagangan.dosenpembimbing_id==myIdDosen){
+                            $('#approve_dosen2').attr('disabled',true)
+                        }else if(result.mahasiswa.pemagangan.dosenpembimbing2_id==myIdDosen){
+                            $('#approve_dosen').attr('disabled',true)
+                        }
+                    }
                 }
             })
         }

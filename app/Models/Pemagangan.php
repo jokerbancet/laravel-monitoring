@@ -12,6 +12,7 @@ class Pemagangan extends Model
     protected $fillable = [
         'mahasiswa_id',
         'dosenpembimbing_id',
+        'dosenpembimbing2_id',
         'pembimbingindustri_id',
         'mulai_magang',
         'selesai_magang',
@@ -36,6 +37,11 @@ class Pemagangan extends Model
     public function dosenPembimbing()
     {
         return $this->belongsTo(DosenPembimbing::class, 'dosenpembimbing_id','id');
+    }
+
+    public function dosenPembimbing2()
+    {
+        return $this->belongsTo(DosenPembimbing::class, 'dosenpembimbing2_id','id');
     }
 
     public function pembimbingIndustri()

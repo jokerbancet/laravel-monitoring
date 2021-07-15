@@ -23,6 +23,7 @@
                                     <tr>
                                         <th>Nama Mahasiswa</th>
                                         <th>Dosen Pembimbing</th>
+                                        <th>Dosen Pembimbing 2</th>
                                         <th>Pembimbing Industri</th>
                                         <th>Industri</th>
                                         <th>Tanggal Laporan</th>
@@ -34,14 +35,15 @@
                                 <tbody>
                                     @foreach($data as $d)
                                         <tr>
-                                            <td>{{ $d->mahasiswa->nama }}</td>
-                                            <td>{{ $d->dosenPembimbing->nama }}</td>
-                                            <td>{{ $d->pembimbingIndustri->nama }}</td>
-                                            <td>{{ $d->pembimbingIndustri->industri->nama_industri }}</td>
-                                            <td>{{ $d->updated_at }}</td>
-                                            <td><span class="label {{cek_status($d->approve_dosen,1)}}">{{ $d->approve_dosen }}</span></td>
-                                            <td><span class="label {{cek_status($d->approve_industri,1)}}">{{ $d->approve_industri }}</span></td>
-                                            <td><span class="label {{cek_status($d->status_laporan,2)}}">{{ $d->status_laporan }}</span></td>
+                                            <td>{{ $d->mahasiswa->nama??'' }}</td>
+                                            <td>{{ $d->dosenPembimbing->nama??'' }}</td>
+                                            <td>{{ $d->dosenPembimbing2->nama??'' }}</td>
+                                            <td>{{ $d->pembimbingIndustri->nama??'' }}</td>
+                                            <td>{{ $d->pembimbingIndustri->industri->nama_industri??'' }}</td>
+                                            <td>{{ $d->updated_at??'' }}</td>
+                                            <td><span class="label {{cek_status($d->approve_dosen,1)}}">{{ $d->approve_dosen??'' }}</span></td>
+                                            <td><span class="label {{cek_status($d->approve_industri,1)}}">{{ $d->approve_industri??'' }}</span></td>
+                                            <td><span class="label {{cek_status($d->status_laporan,2)}}">{{ $d->status_laporan??'' }}</span></td>
                                             {{-- <td><a href="/mahasiswa/{{ $d->id }}/detail"
                                                     class="btn btn-info btn-xs"><i class="lnr lnr-magnifier"></i></a>
                                                 <a href="/mahasiswa/{{ $d->id }}/edit"

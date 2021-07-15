@@ -26,13 +26,12 @@
                                     <th>NIM</th>
                                     <th>Jurusan</th>
                                     <th>Industri</th>
-                                    <th>
-                                        @if (auth()->user()->pembimbingIndustri)
-                                            Dosen Pembimbing
-                                        @else
-                                            Pembimbing Industri
-                                        @endif
-                                    </th>
+                                    @if (auth()->user()->pembimbingIndustri)
+                                        <th>Dosen Pembimbing</th>
+                                        <th>Dosen Pembimbing 2</th>
+                                    @else
+                                        <th>Pembimbing Industri</th>
+                                    @endif
                                     <th>Status Magang</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -45,13 +44,12 @@
                                         <td>{{ $data->mahasiswa->nim }}</td>
                                         <td>{{ $data->mahasiswa->jurusan }}</td>
                                         <td>{{ $data->pembimbingIndustri->industri->nama_industri }}</td>
-                                        <td>
-                                            @if (auth()->user()->pembimbingIndustri)
-                                                {{ $data->dosenPembimbing->nama }}
-                                            @else
-                                                {{ $data->pembimbingIndustri->nama }}
-                                            @endif
-                                        </td>
+                                        @if (auth()->user()->pembimbingIndustri)
+                                            <td>{{ $data->dosenPembimbing->nama }}</td>
+                                            <td>{{ $data->dosenPembimbing2->nama }}</td>
+                                        @else
+                                            <td>{{ $data->pembimbingIndustri->nama }}</td>
+                                        @endif
                                         <td>
                                             @if(date('Y-m-d') < $data->selesai_magang)
                                                 <span class="label label-primary">Sedang Magang</span>
