@@ -239,8 +239,8 @@
                     let is_dosen="{{is_null(auth()->user()->pembimbingIndustri)}}";
                     $('#approve_dosen').attr('disabled',result.approve_industri=='pending'||!is_dosen);
                     $('#approve_dosen2').attr('disabled',result.approve_industri=='pending'||!is_dosen);
-                    if(is_dosen){
-                        let myIdDosen = "{{auth()->user()->dosenPembimbing->id}}"
+                    if(is_dosen!=""){
+                        let myIdDosen = "{{auth()->user()->dosenPembimbing->id??''}}"
                         if(result.mahasiswa.pemagangan.dosenpembimbing_id==myIdDosen){
                             $('#approve_dosen2').attr('disabled',true)
                         }else if(result.mahasiswa.pemagangan.dosenpembimbing2_id==myIdDosen){

@@ -45,10 +45,10 @@
                                         <td>{{ $data->mahasiswa->jurusan }}</td>
                                         <td>{{ $data->pembimbingIndustri->industri->nama_industri }}</td>
                                         @if (auth()->user()->pembimbingIndustri)
-                                            <td>{{ $data->dosenPembimbing->nama }}</td>
-                                            <td>{{ $data->dosenPembimbing2->nama }}</td>
+                                            <td>{{ $data->dosenPembimbing->nama??'' }}</td>
+                                            <td>{{ $data->dosenPembimbing2->nama??'' }}</td>
                                         @else
-                                            <td>{{ $data->pembimbingIndustri->nama }}</td>
+                                            <td>{{ $data->pembimbingIndustri->nama??'' }}</td>
                                         @endif
                                         <td>
                                             @if(date('Y-m-d') < $data->selesai_magang)
