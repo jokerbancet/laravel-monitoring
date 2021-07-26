@@ -17,7 +17,9 @@
                         <div class="panel">
                             <div class="panel-body">
                                 <span class="h4">
-                                    {{(auth()->user()->mahasiswa->dosenpembimbing->isNotEmpty()?'Dosen Pembimbing: '.auth()->user()->mahasiswa->dosenpembimbing[0]->nama:'')}}
+                                    {{(auth()->user()->mahasiswa->dosenpembimbing->isNotEmpty()?'Dosen Pembimbing 1 : '.auth()->user()->mahasiswa->dosenpembimbing[0]->nama:'')}}
+                                    <br>
+                                    {{('Dosen Pembimbing 2 : '.auth()->user()->mahasiswa->pemagangan->dosenPembimbing2->nama)}}
                                 </span><br>
                                 <span class="h4">Pembimbing Industri: {{auth()->user()->mahasiswa->pembimbingindustri[0]->nama}}.</span><br>
                                 <span class="h4">Nama Industri: {{auth()->user()->mahasiswa->pembimbingindustri[0]->industri->nama_industri}}.</span>

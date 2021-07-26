@@ -106,7 +106,8 @@
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Dosen Pembimbing</th>
+                                            <th>Dosen Pembimbing 1</th>
+                                            <th>Dosen Pembimbing 2</th>
                                             <th>Pembimbing Industri</th>
                                             <th>Industri</th>
                                             <th>Mulai Magang</th>
@@ -119,6 +120,7 @@
                                             @foreach($mahasiswa->mahasiswa->dosenpembimbing as $dosen)
                                                 <td>{{ $dosen->gelar_depan.' '.$dosen->nama.' '.$dosen->gelar_belakang }}</td>
                                             @endforeach
+                                                <td>{{ $mahasiswa->dosenPembimbing2->gelar_depan.' '.$mahasiswa->dosenPembimbing2->nama.' '.$mahasiswa->dosenPembimbing2->gelar_belakang }}</td>
                                             @foreach($mahasiswa->mahasiswa->pembimbingindustri as $pembimbing)
                                                 <td>{{ $pembimbing->nama }}</td>
                                                 <td>{{ $pembimbing->industri->nama_industri }}</td>

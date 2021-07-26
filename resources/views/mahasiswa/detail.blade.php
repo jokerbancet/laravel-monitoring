@@ -81,7 +81,7 @@
                                     <table class="table table-hover">
                                         <thead>
                                             <tr>
-                                                <th>Dosen Pembimbing</th>
+                                                <th>Dosen Pembimbing 1</th>
                                                 <th>Dosen Pembimbing 2</th>
                                                 <th>Pembimbing Industri</th>
                                                 <th>Industri</th>
