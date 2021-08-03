@@ -75,13 +75,13 @@
                                             <i class="text-sm text-danger">{{$message}}</i>
                                         @enderror
                                     </div>
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label for="jenis_pekerjaan">Jenis Pekerjaan</label>
                                         <input type="text" class="form-control" id="jenis_pekerjaan" name="jenis_pekerjaan">
                                         @error('jenis_pekerjaan')
                                             <i class="text-sm text-danger">{{$message}}</i>
                                         @enderror
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <div class="form-group">

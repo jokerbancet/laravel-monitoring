@@ -47,10 +47,10 @@
                                     <!-- TABLE HOVER -->
                                     <div class="panel">
                                         <div class="panel-heading">
-                                            <h2 class="panel-title">Pelaporan Magang Hari ini. Tanggal :@php
+                                            <h1 class="panel-title">Pelaporan Magang Hari ini. Tanggal : @php
                                                 date_default_timezone_set('asia/jakarta');
                                                 echo date('D, d-m-Y H:i');
-                                            @endphp</h2>
+                                            @endphp</h1>
                                         </div>
                                         <div class="panel-body">
                                             <form action="/laporan/create" method="post">
@@ -148,6 +148,11 @@
 @push('js')
     <script>
         $('#laporan').addClass('active');
+        $(document).ready(function() {
+            $('.select2').select2({
+                theme: 'classic'
+            })
+        });
 
         function showMore(id){
             document.getElementById(id+'Overflow').className='';

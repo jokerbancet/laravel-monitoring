@@ -13,23 +13,27 @@
         <p class="text-danger">{{$errors->first('deskripsi_pekerjaan')}}</p>
     @endif
 </div>
-<div class="form-group">
-    <label for="durasi">Durasi Pekerjaan</label>
-    <input type="number" id="durasi" name="durasi" class="form-control" placeholder="Masukan Durasi">
-    @if ($errors->has('durasi'))
-        <p class="text-danger">{{$errors->first('durasi')}}</p>
-    @endif
-</div>
-<div class="form-group">
-    <label for="output">Output Pekerjaan</label>
-    <input type="text" id="output" name="output" class="form-control" placeholder="Masukan output kegiatan...">
-    @if ($errors->has('output'))
-        <p class="text-danger">{{$errors->first('output')}}</p>
-    @endif
+<div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="durasi">Durasi Pekerjaan</label>
+            <input type="time" id="durasi" name="durasi" class="form-control" value="00:00">
+            @if ($errors->has('durasi'))
+            <p class="text-danger">{{$errors->first('durasi')}}</p>
+            @endif
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="output">Output Pekerjaan</label>
+            <input type="text" id="output" name="output" class="form-control" placeholder="Masukan output kegiatan...">
+            @if ($errors->has('output'))
+            <p class="text-danger">{{$errors->first('output')}}</p>
+            @endif
+        </div>
+
 </div>
 <div class="form-group">
     <label for="capaian_id">Kompetensi Khusus yang tercapai</label>
-    <select name="capaian_id" id="capaian_id" class="form-control">
+    <select name="capaian_id" id="capaian_id" class="form-control select2">
         <option value=""></option>
         @foreach ($data as $data)
             <option value="{{$data->id}}">{{$data->jurusan.' - '.$data->deskripsi_capaian}}</option>
