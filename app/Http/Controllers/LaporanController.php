@@ -25,14 +25,17 @@ class LaporanController extends Controller
         $data = DB::table('master_capaian')->where('jurusan',$mahasiswa->jurusan)->get();
 
         // Hari yang dikecualikan untuk laporan ['sabtu','minggu'];
-        $excepted_days=['Sat','Sun'];
+        $is_enabled = json_decode(DB::table('settings')->where('key', 'laporan_weekend')->first()->value)->is_enabled;
+        $excepted_days = [];
+        if($is_enabled!='true'){
+            $excepted_days=['Sat','Sun'];
+        }
         $this_day=date('D');
         $hari_libur=in_array($this_day,$excepted_days);
-
         // Cek apakah hari ini sudah melakukan 2x laporan apa belum
         $hasLaporanToday=!is_null(auth()->user()->mahasiswa->pemagangan)?
                     Laporan::where('id_data_bimbingan',auth()->user()->mahasiswa->pemagangan->id)
-                            ->whereDate('tanggal_laporan', '=', date('Y-m-d'))->get()
+                            ->whereDate('created_at', '=', date('Y-m-d'))->get()
                     :collect([]);
         // $hasLaporanToday=!is_null(auth()->user()->mahasiswa->pemagangan)?
         //             Laporan::where('id_data_bimbingan',auth()->user()->mahasiswa->pemagangan->id)

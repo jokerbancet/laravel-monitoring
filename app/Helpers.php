@@ -14,10 +14,13 @@ if(!function_exists('cek_status')){
             'rejected'=>'danger',
             'pending'=>'warning',
         ];
+        if(is_numeric($data)){
+            return 'label-info';
+        }
         switch($type){
             case 1:
                 return 'label-'.$type1[$data];
-            default:
+            case 2:
                 return 'label-'.$type2[$data];
         }
     }

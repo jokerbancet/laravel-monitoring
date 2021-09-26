@@ -54,6 +54,9 @@ class Laporan extends Model
             'rejected'=>'danger',
             'pending'=>'warning',
         ];
+        if(is_numeric($this->$column)){
+            return '<span class="label label-info">'.$this->$column.'</span>';
+        }
         switch($type){
             case 1:
                 return '<span class="label label-'.$type1[$this->$column].'">'.$this->$column.'</span>';

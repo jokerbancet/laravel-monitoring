@@ -23,6 +23,7 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.css" />
         {{-- select2 --}}
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        @livewireStyles
 </head>
 
 <body>
@@ -43,7 +44,6 @@
     <!-- Javascript -->
     <script src="{{ asset('admin/assets/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('admin/assets/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="{{ asset('admin/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
     <script src="{{ asset('admin/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js') }}"></script>
     <script src="{{ asset('admin/assets/vendor/chartist/js/chartist.min.js') }}"></script>
@@ -62,6 +62,7 @@
         }
     </script>
     @stack('js')
+    @livewireScripts
 </body>
 
 </html>

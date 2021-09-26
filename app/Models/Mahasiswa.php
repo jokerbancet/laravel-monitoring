@@ -65,4 +65,9 @@ class Mahasiswa extends Model
     {
         return $this->hasMany(DataKompetensi::class, 'mahasiswa_id', 'id');
     }
+
+    public function capaian()
+    {
+        return $this->hasMany(IndikatorCapaian::class, 'jurusan', 'jurusan');
+    }
 }

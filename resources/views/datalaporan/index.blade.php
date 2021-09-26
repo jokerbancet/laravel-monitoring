@@ -15,7 +15,15 @@
                     @endif
                     <div class="panel">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Data Laporan Mahasiswa</h3>
+                            <h3 class="panel-title d-flex justify-content-between">
+                                <span>
+                                    Data Laporan Mahasiswa
+                                </span>
+                                <span>
+                                    <label for="is_enabled">Enabled Laporan Weekend</label>
+                                    <input type="checkbox" name="is_enabled" {{ $is_enabled=='true'?'checked':'' }} id="is_enabled">
+                                </span>
+                            </h3>
                         </div>
                         <div class="panel-body">
                             <table class="table table-hover mydatatable" id="mydatatable">
@@ -71,5 +79,12 @@
     <script>
         $('#subPages3').addClass('in').prev().addClass('active').removeClass('collapsed');
         $('#data-laporan').addClass('active')
+        $('#is_enabled').on('change', function(){
+            $.ajax({
+                url:'/api/set-enable-laporan',
+                method: 'post',
+                data: {is_enabled:$(this).prop('checked')}
+            })
+        })
     </script>
 @endpush

@@ -33,6 +33,17 @@ class PersetujuanController extends Controller
 
     public function approve(Request $request, Laporan $laporan)
     {
+        $validation = [];
+        if(auth()->user()->pembimbingIndustri){
+            $validation['approve_industri_nilai'] = 'required|numeric|min:0|max:100';
+        }else{
+            if($laporan->pemagangan->dosenPembimbing2==auth()->user()->dosenPembimbing){
+                $validation['approve_dosen2'] = 'required|numeric|min:0|max:100';
+            }else{
+                $validation['approve_dosen'] = 'required|numeric|min:0|max:100';
+            }
+        }
+        $request->validate($validation);
         $laporan->update($request->toArray());
         if($laporan->approve_dosen!=='pending'&&$laporan->approve_dosen2!=='pending'&&$laporan->approve_industri!=='pending'){
             $laporan->update(['status_laporan'=>'approve']);

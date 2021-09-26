@@ -20,7 +20,8 @@ class DataLaporanController extends Controller
         // ->select('mahasiswa.nama','mahasiswa.jurusan', 'data_laporan.tanggal_laporan', 'data_laporan.kegiatan_pekerjaan', 'data_laporan.deskripsi_pekerjaan', 'data_laporan.durasi', 'data_laporan.output', 'data_laporan.approve_dosen', 'data_laporan.approve_industri', 'data_laporan.status_laporan')
         // ->get();
         $data=Laporan::all();
-        return view('datalaporan.index', compact('data'));
+        $is_enabled = json_decode(DB::table('settings')->where('key', 'laporan_weekend')->first()->value)->is_enabled;
+        return view('datalaporan.index', compact('data','is_enabled'));
     }
 
     /**
