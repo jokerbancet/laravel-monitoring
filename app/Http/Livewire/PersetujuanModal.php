@@ -40,7 +40,7 @@ class PersetujuanModal extends Component
 
     public function detail(Laporan $laporan)
     {
-        $this->is_dosen1 = $laporan->pemagangan->dosenPembimbing2!=auth()->user()->dosenPembimbing;
+        $this->is_dosen1 = $laporan->pemagangan->dosenPembimbing2!=auth()->user()->dosenPembimbing&&auth()->user()->dosenPembimbing;
         $this->is_dosen2 = $laporan->pemagangan->dosenPembimbing2==auth()->user()->dosenPembimbing;
         $this->laporan = $laporan;
         $this->laporan_id = $laporan->id;
