@@ -38,13 +38,12 @@
                     {{-- <li><a href="/profile" class=""><i class="lnr lnr-pencil"></i> <span>Profile</span></a></li> --}}
                     <li><a href="/laporan" id="laporan"><i class="lnr lnr-pencil"></i> <span>Laporan</span></a></li>
                     <li><a href="/histori-laporan" id="histori-laporan"><i class="lnr lnr-history"></i> <span>Histori Laporan</span></a></li>
-                    <li><a href="/absen-ku" id="absen-ku"><i class="lnr lnr-calendar-full"></i> <span>Absen Ku</span></a></li>
                     {{-- <li><a href="#"><i class="lnr lnr-chart-bars"></i> <span>Grafik Kinerja</span></a></li> --}}
                 @endif
                 @if (auth()->user()->role == 'dosenpembimbing'||auth()->user()->role == 'pembimbingindustri')
                     <li><a href="/data-bimbingan" id="data-bimbingan"><i class="lnr lnr-database"></i> <span>Mahasiswa Bimbingan</span></a></li>
-                    <li><a href="/persetujuan" id="persetujuan"><i class="lnr lnr-chart-bars"></i> <span>Persetujuan</span></a></li>
-                    <li><a href="/histori-approval" id="persetujuan"><i class="lnr lnr-history"></i> <span>Histori Persetujuan</span></a></li>
+                    <li><a href="/persetujuan" id="persetujuan" class="{{ request()->is('persetujuan')?'active':'' }}"><i class="lnr lnr-chart-bars"></i> <span>Persetujuan</span></a></li>
+                    <li><a href="/histori-approval" id="persetujuan" class="{{ request()->is('histori-approval')?'active':'' }}"><i class="lnr lnr-history"></i> <span>Histori Persetujuan</span></a></li>
                 @endif
             </ul>
         </nav>

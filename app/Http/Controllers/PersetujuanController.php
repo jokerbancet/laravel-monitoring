@@ -58,14 +58,16 @@ class PersetujuanController extends Controller
     }
 
     public function historiApproval(){
-        $clause=auth()->user()->role=='dosenpembimbing'?
-                ['dosenpembimbing_id'=>auth()->user()->dosenPembimbing->id]:
-                ['pembimbingindustri_id'=>auth()->user()->pembimbingIndustri->id];
         $mahasiswa = Pemagangan::with(['laporan'=>function($laporan){
             return $laporan->where('status_laporan','approve')->get();
-        }])->where($clause)->get();
-
-        // dd($mahasiswa);
+        }]);
+        if(auth()->user()->role=='dosenpembimbing'){
+            $dosen_id = auth()->user()->dosenPembimbing->id;
+            $mahasiswa = $mahasiswa->where('dosenpembimbing_id', $dosen_id)->orWhere('dosenpembimbing2_id', $dosen_id);
+        }else{
+            $mahasiswa = $mahasiswa->where('pembimbingindustri_id', auth()->user()->pembimbingIndustri->id);
+        }
+        $mahasiswa = $mahasiswa->get();
         return view('persetujuan.histori-approval', compact('mahasiswa'));
     }
 }
