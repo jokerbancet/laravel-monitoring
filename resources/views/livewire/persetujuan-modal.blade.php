@@ -76,22 +76,21 @@
             <div class="modal-content modal-lg">
                 <form action="/persetujuan/{{ $laporan_id }}/approve" method="POST" enctype="multipart/form-data">
                     <div class="modal-header">
-                        <span class="modal-title" id="modalLaporanLabel">Laporan Harian {{ $laporan->mahasiswa->nama??'' }}</span>
+                        <span class="modal-title" id="modalLaporanLabel">Laporan Harian {{ $laporan_mahasiswa->nama??'' }}</span>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         @csrf
-                        <h3>Laporan Id {{ $laporan_id??'' }}</h3>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="panel">
                                     <div class="profile-header">
                                         <div class="overlay"></div>
                                         <div class="profile-main">
-                                            <img id="avatar" src="{{ $laporan->mahasiswa?$laporan->mahasiswa->getAvatar():'' }}" width="35%" class="img-circle" alt="Avatar">
-                                            <h3 class="nama">{{ $laporan->mahasiswa->nama??'' }}</h3>
+                                            <img id="avatar" src="{{ $laporan_mahasiswa?$laporan_mahasiswa->getAvatar():'' }}" width="35%" class="img-circle" alt="Avatar">
+                                            <h3 class="nama">{{ $laporan_mahasiswa->nama??'' }}</h3>
                                             <h5>Mahasiswa Magang</h5>
                                         </div>
                                     </div>
@@ -101,13 +100,13 @@
                                         <div class="profile-info">
                                             <h4 class="heading">Informasi Dasar</h4>
                                             <ul class="list-unstyled list-justify">
-                                                <li>Nomor Induk Mahasiswa <span>{{ $laporan->mahasiswa->nim??'' }}</span></li>
-                                                <li>Email <span>{{ $laporan->mahasiswa->email??'' }}</span></li>
-                                                <li>Jenis Kelamin <span>{{ $laporan->mahasiswa->jk??'' }}</span></li>
-                                                <li>Agama <span>{{ $laporan->mahasiswa->agama??'' }}</span>
-                                                <li>Alamat <span>{{ $laporan->mahasiswa->alamat??'' }}</span>
-                                                <li>Prodi <span>{{ $laporan->mahasiswa->jurusan??'' }}</span>
-                                                <li>Tahun Angkatan <span>{{ $laporan->mahasiswa->tahun_angkatan??'' }}</span>
+                                                <li>Nomor Induk Mahasiswa <span>{{ $laporan_mahasiswa->nim??'' }}</span></li>
+                                                <li>Email <span>{{ $laporan_mahasiswa->email??'' }}</span></li>
+                                                <li>Jenis Kelamin <span>{{ $laporan_mahasiswa->jk??'' }}</span></li>
+                                                <li>Agama <span>{{ $laporan_mahasiswa->agama??'' }}</span>
+                                                <li>Alamat <span>{{ $laporan_mahasiswa->alamat??'' }}</span>
+                                                <li>Prodi <span>{{ $laporan_mahasiswa->jurusan??'' }}</span>
+                                                <li>Tahun Angkatan <span>{{ $laporan_mahasiswa->tahun_angkatan??'' }}</span>
                                                 </li>
                                             </ul>
                                         </div>
@@ -146,7 +145,7 @@
                                 <div class="form-group">
                                     <label for="capaian_id">Kompetensi Khusus yang tercapai</label>
                                     <select disabled name="capaian_id" id="capaian_id" class="form-control" wire:model.defer='capaian_id'>
-                                        @foreach ($laporan->mahasiswa->capaian??[] as $capaian)
+                                        @foreach ($laporan_mahasiswa->capaian??[] as $capaian)
                                             <option value="{{ $capaian->id }}">{{ $capaian->deskripsi_capaian }}</option>
                                         @endforeach
                                     </select>

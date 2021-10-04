@@ -10,7 +10,7 @@ class PersetujuanModal extends Component
 {
     public $mahasiswa;
     public $laporan_id;
-    public $laporan;
+    public $laporan_mahasiswa;
     public $kegiatan_pekerjaan = '';
     public $deskripsi_pekerjaan = '';
     public $durasi = 0;
@@ -25,7 +25,6 @@ class PersetujuanModal extends Component
 
     public function mount()
     {
-        $this->laporan = new Laporan();
         $clause=auth()->user()->role=='dosenpembimbing'?
                 ['dosenpembimbing_id'=>auth()->user()->dosenPembimbing->id]:
                 ['pembimbingindustri_id'=>auth()->user()->pembimbingIndustri->id];
@@ -42,7 +41,7 @@ class PersetujuanModal extends Component
     {
         $this->is_dosen1 = $laporan->pemagangan->dosenPembimbing2!=auth()->user()->dosenPembimbing&&auth()->user()->dosenPembimbing;
         $this->is_dosen2 = $laporan->pemagangan->dosenPembimbing2==auth()->user()->dosenPembimbing;
-        $this->laporan = $laporan;
+        $this->laporan_mahasiswa = $laporan->mahasiswa;
         $this->laporan_id = $laporan->id;
         // dd($this->laporan_mahasiswa);
         foreach($laporan->toArray() as $key => $value){
