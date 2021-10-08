@@ -17,6 +17,7 @@ class Pemagangan extends Model
         'mulai_magang',
         'selesai_magang',
         'jenis_pekerjaan',
+        'laporan_weekend'
     ];
 
     public function mahasiswa()

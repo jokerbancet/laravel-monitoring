@@ -75,6 +75,16 @@
                                             <i class="text-sm text-danger">{{$message}}</i>
                                         @enderror
                                     </div>
+                                    <div class="form-group">
+                                        <label for="laporan_weekend">Laporan Weekend</label>
+                                        <select class="form-control" id="laporan_weekend" name="laporan_weekend">
+                                            <option value="0">Disable</option>
+                                            <option value="1">Enable</option>
+                                        </select>
+                                        @error('laporan_weekend')
+                                            <i class="text-sm text-danger">{{$message}}</i>
+                                        @enderror
+                                    </div>
                                     {{-- <div class="form-group">
                                         <label for="jenis_pekerjaan">Jenis Pekerjaan</label>
                                         <input type="text" class="form-control" id="jenis_pekerjaan" name="jenis_pekerjaan">
@@ -104,6 +114,7 @@
         $.ajax({
             url: '',
             success: function(pemagang){
+                console.log(pemagang);
                 for(let index in pemagang){
                     $('#'+index).val(pemagang[index]);
                 }
