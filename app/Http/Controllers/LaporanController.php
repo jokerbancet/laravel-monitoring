@@ -28,7 +28,7 @@ class LaporanController extends Controller
         // $is_enabled = json_decode(DB::table('settings')->where('key', 'laporan_weekend')->first()->value)->is_enabled;
         $is_enabled = auth()->user()->pemagang->laporan_weekend??0;
         $excepted_days = [];
-        if($is_enabled){
+        if(!$is_enabled){
             $excepted_days=['Sat','Sun'];
         }
         $this_day=date('D');
