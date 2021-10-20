@@ -20,6 +20,7 @@ class LaporanController extends Controller
     public function index()
     {
         $mahasiswa = auth()->user()->mahasiswa;
+        // $mahasiswa = auth()->user()->mahasiswa;
 
         //ambil data master_capaian
         $data = DB::table('master_capaian')->where('jurusan',$mahasiswa->jurusan)->get();
