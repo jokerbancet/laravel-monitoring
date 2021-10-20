@@ -19,10 +19,10 @@
                                 <span>
                                     Data Laporan Mahasiswa
                                 </span>
-                                <span>
+                                {{-- <span>
                                     <label for="is_enabled">Enabled Laporan Weekend</label>
                                     <input type="checkbox" name="is_enabled" {{ $is_enabled=='true'?'checked':'' }} id="is_enabled">
-                                </span>
+                                </span> --}}
                             </h3>
                         </div>
                         <div class="panel-body">

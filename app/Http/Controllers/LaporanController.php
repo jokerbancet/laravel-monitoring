@@ -23,11 +23,12 @@ class LaporanController extends Controller
 
         //ambil data master_capaian
         $data = DB::table('master_capaian')->where('jurusan',$mahasiswa->jurusan)->get();
-
+        //tes
         // Hari yang dikecualikan untuk laporan ['sabtu','minggu'];
-        $is_enabled = json_decode(DB::table('settings')->where('key', 'laporan_weekend')->first()->value)->is_enabled;
+        // $is_enabled = json_decode(DB::table('settings')->where('key', 'laporan_weekend')->first()->value)->is_enabled;
+        $is_enabled = auth()->user()->pemagang->laporan_weekend??0;
         $excepted_days = [];
-        if($is_enabled!='true'){
+        if(!$is_enabled){
             $excepted_days=['Sat','Sun'];
         }
         $this_day=date('D');

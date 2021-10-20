@@ -141,8 +141,18 @@ class PemaganganController extends Controller
      */
     public function update(Request $request, Pemagangan $pemagang)
     {
+        $validate = $request->validate([
+            'mahasiswa_id' => 'required',
+            'dosenpembimbing_id' => 'required',
+            'dosenpembimbing2_id' => 'required',
+            'pembimbingindustri_id' => 'required',
+            'mulai_magang' => 'required|date',
+            'selesai_magang' => 'required|date',
+            'laporan_weekend' => 'required|numeric'
+        ]);
         $nama = $pemagang->mahasiswa->nama;
-        $pemagang->update($request->all());
+        // dd($validate);
+        $pemagang->update($validate);
         return redirect('/pemagangan')->with('sukses',"Pemangan $nama berhasil diperbarui.");
     }
 
