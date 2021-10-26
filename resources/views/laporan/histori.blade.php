@@ -52,17 +52,17 @@
                                                     <tr>
                                                         <th>Durasi</th>
                                                         <th>Output</th>
-                                                        <th>Persetujuan Dosen</th>
-                                                        <th>Persetujuan Dosen 2</th>
                                                         <th>Persetujuan Pembimbing Industri</th>
+                                                        <th>Persetujuan Dosen Pembimbing 1</th>
+                                                        <th>Persetujuan Dosen Pembimbing 2</th>
                                                         <th>Status Laporan</th>
                                                     </tr>
                                                     <tr>
                                                         <td>{{$laporan->durasi}}</td>
                                                         <td>{{$laporan->output}}</td>
+                                                        <td>{!! $laporan->cek_status('approve_industri',1)!!}</td>
                                                         <td>{!! $laporan->cek_status('approve_dosen',1) !!}</td>
                                                         <td>{!! $laporan->cek_status('approve_dosen2',1) !!}</td>
-                                                        <td>{!! $laporan->cek_status('approve_industri',1)!!}</td>
                                                         <td>{!! $laporan->cek_status('status_laporan',2) !!}</td>
                                                     </tr>
                                                 </table>

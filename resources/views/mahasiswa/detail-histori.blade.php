@@ -56,19 +56,20 @@
                                         <li>
                                             <i class="fa fa-check activity-icon"></i>
                                             <p><b style="margin-right: 7px">{{$laporan->kegiatan_pekerjaan}}</b>
-                                                @if ($laporan->status_laporan=='approve')
-                                                    <span class="label label-success">Approved</span>
-                                                @else
-                                                    <span class="label label-warning">Pending</span>
-                                                @endif
+
                                                 <br>
                                                 <span class="text-sm text-muted shrinkable" id="{{$loop->iteration}}">
                                                     {{$laporan->deskripsi_pekerjaan}}
                                                 </span><br>
                                                 <span class="text-success">
-                                                    Output: {{$laporan->output}}
+                                                    Output Pekerjaan : {{$laporan->output}}
                                                 </span>
                                                 <span class="timestamp">{{date('d-m-Y',strtotime($laporan->tanggal_laporan))}}</span>
+                                                @if ($laporan->status_laporan=='approve')
+                                                    <span class="label label-success">Approved</span>
+                                                @else
+                                                    <span class="label label-warning">Pending</span>
+                                                @endif
                                             </p>
                                         </li>
                                     @endforeach

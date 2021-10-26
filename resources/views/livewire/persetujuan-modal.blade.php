@@ -25,11 +25,9 @@
                                                 <th>Nama Mahasiswa</th>
                                                 <th>Jurusan</th>
                                                 <th>Kegiatan</th>
-                                                @if (auth()->user()->role=='dosenpembimbing')
-                                                    <th>Persetujuan Dosen Pembimbing 1&2</th>
-                                                @else
-                                                    <th>Persetujuan Pembimbing Industri</th>
-                                                @endif
+                                                <th>Persetujuan Pembimbing Industri</th>
+                                                <th>Persetujuan Dosen Pembimbing 1</th>
+                                                <th>Persetujuan Dosen Pembimbing 2</th>
                                                 <th>Status Laporan</th>
                                                 <th>Aksi</th>
                                             </tr>
@@ -42,14 +40,13 @@
                                                         <td>{{ $lprn->mahasiswa->nama }}</td>
                                                         <td>{{ $lprn->mahasiswa->jurusan }}</td>
                                                         <td>{{ $lprn->kegiatan_pekerjaan }}</td>
-                                                        @if (auth()->user()->role=='dosenpembimbing')
+                                                        <td class="text-center"><span class="label {{cek_status($lprn->approve_industri,1)}}">{{ $lprn->approve_industri }}{{ ' | '.$lprn->approve_industri_nilai}}</span></td>
                                                             <td class="text-center">
-                                                                <span class="label {{cek_status($lprn->approve_dosen,1)}}">{{ $lprn->approve_dosen }}</span> &
+                                                                <span class="label {{cek_status($lprn->approve_dosen,1)}}">{{ $lprn->approve_dosen }}</span>
+                                                            </td>
+                                                            <td>
                                                                 <span class="label {{cek_status($lprn->approve_dosen2,1)}}">{{ $lprn->approve_dosen2 }}</span>
                                                             </td>
-                                                        @else
-                                                            <td class="text-center"><span class="label {{cek_status($lprn->approve_industri,1)}}">{{ $lprn->approve_industri }}</span></td>
-                                                        @endif
                                                         <td class="text-center"><span class="label {{cek_status($lprn->status_laporan,2)}}">{{ $lprn->status_laporan }}</span></td>
                                                         <td>
                                                             <button class="btn btn-info" wire:click="detail({{$lprn}})">
