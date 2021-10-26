@@ -9,6 +9,7 @@ use App\Models\Pemagangan;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use SebastianBergmann\CodeCoverage\Driver\Selector;
+use App\Http\Requests\LaporanRequest;
 
 class LaporanController extends Controller
 {
@@ -60,7 +61,7 @@ class LaporanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(LaporanRequest $request)
     {
         Laporan::create(collect($request)->put('id_data_bimbingan',auth()->user()->mahasiswa->pemagangan->id)->toArray()); //Cuma sebaris kang
 
@@ -116,7 +117,7 @@ class LaporanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Laporan $id)
+    public function update(LaporanRequest $request, Laporan $id)
     {
         $id->update($request->all());
         return redirect('/laporan')->with('sukses', 'Laporan berhasi diperbarui.');

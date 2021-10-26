@@ -153,7 +153,7 @@ class PemaganganController extends Controller
         $nama = $pemagang->mahasiswa->nama;
         // dd($validate);
         $pemagang->update($validate);
-        return redirect('/pemagangan')->with('sukses',"Pemangan $nama berhasil diperbarui.");
+        return redirect('/pemagangan')->with('sukses',"Pemagangan $nama berhasil diperbarui.");
     }
 
     /**
