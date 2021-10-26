@@ -81,7 +81,7 @@
                     <div class="modal-body">
                         @csrf
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="panel">
                                     <div class="profile-header">
                                         <div class="overlay"></div>
@@ -110,7 +110,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-8">
                                 <div class="form-group">
                                     <label for="kegiatan_pekerjaan">Kegiatan Pekerjaan</label>
                                     <input type="text" id="kegiatan_pekerjaan" disabled name="kegiatan_pekerjaan" wire:model.defer='kegiatan_pekerjaan' class="form-control" placeholder="Masukan nama kegiatan...">
@@ -120,8 +120,15 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="deskripsi_pekerjaan">Deskripsi Pekerjaan</label>
-                                    <textarea disabled name="deskripsi_pekerjaan" id="deskripsi_pekerjaan" cols="30" rows="5" class="form-control" wire:model.defer='deskripsi_pekerjaan'></textarea>
+                                    <textarea disabled name="deskripsi_pekerjaan" id="deskripsi_pekerjaan" cols="30" rows="10" class="form-control" wire:model.defer='deskripsi_pekerjaan'></textarea>
                                     @error('deskripsi_pekerjaan')
+                                        <p class="text-danger">{{$message}}</p>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="output">Output Pekerjaan</label>
+                                    <textarea id="output" disabled name="output" cols="30" rows="10" class="form-control" wire:model.defer='output' placeholder="Masukan output kegiatan..."></textarea>
+                                    @error('output')
                                         <p class="text-danger">{{$message}}</p>
                                     @enderror
                                 </div>
@@ -129,13 +136,6 @@
                                     <label for="durasi">Durasi Pekerjaan</label>
                                     <input type="number" id="durasi" disabled name="durasi" class="form-control" wire:model.defer='durasi' placeholder="Masukan Durasi">
                                     @error('durasi')
-                                        <p class="text-danger">{{$message}}</p>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label for="output">Output Pekerjaan</label>
-                                    <input type="text" id="output" disabled name="output" class="form-control" wire:model.defer='output' placeholder="Masukan output kegiatan...">
-                                    @error('output')
                                         <p class="text-danger">{{$message}}</p>
                                     @enderror
                                 </div>
@@ -149,7 +149,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6">
-                                        <label for="approve_industri" class="text-success">Approval Industri</label>
+                                        <label for="approve_industri" class="text-success">Penilaian Katergori Industri</label>
                                         <select name="approve_industri" id="approve_industri" wire:model.defer='approve_industri' class="form-control" {{auth()->user()->pembimbingIndustri?'':'disabled'}}>
                                             <option value="pending">Pending</option>
                                             <option value="mengamati">Mengamati</option>
@@ -158,7 +158,7 @@
                                         </select>
                                     </div>
                                     <div class="col-sm-6">
-                                        <label for="approve_industri_nilai">Approve Indurstri Nilai</label>
+                                        <label for="approve_industri_nilai" class="text-success">Penilaian Angka Industri</label>
                                         <input type="number" class="form-control @error('approve_industri_nilai') is-invalid @enderror" max="100" min="0" name="approve_industri_nilai" wire:model.defer='approve_industri_nilai' {{auth()->user()->pembimbingIndustri?'':'disabled'}}>
                                         @error('approve_industri_nilai')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -167,21 +167,21 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6">
-                                        <label for="approve_dosen">Approve Dosen</label>
+                                        <label for="approve_dosen" class="text-success">Penilaian Dospem 1</label>
                                         <input type="number" class="form-control @error('approve_dosen') is-invalid @enderror" max="100" min="0" name="approve_dosen" wire:model.defer='approve_dosen' {{$is_dosen1?'':'disabled'}}>
                                         @error('approve_dosen')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="col-sm-6">
-                                        <label for="approve_dosen2">Approve Dosen</label>
+                                        <label for="approve_dosen2" class="text-success">Penilaian Dospem 2</label>
                                         <input type="number" class="form-control @error('approve_dosen2') is-invalid @enderror" max="100" min="0" name="approve_dosen2" wire:model.defer='approve_dosen2' {{$is_dosen2?'':'disabled'}}>
                                         @error('approve_dosen2')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
-                                <i class="text-muted text-sm">Jika approval dosen dan industri bukan pending, maka status laporan akan berubah.</i>
+                                <i class="text-muted text-sm">Jika Pembimbing Industri dan Kedua Dosen Pembimbing sudah memberikan penilaian maka status laporan menjadi Disetujui.</i>
                             </div>
                         </div>
                     </div>
