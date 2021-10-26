@@ -54,15 +54,6 @@
                                             <td><span class="label {{cek_status($d->approve_dosen,1)}}">{{ $d->approve_dosen??'' }}</span></td>
                                             <td><span class="label {{cek_status($d->approve_dosen2,1)}}">{{ $d->approve_dosen2??'' }}</span></td>
                                             <td><span class="label {{cek_status($d->status_laporan,2)}}">{{ $d->status_laporan??'' }}</span></td>
-                                            {{-- <td><a href="/mahasiswa/{{ $d->id }}/detail"
-                                                    class="btn btn-info btn-xs"><i class="lnr lnr-magnifier"></i></a>
-                                                <a href="/mahasiswa/{{ $d->id }}/edit"
-                                                    class="btn btn-warning btn-xs"><i class="lnr lnr-pencil"></i></a>
-                                                <a href="/mahasiswa/{{ $d->id }}/delete"
-                                                    class="btn btn-danger btn-xs"
-                                                    onclick="return confirm('Yakin data dengan nama {{ $d->nama_depan }} akan dihapus?')"><i
-                                                        class="lnr lnr-trash"></i></a>
-                                            </td> --}}
                                         </tr>
                                     @endforeach
                                 </tbody>
