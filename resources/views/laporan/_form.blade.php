@@ -21,8 +21,8 @@
     @endif
 </div>
         <div class="form-group">
-            <label for="durasi">Durasi Pekerjaan</label>
-            <input type="time" id="durasi" name="durasi" class="form-control" required>
+            <label for="durasi">Durasi Pekerjaan (Dalam satuan Jam)</label>
+            <input type="time" id="durasi" name="durasi" class="form-control" placeholder="jam" required>
             @if ($errors->has('durasi'))
             <p class="text-danger">{{$errors->first('durasi')}}</p>
             @endif
