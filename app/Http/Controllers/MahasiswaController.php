@@ -71,8 +71,6 @@ class MahasiswaController extends Controller
 
     public function dataBimbingan()
     {
-        // dd(auth()->user()->pembimbingIndustri->id);
-
         $id=auth()->user()->dosenPembimbing->id??
             auth()->user()->pembimbingIndustri->id;
         $where=!is_null(auth()->user()->dosenPembimbing)?

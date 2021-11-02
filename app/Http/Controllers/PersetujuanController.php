@@ -21,7 +21,6 @@ class PersetujuanController extends Controller
             $mahasiswa->orWhere(['dosenpembimbing2_id'=>auth()->user()->dosenPembimbing->id]);
         }
         $mahasiswa=$mahasiswa->get();
-
         return view('persetujuan.index', compact('mahasiswa'));
     }
 
