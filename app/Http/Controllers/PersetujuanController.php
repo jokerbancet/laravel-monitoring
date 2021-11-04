@@ -6,6 +6,7 @@ use App\Models\Laporan;
 use App\Models\Pemagangan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Mahasiswa;
 
 class PersetujuanController extends Controller
 {
@@ -22,6 +23,13 @@ class PersetujuanController extends Controller
         }
         $mahasiswa=$mahasiswa->get();
         return view('persetujuan.index', compact('mahasiswa'));
+    }
+
+    public function mahasiswa(Pemagangan $mahasiswa)
+    {
+        $is_dosen1 = $mahasiswa->dosenPembimbing2!=auth()->user()->dosenPembimbing&&auth()->user()->dosenPembimbing;
+        $is_dosen2 = $mahasiswa->dosenPembimbing2==auth()->user()->dosenPembimbing;
+        return view('persetujuan.mahasiswa', compact('mahasiswa', 'is_dosen1', 'is_dosen2'));
     }
 
     public function show(Request $request,Laporan $laporan)

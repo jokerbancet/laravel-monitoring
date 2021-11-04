@@ -18,9 +18,11 @@
                 @foreach ($mahasiswa as $mhs)
                     <div class="col-sm-12 col-md-6">
                         <div class="panel">
-                            <div class="panel-heading">
-                                <img src="{{ $mhs->mahasiswa->getAvatar() }}" alt="" class="image-thumbnails" style="max-height: 100px">
-                                <h4 class="panel-title">{{ $mhs->mahasiswa->nama }}</h4>
+                            <div class="panel-body">
+                                <h4>Nama    : {{ $mhs->mahasiswa->nama }}</h4>
+                                <h4>NIM     : {{ $mhs->mahasiswa->nim }}</h4>
+                                <h4>Jurusan : {{ $mhs->mahasiswa->jurusan }}</h4>
+                                <a href="/persetujuan/mhs/{{$mhs->id}}" class="ml-3 pl-3 btn btn-sm btn-success">Detail</a>    
                             </div>
                         </div>
                     </div>
