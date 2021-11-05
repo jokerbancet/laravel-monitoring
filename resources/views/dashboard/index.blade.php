@@ -3,6 +3,10 @@
 <div class="main">
     <div class="main-content">
         <div class="container-fluid">
+            <div class="alert alert-warning alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<i class="fa fa-warning"></i>  Fitur Absen-ku pada Menu Mahasiswa sedang dalam proses perbaikan. Mohon maaf atas ketidaknyamanannya.
+			</div>
             <div class="panel panel-headline">
                 <div class="panel-heading">
                     <h3 class="panel-title">Dashboard Aplikasi Monitoring Magang Mahasiswa</h3>
