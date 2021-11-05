@@ -9,7 +9,7 @@
                     <div class="profile-header">
                         <div class="overlay"></div>
                         <div class="profile-main">
-                            <img src="{{ $mahasiswa->mahasiswa->getAvatar() }}" width="35%" class="img-circle" alt="Avatar">
+                            <img src="{{ asset('images/default.png') }}" width="35%" class="img-circle" alt="Avatar">
                             <h3 class="name">{{ $mahasiswa->mahasiswa->nama }}
                             </h3>
                             <h5>Mahasiswa Magang</h5>
@@ -31,21 +31,21 @@
                                 </li>
                             </ul>
                         </div>
-                    </div>   
+                    </div>
                 </div>
             </div>
             <div class="panel">
                 <div class="panel-body">
                     <ul class="list-unstyled activity-timeline history-laporan">
-                        @foreach ($mahasiswa->laporan->sortBy('created_at') as $laporan)
+                        @foreach ($mahasiswa->laporan->sortByDesc('created_at') as $laporan)
                             <li>
                                 @can('status-laporan', $laporan)
                                     <i class="fa fa-check activity-icon" style="background-color:  #3287B2;"></i>
                                 @else
-                                    <i class="fa fa-times activity-icon" style="background-color:  #f0ad4e;"></i>   
+                                    <i class="fa fa-times activity-icon" style="background-color:  #f0ad4e;"></i>
                                 @endcan
                                    <p><b style="margin-right: 7px">{{$laporan->kegiatan_pekerjaan}}</b>
-    
+
                                     <br>
                                     <span class="text-sm text-muted shrinkable" id="{{$loop->iteration}}">
                                         {{$laporan->deskripsi_pekerjaan}}
@@ -54,15 +54,33 @@
                                         Output Pekerjaan : {{$laporan->output}}
                                     </span>
                                     <span class="timestamp">{{date('d-m-Y',strtotime($laporan->tanggal_laporan))}}</span>
-                                   
-                                    <button class="btn btn-sm btn-info detailBtn" data-id="{{ $laporan->id }}">Detail</button>
+                                    <table class="table table-bordered" style="margin-left: 36px; width: 95%; margin-top: 10px">
+                                                    <tr>
+                                                        <th class="text-center">Durasi Pekerjaan</th>
+                                                        <th class="text-center">Persetujuan Pembimbing Industri</th>
+                                                        <th class="text-center">Persetujuan Dosen Pembimbing 1</th>
+                                                        <th class="text-center">Persetujuan Dosen Pembimbing 2</th>
+                                                        <th class="text-center">Status Laporan</th>
+                                                        <th class="text-center">Aksi</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-center">{{$laporan->durasi}} Jam</td>
+                                                        <td class="text-center">{!! $laporan->cek_status('approve_industri',1)!!}</td>
+                                                        <td class="text-center">{!! $laporan->cek_status('approve_dosen',1) !!}</td>
+                                                        <td class="text-center">{!! $laporan->cek_status('approve_dosen2',1) !!}</td>
+                                                        <td class="text-center">{!! $laporan->cek_status('status_laporan',2) !!}</td>
+                                                        <td>
+                                                            <button class="btn btn-sm btn-info detailBtn" data-id="{{ $laporan->id }}">Beri Nilai</button>
+                                                        </td>
+                                                    </tr>
+                                                </table>
                                 </p>
                             </li>
                         @endforeach
                     </ul>
                     <div class="text-center">
                         <button id="see-all" class="btn btn-default">
-                        Lihat Semua Histori
+                        Lihat Semua Laporan
                         </button>
                     </div>
                 </div>
@@ -89,7 +107,7 @@
                     </div>
                     <div class="form-group">
                         <label for="deskripsi_pekerjaan">Deskripsi Pekerjaan</label>
-                        <textarea id="deskripsi_pekerjaan" disabled cols="30" rows="5" class="form-control"></textarea>
+                        <textarea id="deskripsi_pekerjaan" disabled cols="30" rows="10" class="form-control"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="output">Output Pekerjaan</label>
