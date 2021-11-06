@@ -1,6 +1,6 @@
 @inject('mahasiswa', 'App\Models\Mahasiswa')
 <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="brand">
+    <div class="brand" style="padding-top: 15px; padding-bottom: 15px;">
         <a href="/dashboard"><img src="{{asset('admin/assets/img/logo/Logo-utama-mini.png')}}" alt="PEP Bandung Logo" class="img-responsive logo" width="80%"></a>
     </div>
     <div class="container-fluid">

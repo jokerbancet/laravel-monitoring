@@ -36,7 +36,7 @@ class LaporanController extends Controller
         // Cek apakah hari ini sudah melakukan 2x laporan apa belum
         $hasLaporanToday=!is_null(auth()->user()->mahasiswa->pemagangan)?
                     Laporan::where('id_data_bimbingan',auth()->user()->mahasiswa->pemagangan->id)
-                            ->whereDate('created_at', '=', date('Y-m-d'))->get()
+                            ->whereDate('tanggal_laporan', '=', date('Y-m-d'))->get()
                     :collect([]);
 
         // Cek apakah si user nya sudah melewati masa akhir magang
@@ -44,7 +44,8 @@ class LaporanController extends Controller
                                 ->whereDate('mulai_magang','<=',date('Y-m-d'))
                                 ->whereDate('selesai_magang','>=',date('Y-m-d'))->first();
 
-        return view('laporan.index', compact('data','hari_libur','hasLaporanToday','masa_magang'));
+        $view = request()->is('lupa-laporan')?'laporan.lupa':'laporan.index';
+        return view($view, compact('data','hari_libur','hasLaporanToday','masa_magang'));
     }
 
     /**

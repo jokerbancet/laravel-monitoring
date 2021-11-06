@@ -24,6 +24,7 @@ class LaporanRequest extends FormRequest
      public function rules()
     {
         return [
+            'tanggal_laporan' => 'sometimes',
             'kegiatan_pekerjaan' => 'required',
             'deskripsi_pekerjaan' => 'required',
             'output' => 'required',
