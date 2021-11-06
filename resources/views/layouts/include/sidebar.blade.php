@@ -31,6 +31,7 @@
                     <div id="subPages3" class="collapse ">
                         <ul class="nav active">
                             <li><a href="/datalaporan" id="data-laporan">Data Laporan</a></li>
+                            <li><a href="/inputlaporan" class="{{ request()->is('inputlaporan')?'active':'' }}">Input Laporan</a></li>
                         </ul>
                     </div>
                 </li>

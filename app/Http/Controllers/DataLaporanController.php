@@ -15,10 +15,6 @@ class DataLaporanController extends Controller
      */
     public function index()
     {
-        // $datalaporan = DB::table('data_laporan')
-        // ->join('mahasiswa', 'data_laporan.id_data_kompetensi' , '=', 'mahasiswa.user_id')
-        // ->select('mahasiswa.nama','mahasiswa.jurusan', 'data_laporan.tanggal_laporan', 'data_laporan.kegiatan_pekerjaan', 'data_laporan.deskripsi_pekerjaan', 'data_laporan.durasi', 'data_laporan.output', 'data_laporan.approve_dosen', 'data_laporan.approve_industri', 'data_laporan.status_laporan')
-        // ->get();
         $data=Laporan::all()->sortByDesc('tanggal_laporan');
         $is_enabled = json_decode(DB::table('settings')->where('key', 'laporan_weekend')->first()->value)->is_enabled;
         return view('datalaporan.index', compact('data','is_enabled'));
@@ -42,7 +38,19 @@ class DataLaporanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = $request->validate([
+            'id_data_bimbingan' => 'required',
+            'tanggal_laporan' => 'required|date',
+            'kegiatan_pekerjaan' => 'required',
+            'deskripsi_pekerjaan' => 'required',
+            'output' => 'required',
+            'durasi' => 'required',
+            'capaian_id' => 'required'
+        ]);
+
+        Laporan::create($validate);
+
+        return back()->with('sukses', 'Laporan berhasil diinput.');
     }
 
     /**

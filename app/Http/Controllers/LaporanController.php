@@ -21,14 +21,11 @@ class LaporanController extends Controller
     public function index()
     {
         $mahasiswa = auth()->user()->mahasiswa;
-        // $mahasiswa = auth()-> user()->mahasiswa;
-        // $mahasiswa = auth()-> user()->mahasiswa;
 
         //ambil data master_capaian
         $data = DB::table('master_capaian')->where('jurusan',$mahasiswa->jurusan)->get();
-        //tes
+
         // Hari yang dikecualikan untuk laporan ['sabtu','minggu'];
-        // $is_enabled = json_decode(DB::table('settings')->where('key', 'laporan_weekend')->first()->value)->is_enabled;
         $is_enabled = auth()->user()->pemagang->laporan_weekend??0;
         $excepted_days = [];
         if(!$is_enabled){
@@ -41,18 +38,12 @@ class LaporanController extends Controller
                     Laporan::where('id_data_bimbingan',auth()->user()->mahasiswa->pemagangan->id)
                             ->whereDate('created_at', '=', date('Y-m-d'))->get()
                     :collect([]);
-        // $hasLaporanToday=!is_null(auth()->user()->mahasiswa->pemagangan)?
-        //             Laporan::where('id_data_bimbingan',auth()->user()->mahasiswa->pemagangan->id)
-        //                     ->whereDate('tanggal_laporan', '=', date('Y-m-d'))->first()
-        //             :null;
 
         // Cek apakah si user nya sudah melewati masa akhir magang
         $masa_magang=Pemagangan::where('mahasiswa_id',auth()->user()->mahasiswa->id)
                                 ->whereDate('mulai_magang','<=',date('Y-m-d'))
                                 ->whereDate('selesai_magang','>=',date('Y-m-d'))->first();
 
-        // dd($data_bimbingan2); lebih indah pake compact
-        // return view('laporan.index', ['data' => $data]);
         return view('laporan.index', compact('data','hari_libur','hasLaporanToday','masa_magang'));
     }
 

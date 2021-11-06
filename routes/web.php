@@ -71,6 +71,7 @@ Route::group(['middleware' => ['auth', 'CheckRole:admin']], function(){
     //Data Pemagangan
     Route::get('/pemagangan',[PemaganganController::class, 'index']);
     Route::post('/pemagangan/create',[PemaganganController::class, 'create']);
+    Route::get('/pemagangan/{pemagang}', [PemaganganController::class, 'show']);
     Route::get('/pemagangan/{pemagang}/edit', [PemaganganController::class, 'edit']);
     Route::put('/pemagangan/{pemagang}/update', [PemaganganController::class, 'update']);
     Route::get('/pemagangan/{id}/delete', [PemaganganController::class, 'delete']);
@@ -89,6 +90,8 @@ Route::group(['middleware' => ['auth', 'CheckRole:admin']], function(){
 
     //Data Laporan mahasiswa
     Route::get('/datalaporan',[DataLaporanController::class, 'index']);
+    Route::view('/inputlaporan', 'datalaporan.create');
+    Route::post('/inputlaporan', [DataLaporanController::class, 'store']);
 });
 
 Route::get('/capaian/{mahasiswa?}', [IndikatorCapaianController::class, 'show']);
