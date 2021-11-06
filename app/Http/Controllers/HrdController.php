@@ -9,53 +9,49 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 
-class PembimbingIndustriController extends Controller
+class HrdController extends Controller
 {
     public function index()
     {
 
         //ambil data nama pembimbing industri
-        $data2 = DB::table('industri')
+        $industries = DB::table('industri')
         ->select('id', 'nama_industri')
         ->get();
 
-        $dpi = PembimbingIndustri::where('is_hrd', 0)->get();
+        $hrds = PembimbingIndustri::where('is_hrd', 1)->get();
 
-        return view('pembimbingindustri.index',[
-            'dpi' => $dpi,
-            'data' => $data2
-        ]);
+        return view('hrd.index', compact('hrds', 'industries'));
     }
     public function detail($id)
     {
         $dpi = PembimbingIndustri::find($id);
-        return view('pembimbingindustri.detail', ['dpi' => $dpi]);
+        return view('hrd.detail', ['dpi' => $dpi]);
     }
 
-    public function create(CreatePembimbingIndustriRequest  $request)
+    public function store(CreatePembimbingIndustriRequest  $request)
     {
-        // dd($request);
         $user = new \App\Models\User;
         $user->role = 'pembimbingindustri';
         $user->name = $request->nama;
         $user->email = $request->email;
-        $user->password = bcrypt('passworddpi');
+        $user->password = bcrypt('passwordhrd');
         $user->remember_token = Str::random(60);
         $user->save();
 
-        $request->request->add(['user_id' => $user->id]);
+        $request->request->add(['user_id' => $user->id, 'is_hrd'=>1]);
         $mahasiswa = PembimbingIndustri::create($request->all());
         if($request->hasFile('avatar')) {
             $request->file('avatar')->move('images/', $request->file('avatar')->getClientOriginalName());
             $mahasiswa->avatar = $request->file('avatar')->getClientOriginalName();
             $mahasiswa->save();
         }
-        return redirect('/pembimbingindustri')->with('sukses','Data Berhasil di input');
+        return redirect('/hrd')->with('sukses','Data Berhasil di input');
     }
     public function edit($id)
     {
         $dpi = PembimbingIndustri::find($id);
-        return view('pembimbingindustri.edit', ['dpi' => $dpi]);
+        return view('hrd.edit', ['dpi' => $dpi]);
     }
 
     public function update(EditPembimbingIndustriRequest $request, $id)
@@ -67,7 +63,7 @@ class PembimbingIndustriController extends Controller
             $dpi->avatar = $request->file('avatar')->getClientOriginalName();
             $dpi->save();
         }
-        return redirect('/pembimbingindustri')->with('sukses','Data Berhasil di update');
+        return redirect('/hrd')->with('sukses','Data Berhasil di update');
     }
 
     public function delete($id)
@@ -76,6 +72,6 @@ class PembimbingIndustriController extends Controller
         $email = $dpi->email;
         User::where('email', $email)->delete();
         $dpi->delete($id);
-        return redirect('/pembimbingindustri')->with('sukses','Data Berhasil di hapus');
+        return redirect('/hrd')->with('sukses','Data Berhasil di hapus');
     }
 }

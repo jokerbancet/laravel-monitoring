@@ -10,6 +10,7 @@ use App\Models\Mahasiswa;
 use App\Models\Pemagangan;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 
 class MahasiswaController extends Controller
@@ -71,13 +72,22 @@ class MahasiswaController extends Controller
 
     public function dataBimbingan()
     {
-        $id=auth()->user()->dosenPembimbing->id??
-            auth()->user()->pembimbingIndustri->id;
-        $where=!is_null(auth()->user()->dosenPembimbing)?
-                ['dosenpembimbing_id'=>$id]:['pembimbingindustri_id'=>$id];
-        $mahasiswa = Pemagangan::where($where);
-        if(!is_null(auth()->user()->dosenPembimbing)){
-            $mahasiswa->orWhere(['dosenpembimbing2_id'=>$id]);
+
+        if(Gate::allows('hrd')){
+            $mahasiswa = Pemagangan::with(['laporan'=>function($laporan){
+                return $laporan->where('status_laporan','pending')->get();
+            }])->whereHas('pembimbingIndustri', function($q){
+                return $q->where('industri_id', auth()->user()->pembimbingIndustri->industri_id);
+            });
+        }else{
+            $id=auth()->user()->dosenPembimbing->id??
+                auth()->user()->pembimbingIndustri->id;
+            $where=!is_null(auth()->user()->dosenPembimbing)?
+                    ['dosenpembimbing_id'=>$id]:['pembimbingindustri_id'=>$id];
+            $mahasiswa = Pemagangan::where($where);
+            if(!is_null(auth()->user()->dosenPembimbing)){
+                $mahasiswa->orWhere(['dosenpembimbing2_id'=>$id]);
+            }
         }
         $mahasiswa=$mahasiswa->get();
         return view('mahasiswa.data',compact('mahasiswa'));

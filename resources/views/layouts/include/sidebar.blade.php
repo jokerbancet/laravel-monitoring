@@ -11,6 +11,7 @@
                             <li><a href="/mahasiswa" id="mahasiswa">Data Mahasiswa</a></li>
                             <li><a href="/dosenpembimbing" id="dosenpembimbing">Data Dosen Pembimbing</a></li>
                             <li><a href="/pembimbingindustri" id="pembimbingindustri">Data Pembimbing Industri</a></li>
+                            <li><a href="/hrd" id="hrd" class="{{ request()->is('hrd')?'active':'' }}">Data HRD</a></li>
                             <li><a href="/industri" id="industri">Data Tempat Industri</a></li>
                             <li><a href="/capaian" id="capaian">Data Indikator Capaian</a></li>
                         </ul>
@@ -34,18 +35,18 @@
                     </div>
                 </li>
                 @endif
-                @if (auth()->user()->role == 'mahasiswa')
+                @can('mahasiswa')
                     {{-- <li><a href="/profile" class=""><i class="lnr lnr-pencil"></i> <span>Profile</span></a></li> --}}
                     <li><a href="/laporan" id="laporan"><i class="lnr lnr-pencil"></i> <span>Laporan</span></a></li>
                     <li><a href="/histori-laporan" id="histori-laporan"><i class="lnr lnr-history"></i> <span>Histori Laporan</span></a></li>
                     {{-- <li><a href="/absen-ku" id="absen-ku"><i class="lnr lnr-calendar-full"></i> <span>Absen Ku</span></a></li> --}}
                     {{-- <li><a href="#"><i class="lnr lnr-chart-bars"></i> <span>Grafik Kinerja</span></a></li> --}}
-                @endif
-                @if (auth()->user()->role == 'dosenpembimbing'||auth()->user()->role == 'pembimbingindustri')
+                @endcan
+                @canany (['pembimbingindustri','dosenpembimbing'])
                     <li><a href="/data-bimbingan" id="data-bimbingan"><i class="lnr lnr-database"></i> <span>Mahasiswa Bimbingan</span></a></li>
                     <li><a href="/persetujuan" id="persetujuan" class="{{ request()->is('persetujuan')?'active':'' }}"><i class="lnr lnr-chart-bars"></i> <span>Persetujuan</span></a></li>
                     <li><a href="/histori-approval" id="persetujuan" class="{{ request()->is('histori-approval')?'active':'' }}"><i class="lnr lnr-history"></i> <span>Histori Persetujuan</span></a></li>
-                @endif
+                @endcanany
             </ul>
         </nav>
     </div>

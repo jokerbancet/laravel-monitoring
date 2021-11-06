@@ -36,6 +36,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('mahasiswa', function(User $user){
             return $user->role=='mahasiswa';
         });
+        Gate::define('hrd', function(User $user){
+            return $user->role=='pembimbingindustri'&&$user->pembimbingIndustri->is_hrd==1;
+        });
         Gate::define('status-laporan', function(User $user, Laporan $laporan){
             $pemagang = $laporan->pemagangan;
             if($pemagang->dosenPembimbing==auth()->user()->dosenpembimbing){

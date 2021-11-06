@@ -40,7 +40,7 @@ class PemaganganController extends Controller
         ->get();
 
         //ambil data nama pembimbing industri
-        $data3 = DB::table('pembimbingindustri')
+        $data3 = DB::table('pembimbingindustri')->where('is_hrd', 0)
         ->join('industri', 'pembimbingindustri.industri_id', '=', 'industri.id')
         ->select('pembimbingindustri.id', 'pembimbingindustri.nama', 'industri.nama_industri')
         ->get();

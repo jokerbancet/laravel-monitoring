@@ -6,6 +6,7 @@ use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DosenPembimbingController;
 use App\Http\Controllers\PembimbingIndustriController;
+use App\Http\Controllers\HrdController;
 use App\Http\Controllers\IndustriController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PemaganganController;
@@ -52,6 +53,8 @@ Route::group(['middleware' => ['auth', 'CheckRole:admin']], function(){
     Route::get('/pembimbingindustri/{id}/edit', [PembimbingIndustriController::class, 'edit']);
     Route::post('/pembimbingindustri/{id}/update', [PembimbingIndustriController::class, 'update']);
     Route::get('/pembimbingindustri/{id}/delete', [PembimbingIndustriController::class, 'delete']);
+
+    Route::resource('hrd', HrdController::class);
 
     //Data Master Industri
     Route::get('/industri', [IndustriController::class, 'index']);

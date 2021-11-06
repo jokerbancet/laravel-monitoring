@@ -55,25 +55,25 @@
                                     </span>
                                     <span class="timestamp">{{date('d-m-Y',strtotime($laporan->tanggal_laporan))}}</span>
                                     <table class="table table-bordered" style="margin-left: 36px; width: 95%; margin-top: 10px">
-                                                    <tr>
-                                                        <th class="text-center">Durasi Pekerjaan</th>
-                                                        <th class="text-center">Persetujuan Pembimbing Industri</th>
-                                                        <th class="text-center">Persetujuan Dosen Pembimbing 1</th>
-                                                        <th class="text-center">Persetujuan Dosen Pembimbing 2</th>
-                                                        <th class="text-center">Status Laporan</th>
-                                                        <th class="text-center">Aksi</th>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-center">{{$laporan->durasi}} Jam</td>
-                                                        <td class="text-center">{!! $laporan->cek_status('approve_industri',1)!!}</td>
-                                                        <td class="text-center">{!! $laporan->cek_status('approve_dosen',1) !!}</td>
-                                                        <td class="text-center">{!! $laporan->cek_status('approve_dosen2',1) !!}</td>
-                                                        <td class="text-center">{!! $laporan->cek_status('status_laporan',2) !!}</td>
-                                                        <td>
-                                                            <button class="btn btn-sm btn-info detailBtn" data-id="{{ $laporan->id }}">Beri Nilai</button>
-                                                        </td>
-                                                    </tr>
-                                                </table>
+                                        <tr>
+                                            <th class="text-center">Durasi Pekerjaan</th>
+                                            <th class="text-center">Persetujuan Pembimbing Industri</th>
+                                            <th class="text-center">Persetujuan Dosen Pembimbing 1</th>
+                                            <th class="text-center">Persetujuan Dosen Pembimbing 2</th>
+                                            <th class="text-center">Status Laporan</th>
+                                            <th class="text-center">Aksi</th>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">{{$laporan->durasi}} Jam</td>
+                                            <td class="text-center">{!! $laporan->cek_status('approve_industri',1)!!}</td>
+                                            <td class="text-center">{!! $laporan->cek_status('approve_dosen',1) !!}</td>
+                                            <td class="text-center">{!! $laporan->cek_status('approve_dosen2',1) !!}</td>
+                                            <td class="text-center">{!! $laporan->cek_status('status_laporan',2) !!}</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-info detailBtn" @can('hrd') disabled @endcan data-id="{{ $laporan->id }}">Beri Nilai</button>
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </p>
                             </li>
                         @endforeach

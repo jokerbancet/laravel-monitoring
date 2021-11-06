@@ -15,6 +15,7 @@ class PembimbingIndustri extends Model
         'email',
         'jk',
         'industri_id',
+        'is_hrd',
         'avatar'
     ];
 

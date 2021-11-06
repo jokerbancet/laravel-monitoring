@@ -7,17 +7,26 @@ use App\Models\Pemagangan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Mahasiswa;
+use Illuminate\Support\Facades\Gate;
 
 class PersetujuanController extends Controller
 {
     public function index()
     {
-        $clause=auth()->user()->role=='dosenpembimbing'?
-                ['dosenpembimbing_id'=>auth()->user()->dosenPembimbing->id]:
-                ['pembimbingindustri_id'=>auth()->user()->pembimbingIndustri->id];
-        $mahasiswa = Pemagangan::with(['laporan'=>function($laporan){
-            return $laporan->where('status_laporan','pending')->get();
-        }])->where($clause);
+        if(Gate::allows('hrd')){
+            $mahasiswa = Pemagangan::with(['laporan'=>function($laporan){
+                return $laporan->where('status_laporan','pending')->get();
+            }])->whereHas('pembimbingIndustri', function($q){
+                return $q->where('industri_id', auth()->user()->pembimbingIndustri->industri_id);
+            });
+        }else{
+            $clause=auth()->user()->role=='dosenpembimbing'?
+                    ['dosenpembimbing_id'=>auth()->user()->dosenPembimbing->id]:
+                    ['pembimbingindustri_id'=>auth()->user()->pembimbingIndustri->id];
+            $mahasiswa = Pemagangan::with(['laporan'=>function($laporan){
+                return $laporan->where('status_laporan','pending')->get();
+            }])->where($clause);
+        }
         if(auth()->user()->role=='dosenpembimbing'){
             $mahasiswa->orWhere(['dosenpembimbing2_id'=>auth()->user()->dosenPembimbing->id]);
         }
