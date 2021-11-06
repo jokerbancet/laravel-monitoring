@@ -3,13 +3,48 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Password;
 
 class AuthController extends Controller
 {
     public function login()
     {
         return view('auths.login');
+    }
+
+    public function forgot()
+    {
+        return view('auths.forgot-password');
+    }
+
+    public function forgot_submit(Request $request)
+    {
+        $credentials = $request->validate(['email' => 'required|email']);
+
+        Password::sendResetLink($credentials);
+
+        return redirect('/login')->with('success', 'Email reset sandi berhasil dikirimkan');
+    }
+
+    public function reset()
+    {
+        $credentials = request()->validate([
+            'email' => 'required|email',
+            'token' => 'required|string',
+            'password' => 'required|string|confirmed'
+        ]);
+
+        $reset_password_status = Password::reset($credentials, function ($user, $password) {
+            $user->password = bcrypt($password);
+            $user->save();
+        });
+
+        if ($reset_password_status == Password::INVALID_TOKEN) {
+            return back()->with("failed", "Invalid token provided");
+        }
+
+        return redirect('/login')->with('success', 'Berhasil reset password');
     }
 
     public function postlogin(Request $request)

@@ -19,6 +19,10 @@ use App\Http\Controllers\ProfileController;
 
 Route::get('/', [AuthController::class, 'login'])->name('login');
 Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/forgot-password', [AuthController::class, 'forgot'])->name('forgot.password');
+Route::post('/forgot-password', [AuthController::class, 'forgot_submit'])->name('forgot.password.post');
+Route::view('/password/reset', 'auths.password-reset')->name('password.reset');
+Route::post('/password/reset', [AuthController::class, 'reset']);
 Route::post('/postlogin', [AuthController::class, 'postlogin']);
 Route::get ('/logout', [AuthController::class, 'logout']);
 

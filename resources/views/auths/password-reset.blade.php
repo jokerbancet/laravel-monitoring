@@ -32,18 +32,22 @@
 							<div class="header">
 								<div class="logo text-center"><img src="{{asset('admin/assets/img/logo/logo-utama-warna.png')}}" alt="pep Logo" width="60%"></div>
 							</div>
-                            @if (session()->has('success'))
-                                <div class="alert alert-success">{{ session()->get('success') }}</div>
-                            @endif
-							<form class="form-auth-small" action="/postlogin" method="post">
-                                {{csrf_field()}}
+							<form class="form-auth-small" action="" method="post">
+                                @csrf
 								<div class="form-group">
 									<label for="signin-email" class="control-label sr-only">Email</label>
-									<input name="email" type="email" class="form-control" id="signin-email"  placeholder="Email">
+									<input name="email" type="email" class="form-control" id="signin-email" value="{{request()->get('email')}}" disabled placeholder="Email">
 								</div>
 								<div class="form-group">
-									<label for="signin-password" class="control-label sr-only">Password</label>
-									<input type="password" name="password" class="form-control" id="signin-password" placeholder="Password">
+									<label for="password" class="control-label sr-only">Password</label>
+									<input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="Password">
+                                    @error('password')
+                                        <div class="invalid-feedback text-left text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+								<div class="form-group">
+									<label for="password_confirmation" class="control-label sr-only">Konfirmasi Password</label>
+									<input type="password" name="password_confirmation" class="form-control" id="password_confirmation" placeholder="Konfirmasi Password">
 								</div>
 								<div class="form-group clearfix">
 								</div>

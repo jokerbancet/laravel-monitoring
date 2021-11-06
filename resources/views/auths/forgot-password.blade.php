@@ -32,24 +32,15 @@
 							<div class="header">
 								<div class="logo text-center"><img src="{{asset('admin/assets/img/logo/logo-utama-warna.png')}}" alt="pep Logo" width="60%"></div>
 							</div>
-                            @if (session()->has('success'))
-                                <div class="alert alert-success">{{ session()->get('success') }}</div>
-                            @endif
-							<form class="form-auth-small" action="/postlogin" method="post">
-                                {{csrf_field()}}
+							<form class="form-auth-small" action="" method="post">
+                                @csrf
 								<div class="form-group">
 									<label for="signin-email" class="control-label sr-only">Email</label>
 									<input name="email" type="email" class="form-control" id="signin-email"  placeholder="Email">
 								</div>
-								<div class="form-group">
-									<label for="signin-password" class="control-label sr-only">Password</label>
-									<input type="password" name="password" class="form-control" id="signin-password" placeholder="Password">
-								</div>
-								<div class="form-group clearfix">
-								</div>
-								<button type="submit" class="btn btn-primary btn-lg btn-block">LOGIN</button>
+								<button type="submit" class="btn btn-primary btn-lg btn-block">SEND EMAIL</button>
 								<div class="bottom">
-									<span class="helper-text"><i class="fa fa-lock"></i> <a href="/forgot-password">Forgot password?</a></span>
+									<span class="helper-text"><i class="fa fa-home"></i> <a href="/login">Kembali</a></span>
 								</div>
                                 @if (session()->has('failed'))
                                     <span class="text-danger">{{session('failed')}}</span>
