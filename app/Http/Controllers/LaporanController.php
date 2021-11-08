@@ -66,9 +66,31 @@ class LaporanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function lupa(LaporanRequest $request)
     {
-        //
+        $mahasiswa = auth()->user()->mahasiswa;
+        $id_bimbingan = $mahasiswa->pemagangan->id;
+        $tanggal = date('Y-m-d',strtotime($request->tanggal_laporan));
+        $has_laporan_that_day = Laporan::where('id_data_bimbingan', $id_bimbingan)->whereDate('tanggal_laporan',$tanggal)->get();
+
+        if($has_laporan_that_day->count()<2){
+            // Cek apakah si user nya sudah melewati masa akhir magang
+            $masa_magang=Pemagangan::where('mahasiswa_id',$mahasiswa->id)
+                ->whereDate('mulai_magang','<=', $tanggal)
+                ->whereDate('selesai_magang','>=', $tanggal)->first();
+            if(!is_null($masa_magang)){
+                if(date('Y-m-d') > $tanggal){
+                    Laporan::create($request->merge(['id_data_bimbingan'=>$id_bimbingan])->toArray()); //Cuma sebaris kang
+                }else{
+                    return redirect('/laporan')->with('failed', "Belum waktunya untuk melakukan laporan tanggal $tanggal");
+                }
+            }else{
+                return redirect('/laporan')->with('failed','Pada tanggal '.$tanggal.' anda belum menjadi peserta magang');
+            }
+            return redirect('/laporan')->with('sukses','Data Berhasil di input');
+        }else{
+            return redirect('/laporan')->with('failed','Anda sudah laporan 2x tanggal '.$tanggal);
+        }
     }
 
     /**

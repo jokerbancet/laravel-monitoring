@@ -113,6 +113,7 @@ Route::group(['middleware' => ['auth', 'CheckRole:mahasiswa']], function(){
     Route::get('/laporan/{id}/edit', [LaporanController::class, 'edit']);
     Route::put('/laporan/{id}/edit', [LaporanController::class, 'update']);
     Route::post('/laporan/create', [LaporanController::class, 'create']);
+    Route::post('/laporan/lupa', [LaporanController::class, 'lupa']);
     Route::get('/histori-laporan', [LaporanController::class, 'history']);
     Route::get('/absen-ku', [MahasiswaController::class, 'absen']);
     Route::get('/lupa-laporan', [LaporanController::class, 'index']);

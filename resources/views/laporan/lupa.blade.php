@@ -39,38 +39,20 @@
 
                     {{-- Cek apakah masa menjadi pemagang masih berlaku atau tidak --}}
                     @if (!is_null($masa_magang))
-                        {{-- Cek apakah hari ini hari libur atau bukan ['Minggu', 'Sabtu'] -> cek di LaporanController method index variable $excepted_days --}}
-                        @if (!$hari_libur)
-                            {{-- Cek apakah si pemagang sudah melakukan laporan hari ini atau belum --}}
-                            <div class="col-md-12">
-                                <!-- TABLE HOVER -->
-                                <div class="panel">
-                                    <div class="panel-heading">
-                                        <h1 class="panel-title">Pelaporan Magang Hari ini. Tanggal : @php
-                                            date_default_timezone_set('asia/jakarta');
-                                            echo date('D, d-m-Y H:i');
-                                        @endphp</h1>
-                                    </div>
-                                    <div class="panel-body">
-                                        <form action="/laporan/create" method="post">
-                                            @include('laporan._form', ['lupa'=>true])
-                                            <div class="form-group">
-                                                <button type="submit" class="btn btn-primary">Submit</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                                <!-- END TABLE HOVER -->
-                            </div>
-                        @else
-                            <div class="col-md-12">
-                                <div class="panel">
-                                    <div class="panel-heading">
-                                        <div class="alert alert-warning">Maaf, hari ini bukan hari kerja.</div>
-                                    </div>
+                        <div class="col-md-12">
+                            <!-- TABLE HOVER -->
+                            <div class="panel">
+                                <div class="panel-body">
+                                    <form action="/laporan/lupa" method="post">
+                                        @include('laporan._form', ['lupa'=>true])
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-                        @endif
+                            <!-- END TABLE HOVER -->
+                        </div>
                     @else
                         <div class="col-md-12">
                             <div class="panel">
