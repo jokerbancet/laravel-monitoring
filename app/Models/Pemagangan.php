@@ -11,6 +11,7 @@ class Pemagangan extends Model
     protected $table = 'data_bimbingan';
     protected $fillable = [
         'mahasiswa_id',
+        'prakerin_ke',
         'dosenpembimbing_id',
         'dosenpembimbing2_id',
         'pembimbingindustri_id',
@@ -19,6 +20,11 @@ class Pemagangan extends Model
         'jenis_pekerjaan',
         'laporan_weekend'
     ];
+
+    public function getProgressAttribute()
+    {
+        return $this->laporan->where('status_laporan', 'approve')->count();
+    }
 
     public function mahasiswa()
     {

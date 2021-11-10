@@ -93,14 +93,24 @@
             <div class="modal-body">
                 <form action="/pemagangan/create" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
-                    <div class="form-group">
-                        <label for="mahasiswa_id">Nama Mahasiswa</label>
-                        <select name="mahasiswa_id" data-width="100%" id="mahasiswa_id" class="form-control select2">
-                            <option value="">Pilih Mahasiswa</option>
-                            @foreach ($data1 as $data)
-                                <option value="{{$data->id}}">{{$data->nama.' - '.$data->jurusan}}</option>
-                            @endforeach
-                        </select>
+                    <div class="form-group row">
+                        <div class="col-sm-8">
+                            <label for="mahasiswa_id">Nama Mahasiswa</label>
+                            <select name="mahasiswa_id" data-width="100%" id="mahasiswa_id" class="form-control select2">
+                                <option value="">Pilih Mahasiswa</option>
+                                @foreach ($data1 as $data)
+                                    <option value="{{$data->id}}">{{$data->nama.' - '.$data->jurusan}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="prakerin_ke">Prakerin Ke</label>
+                            <select name="prakerin_ke" data-width="100%" id="prakerin_ke" class="form-control select2">
+                                <option value="">Pilih Prakerin</option>
+                                <option value="1">Ke-1</option>
+                                <option value="2">Ke-2</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="form-group row no-gutters gt-3">
                         <div class="col-sm-6">

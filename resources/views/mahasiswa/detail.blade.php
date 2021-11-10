@@ -78,7 +78,7 @@
                             {{-- pembimbing --}}
                             <div class="tab-panel fade" id="tab-bottom-left2">
                                 <div class="table-responsive">
-                                    <table class="table table-hover">
+                                    {{-- <table class="table table-hover">
                                         <thead>
                                             <tr>
                                                 <th>Dosen Pembimbing 1</th>
@@ -121,7 +121,20 @@
                                                 @endforeach
                                             </tr>
                                         </tbody>
+                                    </table> --}}
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <th></th>
+                                            <th>Prakerin Ke</th>
+                                            <th>Status Prakerin</th>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($mahasiswa as $item)
+
+                                            @endforeach
+                                        </tbody>
                                     </table>
+                                    @dump($mahasiswa->pemagangan->progress)
                                 </div>
                             </div>
                         </div>
