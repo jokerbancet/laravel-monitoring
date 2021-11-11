@@ -25,11 +25,7 @@ class PemaganganController extends Controller
         ->get();
 
         //ambil data nama mahasiswa
-        $data1 = DB::table('mahasiswa')
-        ->select('mahasiswa.id','mahasiswa.nama', 'mahasiswa.jurusan')
-        ->leftJoin('data_bimbingan', 'mahasiswa.id', '=', 'data_bimbingan.mahasiswa_id')
-        ->where('data_bimbingan.mahasiswa_id')
-        ->get();
+        $data1 = Mahasiswa::withCount('pemagangan')->having('pemagangan_count', "<", 2)->get();
 
         //ambil data nama dosen pembimbing
         $data2 = DB::table('dosenpembimbing')
@@ -51,7 +47,7 @@ class PemaganganController extends Controller
             'data1' => $data1,
             'data2' => $data2,
             'data3' => $data3
-            ]);
+        ]);
     }
 
     /**

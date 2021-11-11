@@ -40,9 +40,9 @@
                                 @foreach($mahasiswa as $data)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $data->mahasiswa->nama }}</td>
                                         <td>{{ $data->mahasiswa->nim }}</td>
                                         <td>{{ $data->mahasiswa->jurusan }}</td>
+                                        <td>{{ $data->mahasiswa->nama }}</td>
                                         <td>{{ $data->pembimbingIndustri->industri->nama_industri ?? '' }}</td>
                                         @if (auth()->user()->pembimbingIndustri)
                                             <td>{{ $data->dosenPembimbing->nama??'' }}</td>
@@ -50,15 +50,9 @@
                                         @else
                                             <td>{{ $data->pembimbingIndustri->nama??'' }}</td>
                                         @endif
+                                        <td>{!! $data->is_active !!}</td>
                                         <td>
-                                            @if(date('Y-m-d') < $data->selesai_magang)
-                                                <span class="label label-primary">Sedang Magang</span>
-                                            @else
-                                                <span class="label label-success">Selesai Magang</span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <a href="{{url('/data-bimbingan/'.$data->id.'/detail')}}" class="btn btn-info">
+                                            <a href="{{url('/data-bimbingan/'.$data->mahasiswa->id.'/detail')}}" class="btn btn-info">
                                                 Detail
                                             </a>
                                         </td>

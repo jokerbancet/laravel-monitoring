@@ -1,7 +1,6 @@
 @extends('layouts.layout_master')
 
 @section('main_content2')
-{{-- <livewire:persetujuan-modal/> --}}
 <div class="main">
     <div class="main-content">
         <div class="container-fluid">
@@ -22,7 +21,7 @@
                                 <h4>Nama    : {{ $mhs->mahasiswa->nama }}</h4>
                                 <h4>NIM     : {{ $mhs->mahasiswa->nim }}</h4>
                                 <h4>Jurusan : {{ $mhs->mahasiswa->jurusan }}</h4>
-                                <a href="/persetujuan/mhs/{{$mhs->id}}" class="ml-3 pl-3 btn btn-sm btn-success">Detail</a>    
+                                <a href="/persetujuan/mhs/{{$mhs->id}}" class="ml-3 pl-3 btn btn-sm btn-success">Detail</a>
                             </div>
                         </div>
                     </div>

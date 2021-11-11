@@ -24,6 +24,6 @@ class DashboardController extends Controller
             'data3' => $data3,
             'data4' => $data4,
             'mahasiswa' => $mahasiswa
-            ]);
+        ]);
     }
 }

@@ -52,6 +52,22 @@
                                 </p>
                             </div>
                         </div>
+                        @can('mahasiswa')
+                        @foreach (auth()->user()->mahasiswa->pemagangans as $pemagangan)
+                            <div class="col-md-6">
+                                <div class="metric">
+                                    @php
+                                        $progress = explode(' / ', rtrim($pemagangan->progress, ' jam'));
+                                    @endphp
+                                    <progress value="{{ $progress[0] }}" max="{{ $progress[1] }}" style="width: 100%; height: 50px"></progress>
+                                    <p>
+                                        <span class="number">{{$pemagangan->progress}}</span>
+                                        <span class="title">Progres Prakerin ke-{{ $pemagangan->prakerin_ke }}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        @endforeach
+                        @endcan
                         @if (auth()->user()->dosenPembimbing || auth()->user()->pembimbingIndustri)
                             @include('dashboard.pembimbing')
                         @endif

@@ -105,9 +105,8 @@ class MahasiswaController extends Controller
         return view('mahasiswa.detail', ['mahasiswa' => $data_mahasiswa]);
     }
 
-    public function detail_bimbingan($id)
+    public function detail_bimbingan(Mahasiswa $mahasiswa)
     {
-        $mahasiswa = Pemagangan::find($id);
         return view('mahasiswa.detail-histori', compact('mahasiswa'));
     }
 

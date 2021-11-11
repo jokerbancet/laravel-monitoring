@@ -104,7 +104,7 @@ Route::group(['middleware' => ['auth', 'CheckRole:admin,dosenpembimbing,pembimbi
     Route::get('/persetujuan/{laporan}', [PersetujuanController::class, 'show']);
     Route::post('/persetujuan/{laporan}/approve', [PersetujuanController::class, 'approve']);
     Route::get('/data-bimbingan', [MahasiswaController::class, 'dataBimbingan']);
-    Route::get('/data-bimbingan/{id}/detail', [MahasiswaController::class, 'detail_bimbingan']);
+    Route::get('/data-bimbingan/{mahasiswa}/detail', [MahasiswaController::class, 'detail_bimbingan']);
 });
 
 Route::group(['middleware' => ['auth', 'CheckRole:mahasiswa']], function(){

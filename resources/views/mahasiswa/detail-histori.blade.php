@@ -9,8 +9,8 @@
                         <div class="profile-header">
                             <div class="overlay"></div>
                             <div class="profile-main">
-                                <img src="{{ $mahasiswa->mahasiswa->getAvatar() }}" width="35%" class="img-circle" alt="Avatar">
-                                <h3 class="name">{{ $mahasiswa->mahasiswa->nama }}
+                                <img src="{{ $mahasiswa->getAvatar() }}" width="35%" class="img-circle" alt="Avatar">
+                                <h3 class="name">{{ $mahasiswa->nama }}
                                 </h3>
                                 <h5>Mahasiswa Magang</h5>
                             </div>
@@ -21,18 +21,18 @@
                             <div class="profile-info">
                                 <h4 class="heading">Informasi Dasar</h4>
                                 <ul class="list-unstyled list-justify">
-                                    <li>Nomor Induk Mahasiswa<span>{{ $mahasiswa->mahasiswa->nim }}</span></li>
-                                    <li>Email <span>{{ $mahasiswa->mahasiswa->email }}</span></li>
-                                    <li>Jenis Kelamin <span>{{ $mahasiswa->mahasiswa->jk }}</span></li>
-                                    <li>Agama <span>{{ $mahasiswa->mahasiswa->agama }}</span>
-                                    <li>Alamat <span>{{ $mahasiswa->mahasiswa->alamat }}</span>
-                                    <li>Prodi <span>{{ $mahasiswa->mahasiswa->jurusan }}</span>
-                                    <li>Tahun Angkatan <span>{{ $mahasiswa->mahasiswa->tahun_angkatan }}</span>
+                                    <li>Nomor Induk Mahasiswa<span>{{ $mahasiswa->nim }}</span></li>
+                                    <li>Email <span>{{ $mahasiswa->email }}</span></li>
+                                    <li>Jenis Kelamin <span>{{ $mahasiswa->jk }}</span></li>
+                                    <li>Agama <span>{{ $mahasiswa->agama }}</span>
+                                    <li>Alamat <span>{{ $mahasiswa->alamat }}</span>
+                                    <li>Prodi <span>{{ $mahasiswa->jurusan }}</span>
+                                    <li>Tahun Angkatan <span>{{ $mahasiswa->tahun_angkatan }}</span>
                                     </li>
                                 </ul>
                             </div>
                             <div class="margin-top-30 text-center">
-                                {{-- <a href="/mahasiswa/{{ $mahasiswa->mahasiswa->id }}/edit" class="btn btn-warning">Edit Data</a> --}}
+                                {{-- <a href="/mahasiswa/{{ $mahasiswa->id }}/edit" class="btn btn-warning">Edit Data</a> --}}
                                 <button href="" class="btn btn-primary" onclick="goBack()">Kembali</button>
                             </div>
                         </div>
@@ -52,26 +52,28 @@
                             {{-- Histori Laporan --}}
                             <div class="tab-pane fade in active" id="tab-bottom-left1">
                                 <ul class="list-unstyled activity-timeline history-laporan">
-                                    @foreach ($mahasiswa->laporan->sortBy('id') as $laporan)
-                                        <li>
-                                            <i class="fa fa-check activity-icon"></i>
-                                            <p><b style="margin-right: 7px">{{$laporan->kegiatan_pekerjaan}}</b>
+                                    @foreach ($mahasiswa->pemagangans as $pemagangan)
+                                        @foreach ($pemagangan->laporan->sortBy('id') as $laporan)
+                                            <li>
+                                                <i class="fa fa-check activity-icon"></i>
+                                                <p><b style="margin-right: 7px">{{$laporan->kegiatan_pekerjaan}}</b>
 
-                                                <br>
-                                                <span class="text-sm text-muted shrinkable" id="{{$loop->iteration}}">
-                                                    {{$laporan->deskripsi_pekerjaan}}
-                                                </span><br>
-                                                <span class="text-success">
-                                                    Output Pekerjaan : {{$laporan->output}}
-                                                </span>
-                                                <span class="timestamp">{{date('d-m-Y',strtotime($laporan->tanggal_laporan))}}</span>
-                                                @if ($laporan->status_laporan=='approve')
-                                                    <span class="label label-success">Approved</span>
-                                                @else
-                                                    <span class="label label-warning">Pending</span>
-                                                @endif
-                                            </p>
-                                        </li>
+                                                    <br>
+                                                    <span class="text-sm text-muted shrinkable" id="{{$loop->iteration}}">
+                                                        {{$laporan->deskripsi_pekerjaan}}
+                                                    </span><br>
+                                                    <span class="text-success">
+                                                        Output Pekerjaan : {{$laporan->output}}
+                                                    </span>
+                                                    <span class="timestamp">{{date('d-m-Y',strtotime($laporan->tanggal_laporan))}}</span>
+                                                    @if ($laporan->status_laporan=='approve')
+                                                        <span class="label label-success">Approved</span>
+                                                    @else
+                                                        <span class="label label-warning">Pending</span>
+                                                    @endif
+                                                </p>
+                                            </li>
+                                        @endforeach
                                     @endforeach
                                 </ul>
                                 <div class="text-center">
@@ -79,63 +81,39 @@
                                     Lihat Semua Histori
                                     </button>
                                 </div>
-                                {{-- <table class="table mydatatable">
-                                    <thead>
-                                        <tr>
-                                            <th>Waktu</th>
-                                            <th>Kegiatan Pekerjaan</th>
-                                            <th>Deskripsi Pekerjaan</th>
-                                            <th>Durasi</th>
-                                            <th>Output</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($mahasiswa->laporan as $laporan)
-                                            <tr>
-                                                <td>{{date('d-m-Y',strtotime($laporan->tanggal_laporan))}}</td>
-                                                <td>{{$laporan->kegiatan_pekerjaan}}</td>
-                                                <td>{{$laporan->deskripsi_pekerjaan}}</td>
-                                                <td>{{$laporan->durasi}}</td>
-                                                <td>{{$laporan->output}}</td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table> --}}
                             </div>
                             {{-- pembimbing --}}
                             <div class="tab-panel fade" id="tab-bottom-left2">
                                 <table class="table table-hover">
                                     <thead>
-                                        <tr>
-                                            <th>Dosen Pembimbing 1</th>
-                                            <th>Dosen Pembimbing 2</th>
-                                            <th>Pembimbing Industri</th>
-                                            <th>Industri</th>
-                                            <th>Mulai Magang</th>
-                                            <th>Selesai Magang</th>
-                                            <th>Status Magang</th>
-                                        </tr>
+                                        <th></th>
+                                        <th>Prakerin Ke</th>
+                                        <th>Status Prakerin</th>
+                                        <th>Progres Prakerin Prakerin</th>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            @foreach($mahasiswa->mahasiswa->dosenpembimbing as $dosen)
-                                                <td>{{ $dosen->gelar_depan.' '.$dosen->nama.' '.$dosen->gelar_belakang }}</td>
-                                            @endforeach
-                                                <td>{{ $mahasiswa->dosenPembimbing2->gelar_depan.' '.$mahasiswa->dosenPembimbing2->nama.' '.$mahasiswa->dosenPembimbing2->gelar_belakang }}</td>
-                                            @foreach($mahasiswa->mahasiswa->pembimbingindustri as $pembimbing)
-                                                <td>{{ $pembimbing->nama }}</td>
-                                                <td>{{ $pembimbing->industri->nama_industri }}</td>
-                                                <td>{{ $pembimbing->pivot->mulai_magang }}</td>
-                                                <td>{{ $pembimbing->pivot->selesai_magang }}</td>
+                                        @foreach ($mahasiswa->pemagangans as $pemagangan)
+                                            <tr>
                                                 <td>
-                                                    @if(strtotime(date("d-m-Y")) < strtotime($pembimbing->pivot->selesai_magang))
-                                                        <span class="label label-primary">Mulai Magang</span>
-                                                    @else
-                                                        <span class="label label-success">Selesai Magang</span>
-                                                    @endif
+                                                    <button class="btn btn-sm btn-info btn-show-tr" style="border-radius: 50%; padding-left: 10px; padding-right: 10px"><i class="fa fa-plus"></i></button>
                                                 </td>
-                                            @endforeach
-                                        </tr>
+                                                <td>{{ $pemagangan->prakerin_ke }}</td>
+                                                <td>{!! $pemagangan->is_active !!}</td>
+                                                <td>{{ $pemagangan->progress }}</td>
+                                            </tr>
+                                            <tr class="detail-tr">
+                                                <td colspan="4">
+                                                    <ul>
+                                                        <li>Dospem 1 : {{ $pemagangan->dosenPembimbing->nama }}</li>
+                                                        <li>Dospem 2 : {{ $pemagangan->dosenPembimbing2->nama }}</li>
+                                                        <li>Pembimbing Industri : {{ $pemagangan->pembimbingIndustri->nama }}</li>
+                                                        <li>Mulai Magang : {{ $pemagangan->mulai_magang }}</li>
+                                                        <li>Selesai Magang : {{ $pemagangan->selesai_magang }}</li>
+                                                        <li>Jenis Pekerjaan : {{ $pemagangan->jenis_pekerjaan }}</li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -194,6 +172,11 @@
         laporan.each((v,k)=>{
             k.classList.remove('hide');
         })
+    })
+    $('.detail-tr').hide()
+    $('.btn-show-tr').on('click', function(){
+        $(this).children().toggleClass('fa-plus').toggleClass('fa-minus')
+        $(this).parent().parent().next().toggle()
     })
 </script>
 @endpush

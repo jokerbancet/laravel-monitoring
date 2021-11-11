@@ -78,63 +78,38 @@
                             {{-- pembimbing --}}
                             <div class="tab-panel fade" id="tab-bottom-left2">
                                 <div class="table-responsive">
-                                    {{-- <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Dosen Pembimbing 1</th>
-                                                <th>Dosen Pembimbing 2</th>
-                                                <th>Pembimbing Industri</th>
-                                                <th>Industri</th>
-                                                <th>Mulai Magang</th>
-                                                <th>Selesai Magang</th>
-                                                <th>Status Magang</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                @foreach($mahasiswa->dosenpembimbing as $dosen)
-                                                    <td><a
-                                                            href="/dosenpembimbing/{{ $dosen->id }}/detail">{{ $dosen->gelar_depan.' '.$dosen->nama.' '.$dosen->gelar_belakang }}</a>
-                                                    </td>
-                                                @endforeach
-                                                <td><a
-                                                        href="/dosenpembimbing/{{ $mahasiswa->pemagangan->dosenPembimbing2->id }}/detail">{{ $mahasiswa->pemagangan->dosenPembimbing2->gelar_depan.' '.$mahasiswa->pemagangan->dosenPembimbing2->nama.' '.$mahasiswa->pemagangan->dosenPembimbing2->gelar_belakang }}</a>
-                                                </td>
-                                                @foreach($mahasiswa->pembimbingindustri as $pembimbing)
-                                                    <td><a
-                                                            href="/pembimbingindustri/{{ $pembimbing->id }}/detail">{{ $pembimbing->nama }}</a>
-                                                    </td>
-                                                    <td>{{ $pembimbing->industri->nama_industri }}</td>
-                                                    <td>{{ $pembimbing->pivot->mulai_magang }}</td>
-                                                    <td>{{ $pembimbing->pivot->selesai_magang }}</td>
-                                                    @php
-                                                        $tgl_sekarang = strtotime(date("d-m-Y"));
-                                                        $tgl_selesai = strtotime($pembimbing->pivot->selesai_magang);
-                                                    @endphp
-                                                    <td>@php
-                                                        if($tgl_sekarang < $tgl_selesai){
-                                                            echo '<span class="label label-primary">Sedang Magang</span>';
-                                                        }else{
-                                                            echo '<span class="label label-success">Selesai Magang</span>';
-                                                        }
-                                                        @endphp</td>
-                                                @endforeach
-                                            </tr>
-                                        </tbody>
-                                    </table> --}}
                                     <table class="table table-hover">
                                         <thead>
                                             <th></th>
                                             <th>Prakerin Ke</th>
                                             <th>Status Prakerin</th>
+                                            <th>Progres Prakerin Prakerin</th>
                                         </thead>
                                         <tbody>
-                                            @foreach ($mahasiswa as $item)
-
+                                            @foreach ($mahasiswa->pemagangans as $pemagangan)
+                                                <tr>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-info btn-show-tr" style="border-radius: 50%; padding-left: 10px; padding-right: 10px"><i class="fa fa-plus"></i></button>
+                                                    </td>
+                                                    <td>{{ $pemagangan->prakerin_ke }}</td>
+                                                    <td>{!! $pemagangan->is_active !!}</td>
+                                                    <td>{{ $pemagangan->progress }}</td>
+                                                </tr>
+                                                <tr class="detail-tr">
+                                                    <td colspan="4">
+                                                        <ul>
+                                                            <li>Dospem 1 : {{ $pemagangan->dosenPembimbing->nama }}</li>
+                                                            <li>Dospem 2 : {{ $pemagangan->dosenPembimbing2->nama }}</li>
+                                                            <li>Pembimbing Industri : {{ $pemagangan->pembimbingIndustri->nama }}</li>
+                                                            <li>Mulai Magang : {{ $pemagangan->mulai_magang }}</li>
+                                                            <li>Selesai Magang : {{ $pemagangan->selesai_magang }}</li>
+                                                            <li>Jenis Pekerjaan : {{ $pemagangan->jenis_pekerjaan }}</li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
-                                    @dump($mahasiswa->pemagangan->progress)
                                 </div>
                             </div>
                         </div>
@@ -150,5 +125,11 @@
 <script>
     $('#subPages').addClass('in').prev().addClass('active').removeClass('collapsed');
     $('#mahasiswa').addClass('active')
+
+    $('.detail-tr').hide()
+    $('.btn-show-tr').on('click', function(){
+        $(this).children().toggleClass('fa-plus').toggleClass('fa-minus')
+        $(this).parent().parent().next().toggle()
+    })
 </script>
 @endpush

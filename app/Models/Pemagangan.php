@@ -23,12 +23,20 @@ class Pemagangan extends Model
 
     public function getProgressAttribute()
     {
-        return $this->laporan->where('status_laporan', 'approve')->count();
+        $jam = $this->prakerin_ke==1?453:725;
+        $laporan = $this->laporan->where('status_laporan', 'approve')->sum('durasi');
+        return $laporan." / $jam jam";
+    }
+
+    public function getIsActiveAttribute()
+    {
+        $active = $this->mulai_magang<=date('Y-m-d')&&date('Y-m-d')<=$this->selesai_magang;
+        return $active?'<span class="label label-primary">Sedang Magang</span>':'<span class="label label-success">Selesai Magang</span>';
     }
 
     public function mahasiswa()
     {
-        return $this->hasOne(Mahasiswa::class, 'id','mahasiswa_id');
+        return $this->belongsTo(Mahasiswa::class, 'mahasiswa_id','id');
     }
 
     public function laporan()

@@ -30,7 +30,15 @@ class Mahasiswa extends Model
 
     public function pemagangan()
     {
-        return $this->hasOne(Pemagangan::class, 'mahasiswa_id','id');
+        $date = date('Y-m-d');
+        return $this->hasOne(Pemagangan::class, 'mahasiswa_id','id')
+            ->whereDate('mulai_magang', '<=', $date)
+            ->whereDate('selesai_magang', '>=', $date);
+    }
+
+    public function pemagangans()
+    {
+        return $this->hasMany(Pemagangan::class, 'mahasiswa_id','id');
     }
 
     public function laporan()

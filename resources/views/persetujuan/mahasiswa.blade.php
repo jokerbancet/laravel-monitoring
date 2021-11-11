@@ -224,5 +224,14 @@
         })
         $(this).hide()
     })
+    function setNilai(){
+        if($('#approve_industri').val()!='pending'){
+            $('#approve_industri_nilai').attr('disabled',false)
+        }else{
+            $('#approve_industri_nilai').attr('disabled',true)
+        }
+    }
+    setNilai()
+    $('#approve_industri').on('change', setNilai)
 </script>
 @endpush
