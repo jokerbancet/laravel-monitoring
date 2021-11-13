@@ -117,6 +117,11 @@
                         <td class="text-center">:</td>
                         <td>{{$pemagang->pembimbingIndustri->industri->nama_industri}}</td>
                     </tr>
+                    <tr>
+                        <td>Nilai Akhir</td>
+                        <td class="text-center">:</td>
+                        <td>{{$nilai_akhir}}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -126,14 +131,16 @@
             <tr>
                 <th style="width: 10px">NO</th>
                 <th>Keterampilan Khusus yang Tercapai</th>
+                <th style="width: 50px"></th>
                 <th style="width: 150px">Tanggal Ketercapai</th>
             </tr>
         </thead>
         <tbody class="top">
-            @foreach ($pemagang->kompetensi as $kompetensi)
+            @foreach ($capaian as $kompetensi)
                 <tr>
                     <td style="padding-left: 0" class="text-center">{{$loop->iteration}}</td>
                     <td>{{$kompetensi->capaian->deskripsi_capaian}}</td>
+                    <td>{{ $kompetensi->total }} kali</td>
                     <td>{{$kompetensi->created_at}}</td>
                 </tr>
             @endforeach

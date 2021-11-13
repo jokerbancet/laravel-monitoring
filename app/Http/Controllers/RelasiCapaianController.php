@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pemagangan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RelasiCapaianController extends Controller
 {
@@ -59,7 +60,11 @@ class RelasiCapaianController extends Controller
         if($pemagang->selesai_magang>=date('Y-m-d')){
             abort(403, 'Maaf mahasiswa ini belum selesai magang');
         }
-        $pdf = \PDF::loadView('pdf.index',compact('pemagang'))->setPaper('a4','landscape');
+        $nilai = $pemagang->laporan()->where('status_laporan', 'approve')->selectRaw('sum(approve_dosen) as dospem1, sum(approve_dosen2) as dospem2, sum(approve_industri_nilai) as pembid')->first();
+        $nilai_akhir = ($nilai->dospem1*30/100)+($nilai->dospem2*30/100)+($nilai->pembid*40/100);
+        $capaian = $pemagang->kompetensi()->select('created_at', 'capaian_id', DB::raw('count(*) as total'))->groupBy('capaian_id')->get();
+        // dd($capaian);
+        $pdf = \PDF::loadView('pdf.index',compact('pemagang', 'capaian', 'nilai_akhir'))->setPaper('a4','landscape');
         return $pdf->stream("Hasil Laporan ".$pemagang->mahasiswa->nama.".pdf");
     }
 

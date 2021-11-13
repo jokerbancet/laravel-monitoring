@@ -6,7 +6,7 @@
             <select name="id_data_bimbingan" id="id_data_bimbingan" class="form-control select2">
                 <option value=""></option>
                 @foreach (App\Models\Pemagangan::all() as $pemagang)
-                    <option value="{{ $pemagang->id }}">{{ $pemagang->mahasiswa->nama }}</option>
+                    <option value="{{ $pemagang->id }}">{{ $pemagang->mahasiswa->nama }} (Prakerin Ke-{{ $pemagang->prakerin_ke }})</option>
                 @endforeach
             </select>
         </div>

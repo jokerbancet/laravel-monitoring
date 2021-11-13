@@ -23,6 +23,7 @@
                                     <tr>
                                         <th style="width: 10px">NO</th>
                                         <th>Nama Mahasiswa</th>
+                                        <th>Prakerin Ke</th>
                                         <th>Jurusan</th>
                                         <th style="width: 10px">Aksi</th>
                                     </tr>
@@ -32,6 +33,7 @@
                                         <tr>
                                             <td>{{$loop->iteration}}</td>
                                             <td>{{$data->mahasiswa->nama}}</td>
+                                            <td>{{ $data->prakerin_ke }}</td>
                                             <td>{{$data->mahasiswa->jurusan}}</td>
                                             <td>
                                                 <button class="btn btn-info" onclick="detail({{$data->id}})" data-toggle="modal" data-target="#modalDetail">
@@ -137,7 +139,8 @@
                         `)
                     }
                     let today = new Date;
-                    let tanggal = today.getFullYear()+'-'+today.getMonth()+'-'+today.getDate();
+                    let tanggal = today.toISOString().split('T')[0];
+                    console.log(tanggal, pemagang.selesai_magang);
                     if(tanggal>=pemagang.selesai_magang){
                         $('#link-print').show();
                         $('#link-print').attr('href',`{{url('/rel_capaian/${pemagang.id}/print')}}`)
