@@ -33,7 +33,7 @@
                             </div>
                             <div class="panel-body">
                                 <ul class="list-unstyled activity-timeline history-laporan">
-                                    @foreach ($laporan->sortByDesc('id') as $laporan)
+                                    @foreach ($laporan->sortByDesc('tanggal_laporan') as $laporan)
                                         <li>
                                             <i class="fa fa-check activity-icon"></i>
                                             <p><b style="margin-right: 7px">{{$laporan->kegiatan_pekerjaan}}</b>

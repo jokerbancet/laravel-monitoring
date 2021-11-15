@@ -15,9 +15,9 @@ class DataLaporanController extends Controller
      */
     public function index()
     {
-        $data=Laporan::all()->sortByDesc('tanggal_laporan');
-        $is_enabled = json_decode(DB::table('settings')->where('key', 'laporan_weekend')->first()->value)->is_enabled;
-        return view('datalaporan.index', compact('data','is_enabled'));
+        $data=Laporan::all()->sortByDesc('created_at');
+        // $is_enabled = json_decode(DB::table('settings')->where('key', 'laporan_weekend')->first()->value)->is_enabled;
+        return view('datalaporan.index', compact('data'));
     }
 
     /**

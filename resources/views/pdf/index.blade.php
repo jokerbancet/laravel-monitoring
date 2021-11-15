@@ -120,7 +120,7 @@
                     <tr>
                         <td>Nilai Akhir</td>
                         <td class="text-center">:</td>
-                        <td>{{$nilai_akhir}}</td>
+                        <td class="font-weight-bold">{{$nilai_akhir}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -131,7 +131,7 @@
             <tr>
                 <th style="width: 10px">NO</th>
                 <th>Keterampilan Khusus yang Tercapai</th>
-                <th style="width: 50px"></th>
+                <th style="width: 50px">Qty</th>
                 <th style="width: 150px">Tanggal Ketercapai</th>
             </tr>
         </thead>
@@ -140,13 +140,13 @@
                 <tr>
                     <td style="padding-left: 0" class="text-center">{{$loop->iteration}}</td>
                     <td>{{$kompetensi->capaian->deskripsi_capaian}}</td>
-                    <td>{{ $kompetensi->total }} kali</td>
+                    <td>{{$kompetensi->total }} kali</td>
                     <td>{{$kompetensi->created_at}}</td>
                 </tr>
             @endforeach
         </tbody>
     </table>
-    <p style="font-size: 18px; margin-top: 20px">Berikut rekap laporan mahasiswa magang industry.</p>
+    <p style="font-size: 18px; margin-top: 20px margin-bottom: 10px">Berikut rekap laporan mahasiswa.</p>
     <table class="table-bordered">
         <thead class="text-xs-center">
             <tr>
@@ -157,9 +157,9 @@
                 <th>Deskripsi Pekerjaan</th>
                 <th>Durasi</th>
                 <th>Output</th>
-                <th>Persetujuan Dosen</th>
-                <th>Persetujuan Pembimbing Industri</th>
-                <th>Status Laporan</th>
+                <th>Nilai Dosen Pembimbing 1</th>
+                <th>Nilai Dosen Pembimbing 2</th>
+                <th>Nilai Pembimbing Industri</th>
             </tr>
         </thead>
         <tbody class="top">
@@ -173,8 +173,8 @@
                     <td>{{$laporan->durasi}}</td>
                     <td>{{$laporan->output}}</td>
                     <td>{{$laporan->approve_dosen}}</td>
+                    <td>{{$laporan->approve_dosen2}}</td>
                     <td>{{$laporan->approve_industri}}</td>
-                    <td>{{$laporan->status_laporan}}</td>
                 </tr>
             @endforeach
         </tbody>

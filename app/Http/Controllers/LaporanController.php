@@ -87,7 +87,7 @@ class LaporanController extends Controller
             }else{
                 return redirect('/laporan')->with('failed','Pada tanggal '.$tanggal.' anda belum menjadi peserta magang');
             }
-            return redirect('/laporan')->with('sukses','Data Berhasil di input');
+            return redirect('/histori-laporan')->with('sukses','Data Berhasil di input');
         }else{
             return redirect('/laporan')->with('failed','Anda sudah laporan 2x tanggal '.$tanggal);
         }
