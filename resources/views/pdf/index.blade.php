@@ -118,6 +118,11 @@
                         <td>{{$pemagang->pembimbingIndustri->industri->nama_industri}}</td>
                     </tr>
                     <tr>
+                        <td>Praktik Kerja Industri</td>
+                        <td class="text-center">:</td>
+                        <td class="font-weight-bold">Ke - {{$pemagang->prakerin_ke}}</td>
+                    </tr>
+                    <tr>
                         <td>Nilai Akhir</td>
                         <td class="text-center">:</td>
                         <td class="font-weight-bold">{{$nilai_akhir}}</td>
@@ -170,8 +175,8 @@
                     <td>{{$laporan->capaian->deskripsi_capaian}}</td>
                     <td>{{$laporan->kegiatan_pekerjaan}}</td>
                     <td>{{$laporan->deskripsi_pekerjaan}}</td>
-                    <td>{{$laporan->durasi}}</td>
                     <td>{{$laporan->output}}</td>
+                    <td>{{$laporan->durasi}}</td>
                     <td>{{$laporan->approve_dosen}}</td>
                     <td>{{$laporan->approve_dosen2}}</td>
                     <td>{{$laporan->approve_industri}}</td>
