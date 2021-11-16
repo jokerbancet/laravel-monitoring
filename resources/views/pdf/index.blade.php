@@ -137,7 +137,7 @@
                 <th style="width: 10px">NO</th>
                 <th>Keterampilan Khusus yang Tercapai</th>
                 <th style="width: 50px">Qty</th>
-                <th style="width: 150px">Tanggal Ketercapai</th>
+                <th style="width: 150px">Tanggal Ketercapaian</th>
             </tr>
         </thead>
         <tbody class="top">
@@ -155,16 +155,16 @@
     <table class="table-bordered">
         <thead class="text-xs-center">
             <tr>
-                <th style="width: 10px">No</th>
+                <th style="width: 15px">No.</th>
                 <th>Tanggal Laporan</th>
-                <th>Capaian Kompetensi Khusus</th>
                 <th>Kegiatan Pekerjaan</th>
                 <th>Deskripsi Pekerjaan</th>
                 <th>Durasi</th>
                 <th>Output</th>
-                <th>Nilai Dosen Pembimbing 1</th>
-                <th>Nilai Dosen Pembimbing 2</th>
-                <th>Nilai Pembimbing Industri</th>
+                <th style="width: 15px">Nilai Pembimbing Industri</th>
+                <th style="width: 15px">Nilai Dosen Pembimbing 1</th>
+                <th style="width: 15px">Nilai Dosen Pembimbing 2</th>
+                <th style="width: 15px">Status Laporan</th>
             </tr>
         </thead>
         <tbody class="top">
@@ -172,14 +172,14 @@
                 <tr>
                     <td style="padding-left: 0" class="text-center">{{$loop->iteration}}</td>
                     <td>{{$laporan->tanggal_laporan}}</td>
-                    <td>{{$laporan->capaian->deskripsi_capaian}}</td>
                     <td>{{$laporan->kegiatan_pekerjaan}}</td>
                     <td>{{$laporan->deskripsi_pekerjaan}}</td>
                     <td>{{$laporan->output}}</td>
                     <td>{{$laporan->durasi}}</td>
+                    <td>{{$laporan->approve_industri.' | '.$laporan->approve_industri_nilai}}</td>
                     <td>{{$laporan->approve_dosen}}</td>
                     <td>{{$laporan->approve_dosen2}}</td>
-                    <td>{{$laporan->approve_industri}}</td>
+                    <td>{{$laporan->status_laporan}}</td>
                 </tr>
             @endforeach
         </tbody>
