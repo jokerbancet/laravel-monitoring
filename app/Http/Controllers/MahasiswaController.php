@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Mahasiswa;
 use App\Models\Pemagangan;
 use App\Models\User;
+use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
@@ -158,10 +159,25 @@ class MahasiswaController extends Controller
 
     public function absen(Request $request)
     {
-        $id = auth()->user()->pemagang->id??0;
-        $pemagang=Pemagangan::select('mulai_magang','selesai_magang')->where('id',$id)->first();
-        $absen = Laporan::with('pemagangan')->select(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') as tanggal"))
-                          ->where('id_data_bimbingan', auth()->user()->pemagang->id??0)->pluck('tanggal');
-        return $request->ajax()?response()->json(compact('pemagang','absen')):view('mahasiswa.absen');
+        $pemagang = auth()->user()->mahasiswa->pemagangan()->select('mulai_magang', 'selesai_magang', 'id')->first();
+        $absen = $pemagang->laporan()->select(DB::raw("DATE_FORMAT(tanggal_laporan, '%Y-%m-%d') as tanggal"))->pluck('tanggal');
+
+        $period = CarbonPeriod::create($pemagang->mulai_magang, $pemagang->selesai_magang);
+        $dates = [];
+        foreach($period as $i => $date){
+            $dates[$i] = [
+                'id' => 'date-'.$i,
+                'start' => $date->toDateString()
+            ];
+            if(in_array($date->toDateString(), $absen->toArray())){
+                // $dates[$i]['title'] = 'Hadir';
+                $dates[$i]['color'] = '#3c763d';
+            }elseif($date->toDateString()<date('Y-m-d')){
+                // $dates[$i]['title'] = 'Alfa';
+                $dates[$i]['color'] = '#e63d3a';
+            }
+        }
+
+        return $request->ajax()?response()->json($dates):view('mahasiswa.absen');
     }
 }
