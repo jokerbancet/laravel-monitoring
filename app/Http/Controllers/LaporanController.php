@@ -133,6 +133,7 @@ class LaporanController extends Controller
      */
     public function update(LaporanRequest $request, Laporan $id)
     {
+        // dd($id);
         $id->update($request->all());
         return redirect('/laporan')->with('sukses', 'Laporan berhasi diperbarui.');
     }

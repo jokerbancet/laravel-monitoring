@@ -30,7 +30,10 @@
     </div>
 @endif
 <div class="form-group">
-    <label for="deskripsi_pekerjaan">Deskripsi Pekerjaan</label>
+    <label for="deskripsi_pekerjaan" style="display: flex; justify-content: space-between">
+        <span>Deskripsi Pekerjaan (Min. 300 kata)</span>
+        <span id="wordCount">0 kata</span>
+    </label>
     <textarea name="deskripsi_pekerjaan" id="deskripsi_pekerjaan" cols="30" rows="20" class="form-control" placeholder="Masukan Deskripsi Pekerjaan maksimal 750 karakter...."></textarea>
     @if ($errors->has('deskripsi_pekerjaan'))
         <p class="text-danger">{{$errors->first('deskripsi_pekerjaan')}}</p>
@@ -62,3 +65,17 @@
         <p class="text-danger">{{$errors->first('capaian_id')}}</p>
     @endif
 </div>
+
+
+@push('js')
+    <script>
+        let submitBtn = $('button[type=submit]')
+        submitBtn.attr('disabled', true)
+        $('#deskripsi_pekerjaan').on('keyup', function(){
+            let word = $(this).val().match(/\b[-?(\w+)?]+\b/gi);
+            let wordCount = word==null?0:word.length;
+            $('#wordCount').text(wordCount+' kata')
+            submitBtn.attr('disabled', !(wordCount>=300))
+        })
+    </script>
+@endpush
