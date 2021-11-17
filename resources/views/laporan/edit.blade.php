@@ -75,6 +75,11 @@
 @push('js')
     <script>
         $('#laporan').addClass('active');
+        $(document).ready(function() {
+            $('.select2').select2({
+                theme: 'classic'
+            })
+        });
 
         $.ajax({
             url: '',

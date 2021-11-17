@@ -109,7 +109,6 @@
                                                         <li>Pembimbing Industri : {{ $pemagangan->pembimbingIndustri->nama }}</li>
                                                         <li>Mulai Magang : {{ $pemagangan->mulai_magang }}</li>
                                                         <li>Selesai Magang : {{ $pemagangan->selesai_magang }}</li>
-                                                        <li>Jenis Pekerjaan : {{ $pemagangan->jenis_pekerjaan }}</li>
                                                     </ul>
                                                 </td>
                                             </tr>

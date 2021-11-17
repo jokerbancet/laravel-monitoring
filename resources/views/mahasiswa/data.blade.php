@@ -40,9 +40,9 @@
                                 @foreach($mahasiswa as $data)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $data->mahasiswa->nama }}</td>
                                         <td>{{ $data->mahasiswa->nim }}</td>
                                         <td>{{ $data->mahasiswa->jurusan }}</td>
-                                        <td>{{ $data->mahasiswa->nama }}</td>
                                         <td>{{ $data->pembimbingIndustri->industri->nama_industri ?? '' }}</td>
                                         @if (auth()->user()->pembimbingIndustri)
                                             <td>{{ $data->dosenPembimbing->nama??'' }}</td>

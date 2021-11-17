@@ -31,21 +31,21 @@
 @endif
 <div class="form-group">
     <label for="deskripsi_pekerjaan">Deskripsi Pekerjaan</label>
-    <textarea name="deskripsi_pekerjaan" id="deskripsi_pekerjaan" cols="30" rows="20" class="form-control" maxlength="1500" placeholder="Masukan Deskripsi Pekerjaan maksimal 750 karakter...."></textarea>
+    <textarea name="deskripsi_pekerjaan" id="deskripsi_pekerjaan" cols="30" rows="20" class="form-control" placeholder="Masukan Deskripsi Pekerjaan maksimal 750 karakter...."></textarea>
     @if ($errors->has('deskripsi_pekerjaan'))
         <p class="text-danger">{{$errors->first('deskripsi_pekerjaan')}}</p>
     @endif
 </div>
 <div class="form-group">
     <label for="deskripsi_pekerjaan">Output Pekerjaan</label>
-    <textarea name="output" id="output" cols="30" rows="10" class="form-control" maxlength="1500" placeholder="Masukan Output Pekerjaan yang dihasilkan..."></textarea>
+    <textarea name="output" id="output" cols="30" rows="10" class="form-control" placeholder="Masukan Output Pekerjaan yang dihasilkan..."></textarea>
     @if ($errors->has('output'))
         <p class="text-danger">{{$errors->first('output')}}</p>
     @endif
 </div>
 <div class="form-group">
     <label for="durasi">Durasi Pekerjaan (Dalam satuan Jam)</label>
-    <input type="time" id="durasi" name="durasi" class="form-control" placeholder="jam" required>
+    <input type="number" id="durasi" name="durasi" class="form-control" min="1" max="24" placeholder="jam" required>
     @if ($errors->has('durasi'))
         <p class="text-danger">{{$errors->first('durasi')}}</p>
     @endif
