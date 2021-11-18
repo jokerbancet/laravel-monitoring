@@ -9,3 +9,13 @@
     </div>
 </div>
 @endforeach
+<div class="col-md-6">
+    <div class="panel">
+		<div class="panel-heading">
+			<h3 class="panel-title">Kriteria Penilaian Laporan</h3>
+		</div>
+		<div class="panel-body">
+			<img src="{{ asset('admin/assets/img/kriteria_penilaian.png') }}">
+		</div>
+	</div>
+</div>
