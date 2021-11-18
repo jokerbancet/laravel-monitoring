@@ -20,14 +20,14 @@
 </div>
 <div class="form-group">
     <label for="kegiatan_pekerjaan">Kegiatan Pekerjaan</label>
-    <input type="text" id="kegiatan_pekerjaan" name="kegiatan_pekerjaan" class="form-control" placeholder="Masukan nama kegiatan...">
+    <input type="text" id="kegiatan_pekerjaan" name="kegiatan_pekerjaan" class="form-control" placeholder="Masukan nama kegiatan pekerjaan anda...">
     @error('kegiatan_pekerjaan')
         <p class="text-danger">{{$message}}</p>
     @enderror
 </div>
 <div class="form-group">
     <label for="deskripsi_pekerjaan">Deskripsi Pekerjaan</label>
-    <textarea name="deskripsi_pekerjaan" id="deskripsi_pekerjaan" cols="30" rows="20" class="form-control" maxlength="1500" placeholder="Masukan Deskripsi Pekerjaan maksimal 750 karakter...."></textarea>
+    <textarea name="deskripsi_pekerjaan" id="deskripsi_pekerjaan" cols="30" rows="20" class="form-control"></textarea>
     @if ($errors->has('deskripsi_pekerjaan'))
         <p class="text-danger">{{$errors->first('deskripsi_pekerjaan')}}</p>
     @endif
