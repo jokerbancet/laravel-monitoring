@@ -4,7 +4,7 @@
         <div class="col-sm-6">
             <div class="form-group">
                 <label for="tanggal_laporan">Tanggal Laporan</label>
-                <input type="datetime-local" id="tanggal_laporan" name="tanggal_laporan" class="form-control" placeholder="Masukan nama kegiatan...">
+                <input type="datetime-local" id="tanggal_laporan" name="tanggal_laporan" class="form-control">
                 @error('tanggal_laporan')
                     <p class="text-danger">{{$message}}</p>
                 @enderror
@@ -13,7 +13,7 @@
         <div class="col-sm-6">
             <div class="form-group">
                 <label for="kegiatan_pekerjaan">Kegiatan Pekerjaan</label>
-                <input type="text" id="kegiatan_pekerjaan" name="kegiatan_pekerjaan" class="form-control" placeholder="Masukan nama kegiatan...">
+                <input type="text" id="kegiatan_pekerjaan" name="kegiatan_pekerjaan" class="form-control" placeholder="Masukan nama kegiatan pekerjaan anda...">
                 @error('kegiatan_pekerjaan')
                     <p class="text-danger">{{$message}}</p>
                 @enderror
@@ -23,7 +23,7 @@
 @else
     <div class="form-group">
         <label for="kegiatan_pekerjaan">Kegiatan Pekerjaan</label>
-        <input type="text" id="kegiatan_pekerjaan" name="kegiatan_pekerjaan" class="form-control" placeholder="Masukan nama kegiatan...">
+        <input type="text" id="kegiatan_pekerjaan" name="kegiatan_pekerjaan" class="form-control" placeholder="Masukan nama kegiatan pekerjaan anda...">
         @error('kegiatan_pekerjaan')
         <p class="text-danger">{{$message}}</p>
         @enderror
@@ -34,21 +34,21 @@
         <span>Deskripsi Pekerjaan (Min. 300 kata)</span>
         <span id="wordCount">0 kata</span>
     </label>
-    <textarea name="deskripsi_pekerjaan" id="deskripsi_pekerjaan" cols="30" rows="20" class="form-control" placeholder="Masukan Deskripsi Pekerjaan maksimal 750 karakter...."></textarea>
+    <textarea name="deskripsi_pekerjaan" id="deskripsi_pekerjaan" cols="30" rows="20" class="form-control" placeholder="Masukan Deskripsi Pekerjaan anda..."></textarea>
     @if ($errors->has('deskripsi_pekerjaan'))
         <p class="text-danger">{{$errors->first('deskripsi_pekerjaan')}}</p>
     @endif
 </div>
 <div class="form-group">
     <label for="deskripsi_pekerjaan">Output Pekerjaan</label>
-    <textarea name="output" id="output" cols="30" rows="10" class="form-control" placeholder="Masukan Output Pekerjaan yang dihasilkan..."></textarea>
+    <textarea name="output" id="output" cols="30" rows="10" class="form-control" placeholder="Masukan Output pekerjaan / produk yang dihasilkan..."></textarea>
     @if ($errors->has('output'))
         <p class="text-danger">{{$errors->first('output')}}</p>
     @endif
 </div>
 <div class="form-group">
     <label for="durasi">Durasi Pekerjaan (Dalam satuan Jam)</label>
-    <input type="number" id="durasi" name="durasi" class="form-control" min="1" max="24" placeholder="jam" required>
+    <input type="number" id="durasi" name="durasi" class="form-control" min="1" max="24" placeholder="Dalam satuan jam..." required>
     @if ($errors->has('durasi'))
         <p class="text-danger">{{$errors->first('durasi')}}</p>
     @endif
