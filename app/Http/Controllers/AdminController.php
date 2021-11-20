@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Laporan;
 use App\Models\Mahasiswa;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -55,6 +56,49 @@ class AdminController extends Controller
                 'alamat'=>$rst[6],
                 'jurusan'=>$rst[7],
                 'tahun_angkatan'=>$rst[8]
+            ]);
+        }
+        return back()->with('sukses','Excel berhasil diimport.');
+    }
+
+    public function excel_laporan(Request $request)
+    {
+        // return $request->file('excel');
+        $reader = new Xlsx();
+        $reader->setReadDataOnly(true);
+        // lokasi file excel
+        $spreadsheet = $reader->load($request->file('excel'));
+
+        $worksheet = $spreadsheet->getActiveSheet();
+        $rows = $worksheet->toArray();
+        $result = [];
+        foreach($rows as $row){
+            if(is_int($row[0])){
+                if(count($row)<9){
+                    for($i=count($row);$i<9;$i++){
+                        $row[]='';
+                    }
+                }else if(count($row)>9){
+                    for($i=count($row);$i>9;$i--){
+                        unset($row[$i-1]);
+                    }
+                }
+                $row[2] = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[2])->format('Y-m-d H:i:s');
+                $result[]=$row;
+            }
+        }
+        if($request->ajax()){
+            return response()->json($result);
+        }
+        foreach($result as $rst){
+            Laporan::create([
+                'id_data_bimbingan' => $rst[0],
+                'capaian_id' => $rst[1],
+                'tanggal_laporan' => $rst[2],
+                'kegiatan_pekerjaan' => $rst[3],
+                'deskripsi_pekerjaan' => $rst[4],
+                'durasi' => $rst[5],
+                'output' => $rst[6],
             ]);
         }
         return back()->with('sukses','Excel berhasil diimport.');
