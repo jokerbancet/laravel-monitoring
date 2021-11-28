@@ -38,12 +38,12 @@
                 <div class="panel-body">
                     <ul class="list-unstyled activity-timeline history-laporan">
                         @foreach ($mahasiswa->laporan->sortByDesc('created_at') as $laporan)
+                            @cannot('status-laporan', $laporan)
                             <li>
-                                @can('status-laporan', $laporan)
-                                    <i class="fa fa-check activity-icon" style="background-color:  #3287B2;"></i>
-                                @else
+                                    {{-- <i class="fa fa-check activity-icon" style="background-color:  #3287B2;"></i>
+                                @else --}}
                                     <i class="fa fa-times activity-icon" style="background-color:  #f0ad4e;"></i>
-                                @endcan
+                                {{-- @endcan --}}
                                    <p><b style="margin-right: 7px">{{$laporan->kegiatan_pekerjaan}}</b>
 
                                     <br>
@@ -76,6 +76,7 @@
                                     </table>
                                 </p>
                             </li>
+                            @endcannot
                         @endforeach
                     </ul>
                     <div class="text-center">
