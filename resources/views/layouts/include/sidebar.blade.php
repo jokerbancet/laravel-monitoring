@@ -35,6 +35,7 @@
                         </ul>
                     </div>
                 </li>
+                <li><a href="/data-statistik" class="{{ request()->is('data-statistik')?'active':'' }}"><i class="lnr lnr-home"></i> <span>Data Statistik</span></a></li>
                 @endif
                 @can('mahasiswa')
                     {{-- <li><a href="/profile" class=""><i class="lnr lnr-pencil"></i> <span>Profile</span></a></li> --}}

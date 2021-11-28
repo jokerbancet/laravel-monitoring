@@ -93,6 +93,8 @@ Route::group(['middleware' => ['auth', 'CheckRole:admin']], function(){
     Route::view('/inputlaporan', 'datalaporan.create');
     Route::post('/inputlaporan', [DataLaporanController::class, 'store']);
     Route::post('/inputlaporan/excel', [AdminController::class, 'excel_laporan']);
+
+    Route::get('/data-statistik', [AdminController::class, 'data_statistik']);
 });
 
 Route::get('/capaian/{mahasiswa?}', [IndikatorCapaianController::class, 'show']);
