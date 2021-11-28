@@ -115,7 +115,7 @@ class AdminController extends Controller
             ['y'=>0,'name'=>'301 - 435'],
         ];
         foreach($pemagangan as $pem){
-            $progress = $pem->laporan->sum('durasi');
+            $progress = $pem->laporan->where('status_laporan', 'approve')->sum('durasi');
             if($progress >= 0 && $progress <= 100){
                 $response[0]['y'] += 1;
             }else if($progress >= 101 && $progress <= 200){
