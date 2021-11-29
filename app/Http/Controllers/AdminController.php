@@ -201,6 +201,7 @@ class AdminController extends Controller
         $collection = [];
         foreach($model as $i => $m){
             $collection[$i]['nama_pembimbing'] = $m->nama;
+            $collection[$i]['nama_industri'] = $m->industri->nama_industri;
             $collection[$i]['approved'] = 0;
             $collection[$i]['not_approved'] = 0;
             foreach($m->mahasiswa as $mhs){

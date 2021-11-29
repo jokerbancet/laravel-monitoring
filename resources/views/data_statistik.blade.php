@@ -59,6 +59,7 @@
                         <thead>
                             <th>No</th>
                             <th>Nama Pembimbing Industri</th>
+                            <th>Nama Industri</th>
                             <th>Jml Laporan Approve</th>
                             <th>Jml Laporan Belum Approve</th>
                         </thead>
@@ -120,6 +121,7 @@
             "columns": [
                 {data:"DT_RowIndex"},
                 {data:"nama_pembimbing"},
+                {data:"nama_industri"},
                 {data:"approved"},
                 {data:"not_approved"},
             ],
