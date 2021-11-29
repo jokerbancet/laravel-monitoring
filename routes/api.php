@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -18,6 +19,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('data-statistik', [AdminController::class, 'api_data_statistik']);
 
 Route::post('/set-enable-laporan', function (Request $request) {
     DB::table('settings')->where('key', 'laporan_weekend')->update(['value'=>json_encode($request->only('is_enabled'))]);

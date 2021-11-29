@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+use Yajra\DataTables\DataTables;
 
 class AdminController extends Controller
 {
@@ -105,27 +106,44 @@ class AdminController extends Controller
         return back()->with('sukses','Excel berhasil diimport.');
     }
 
-    public function data_statistik()
+    public function data_statistik(Request $request)
     {
-        $pemagangan = Pemagangan::all();
+        $pemagangan = Pemagangan::with('mahasiswa')->get();
+        $dt = new DataTables;
+        return request()->ajax()? $dt->collection($pemagangan->where('prakerin_ke', $request->filter_prakerin))
+            ->addColumn('progress', function($pemagangan){
+                return $pemagangan->laporan->where('status_laporan', 'approve')->sum('durasi').' jam';
+            })
+            ->toJson():view('data_statistik', compact('pemagangan'));
+    }
+
+    public function api_data_statistik(Request $request)
+    {
+        $pemagangan = Pemagangan::where('prakerin_ke', $request->prakerin_ke)->get();
         $response = [
-            ['y'=>0,'name'=>'0 - 100','exploded'=>true],
-            ['y'=>0,'name'=>'101 - 200'],
-            ['y'=>0,'name'=>'201 - 300'],
-            ['y'=>0,'name'=>'301 - 435'],
+            ['y'=>0,'jml'=>0,'name'=>'0 - 100','exploded'=>true],
+            ['y'=>0,'jml'=>0,'name'=>'101 - 200'],
+            ['y'=>0,'jml'=>0,'name'=>'201 - 300'],
+            ['y'=>0,'jml'=>0,'name'=>'301 - 435'],
         ];
         foreach($pemagangan as $pem){
             $progress = $pem->laporan->where('status_laporan', 'approve')->sum('durasi');
             if($progress >= 0 && $progress <= 100){
-                $response[0]['y'] += 1;
+                $response[0]['jml'] += 1;
             }else if($progress >= 101 && $progress <= 200){
-                $response[1]['y'] += 1;
+                $response[1]['jml'] += 1;
             }else if($progress >= 201 && $progress <= 300){
-                $response[2]['y'] += 1;
+                $response[2]['jml'] += 1;
             }else{
-                $response[3]['y'] += 1;
+                $response[3]['jml'] += 1;
             }
         }
-        return request()->ajax()? response()->json($response):view('data_statistik', compact('pemagangan'));
+        $total = $pemagangan->count();
+
+        foreach($response as $i => $v){
+            $response[$i]['y'] = $v['jml']/$total*100;
+        }
+
+        return response()->json($response);
     }
 }
