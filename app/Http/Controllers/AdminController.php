@@ -122,23 +122,41 @@ class AdminController extends Controller
 
     public function api_data_statistik(Request $request)
     {
-        $pemagangan = Pemagangan::where('prakerin_ke', $request->prakerin_ke)->get();
+        $pemagangan = Pemagangan::where('prakerin_ke', ($request->prakerin_ke??1))->get();
         $response = [
             ['y'=>0,'jml'=>0,'name'=>'0 - 100','exploded'=>true],
             ['y'=>0,'jml'=>0,'name'=>'101 - 200'],
             ['y'=>0,'jml'=>0,'name'=>'201 - 300'],
             ['y'=>0,'jml'=>0,'name'=>'301 - 435'],
         ];
+        if(($request->prakerin_ke??1)==2){
+            $response[0]['name'] = '0 - 200';
+            $response[1]['name'] = '201 - 400';
+            $response[2]['name'] = '401 - 600';
+            $response[3]['name'] = '601 - 725';
+        }
         foreach($pemagangan as $pem){
             $progress = $pem->laporan->where('status_laporan', 'approve')->sum('durasi');
-            if($progress >= 0 && $progress <= 100){
-                $response[0]['jml'] += 1;
-            }else if($progress >= 101 && $progress <= 200){
-                $response[1]['jml'] += 1;
-            }else if($progress >= 201 && $progress <= 300){
-                $response[2]['jml'] += 1;
-            }else{
-                $response[3]['jml'] += 1;
+            if(($request->prakerin_ke??1)==1){
+                if($progress >= 0 && $progress <= 100){
+                    $response[0]['jml'] += 1;
+                }else if($progress >= 101 && $progress <= 200){
+                    $response[1]['jml'] += 1;
+                }else if($progress >= 201 && $progress <= 300){
+                    $response[2]['jml'] += 1;
+                }else{
+                    $response[3]['jml'] += 1;
+                }
+            }elseif(($request->prakerin_ke??1)==2){
+                if($progress >= 0 && $progress <= 200){
+                    $response[0]['jml'] += 1;
+                }elseif($progress >= 201 && $progress <= 400){
+                    $response[1]['jml'] += 1;
+                }elseif($progress >= 401 && $progress <= 600){
+                    $response[2]['jml'] += 1;
+                }else{ // >725
+                    $response[3]['jml'] += 1;
+                }
             }
         }
         $total = $pemagangan->count();
