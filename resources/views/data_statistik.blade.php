@@ -40,6 +40,32 @@
                     <div id="chartContainer" style="height: 300px; width: 100%;"></div>
                 </div>
             </div>
+            <div class="panel">
+                <div class="panel-body">
+                    <table class="table table-bordered" id="data-dosen">
+                        <thead>
+                            <th>No</th>
+                            <th>Nama Dosen</th>
+                            <th>Jml Laporan Approve</th>
+                            <th>Jml Laporan Belum Approve</th>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-body">
+                    <table class="table table-bordered" id="data-pembimbing">
+                        <thead>
+                            <th>No</th>
+                            <th>Nama Pembimbing Industri</th>
+                            <th>Jml Laporan Approve</th>
+                            <th>Jml Laporan Belum Approve</th>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -61,11 +87,44 @@
             // orderCellsTop: true,
             fixedHeader: false,
             "columns": [
-                {data:"id"},
+                {data:"DT_RowIndex"},
                 {data:"mahasiswa.nama"},
                 {data:"progress"},
             ],
         });
+
+        var table_dosen = $('#data-dosen').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "bSort" : false,
+            "ajax": {
+                url: "/api/data-dosen",
+            },
+            fixedHeader: false,
+            "columns": [
+                {data:"DT_RowIndex"},
+                {data:"nama_dosen"},
+                {data:"approved"},
+                {data:"not_approved"},
+            ],
+        });
+
+        var table_pembimbing = $('#data-pembimbing').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "bSort" : false,
+            "ajax": {
+                url: "/api/data-pembimbing",
+            },
+            fixedHeader: false,
+            "columns": [
+                {data:"DT_RowIndex"},
+                {data:"nama_pembimbing"},
+                {data:"approved"},
+                {data:"not_approved"},
+            ],
+        });
+
         $('#prakerin-ke').on('change', function(){
             table.draw();
         })

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DosenPembimbing;
 use App\Models\Laporan;
 use App\Models\Mahasiswa;
 use App\Models\Pemagangan;
+use App\Models\PembimbingIndustri;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -111,6 +113,7 @@ class AdminController extends Controller
         $pemagangan = Pemagangan::with('mahasiswa')->get();
         $dt = new DataTables;
         return request()->ajax()? $dt->collection($pemagangan->where('prakerin_ke', $request->filter_prakerin))
+            ->addIndexColumn()
             ->addColumn('progress', function($pemagangan){
                 return $pemagangan->laporan->where('status_laporan', 'approve')->sum('durasi').' jam';
             })
@@ -145,5 +148,53 @@ class AdminController extends Controller
         }
 
         return response()->json($response);
+    }
+
+    public function data_dosen()
+    {
+        $model = DosenPembimbing::whereHas('mahasiswa')->orWhereHas('mahasiswa2')->with('mahasiswa','mahasiswa2')->get();
+        $collection = [];
+        foreach($model as $i => $m){
+            $collection[$i]['nama_dosen'] = $m->nama;
+            $collection[$i]['approved'] = 0;
+            $collection[$i]['not_approved'] = 0;
+            foreach($m->mahasiswa as $m1){
+                foreach($m1->pemagangans as $p){
+                    $collection[$i]['approved'] += $p->laporan->where('approve_dosen', '!=', 'pending')->count();
+                    $collection[$i]['not_approved'] += $p->laporan->where('approve_dosen', 'pending')->count();
+                }
+            }
+            foreach($m->mahasiswa2 as $m2){
+                foreach($m2->pemagangans as $p){
+                    $collection[$i]['approved'] += $p->laporan->where('approve_dosen2', '!=', 'pending')->count();
+                    $collection[$i]['not_approved'] += $p->laporan->where('approve_dosen2', 'pending')->count();
+                }
+            }
+        }
+        $dt = new DataTables;
+        return $dt->collection(collect($collection))
+                ->addIndexColumn()
+                ->toJson();
+    }
+
+    public function data_pembimbing()
+    {
+        $model = PembimbingIndustri::whereHas('mahasiswa')->with('mahasiswa')->get();
+        $collection = [];
+        foreach($model as $i => $m){
+            $collection[$i]['nama_pembimbing'] = $m->nama;
+            $collection[$i]['approved'] = 0;
+            $collection[$i]['not_approved'] = 0;
+            foreach($m->mahasiswa as $mhs){
+                foreach($mhs->pemagangans as $p){
+                    $collection[$i]['approved'] = $p->laporan->where('approve_industri', '!=' ,'pending')->count();
+                    $collection[$i]['not_approved'] = $p->laporan->where('approve_industri', 'pending')->count();
+                }
+            }
+        }
+        $dt = new DataTables;
+        return $dt->collection(collect($collection))
+                ->addIndexColumn()
+                ->toJson();
     }
 }
