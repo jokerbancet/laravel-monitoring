@@ -41,7 +41,7 @@
                     {{-- <li><a href="/profile" class=""><i class="lnr lnr-pencil"></i> <span>Profile</span></a></li> --}}
                     <li><a href="/laporan" id="laporan"><i class="lnr lnr-pencil"></i> <span>Laporan</span></a></li>
                     <li><a href="/histori-laporan" id="histori-laporan"><i class="lnr lnr-history"></i> <span>Histori Laporan</span></a></li>
-                    <li><a href="/absen-ku" id="absen-ku"><i class="lnr lnr-calendar-full"></i> <span>Absen Ku</span></a></li>
+                    <li><a href="/absen-ku" id="absen-ku" class="{{ request()->is('absen-ku')?'active':'' }}"><i class="lnr lnr-calendar-full"></i> <span>Absen Ku</span></a></li>
                     {{-- <li><a href="#"><i class="lnr lnr-chart-bars"></i> <span>Grafik Kinerja</span></a></li> --}}
                     <li><a href="/lupa-laporan" class="{{ request()->is('lupa-laporan')?'active':'' }}"><i class="lnr lnr-highlight"></i> <span>Pengajuan Lupa Laporan</span></a></li>
                 @endcan

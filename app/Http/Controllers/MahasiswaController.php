@@ -160,21 +160,24 @@ class MahasiswaController extends Controller
     public function absen(Request $request)
     {
         $pemagang = auth()->user()->mahasiswa->pemagangan()->select('mulai_magang', 'selesai_magang', 'id')->first();
-        $absen = $pemagang->laporan()->select(DB::raw("DATE_FORMAT(tanggal_laporan, '%Y-%m-%d') as tanggal"))->pluck('tanggal');
 
-        $period = CarbonPeriod::create($pemagang->mulai_magang, $pemagang->selesai_magang);
         $dates = [];
-        foreach($period as $i => $date){
-            $dates[$i] = [
-                'id' => 'date-'.$i,
-                'start' => $date->toDateString()
-            ];
-            if(in_array($date->toDateString(), $absen->toArray())){
-                // $dates[$i]['title'] = 'Hadir';
-                $dates[$i]['color'] = '#3c763d';
-            }elseif($date->toDateString()<date('Y-m-d')){
-                // $dates[$i]['title'] = 'Alfa';
-                $dates[$i]['color'] = '#e63d3a';
+
+        if($pemagang){
+            $absen = $pemagang->laporan()->select(DB::raw("DATE_FORMAT(tanggal_laporan, '%Y-%m-%d') as tanggal"))->pluck('tanggal');
+            $period = CarbonPeriod::create($pemagang->mulai_magang, $pemagang->selesai_magang);
+            foreach($period as $i => $date){
+                $dates[$i] = [
+                    'id' => 'date-'.$i,
+                    'start' => $date->toDateString()
+                ];
+                if(in_array($date->toDateString(), $absen->toArray())){
+                    // $dates[$i]['title'] = 'Hadir';
+                    $dates[$i]['color'] = '#3c763d';
+                }elseif($date->toDateString()<date('Y-m-d')){
+                    // $dates[$i]['title'] = 'Alfa';
+                    $dates[$i]['color'] = '#e63d3a';
+                }
             }
         }
 
