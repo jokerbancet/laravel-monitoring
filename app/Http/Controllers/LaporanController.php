@@ -101,7 +101,7 @@ class LaporanController extends Controller
      */
     public function history()
     {
-        $laporan = auth()->user()->pemagang?Laporan::where('id_data_bimbingan',auth()->user()->pemagang->id)->get():null;
+        $laporan = auth()->user()->pemagang?Laporan::whereIn('id_data_bimbingan',auth()->user()->mahasiswa->pemagangans()->pluck('id'))->get():null;
         return view('laporan.histori',compact('laporan'));
     }
 
@@ -131,10 +131,9 @@ class LaporanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(LaporanRequest $request, Laporan $id)
+    public function update(LaporanRequest $request, Laporan $laporan)
     {
-        // dd($id);
-        $id->update($request->all());
+        $laporan->update($request->all());
         return redirect('/laporan')->with('sukses', 'Laporan berhasi diperbarui.');
     }
 

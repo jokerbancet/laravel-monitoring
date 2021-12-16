@@ -126,7 +126,7 @@
             $.ajax({
                 url: `{{url('/rel_capaian/${mahasiswa_id}')}}`,
                 success: function(pemagang){
-                    $('#avatar').attr('src','/images/'+pemagang.mahasiswa.avatar);
+                    $('#avatar').attr('src','/images/'+pemagang.mahasiswa.photo);
                     for(i in pemagang.mahasiswa){
                         $('.'+i).text(pemagang.mahasiswa[i]);
                     }

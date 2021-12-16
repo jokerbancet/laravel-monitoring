@@ -22,6 +22,7 @@ class Mahasiswa extends Model
         'tahun_angkatan',
         'avatar'
     ];
+    protected $appends = ['photo'];
 
     public function user()
     {
@@ -56,7 +57,14 @@ class Mahasiswa extends Model
         if (!$this->avatar) {
             return $withAsset?asset('images/default.png'):'images/default.png';
         }
-        return $withAsset?asset('images/'.$this->avatar):'images/'.$this->avatar;
+        $avatar = file_exists(public_path('images/'.$this->avatar))?$this->avatar:'default.png';
+        return $withAsset?asset('images/'.$avatar):'images/'.$avatar;
+    }
+
+    public function getPhotoAttribute()
+    {
+        $avatar = file_exists(public_path('images/'.$this->avatar))?$this->avatar:'default.png';
+        return $avatar;
     }
 
     public function dosenpembimbing()

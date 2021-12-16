@@ -49,7 +49,10 @@ class User extends Authenticatable
 
     public function pemagang()
     {
-        return $this->hasOneThrough(Pemagangan::class, Mahasiswa::class);
+        $date = date('Y-m-d');
+        return $this->hasOneThrough(Pemagangan::class, Mahasiswa::class)
+            ->whereDate('mulai_magang', '<=', $date)
+            ->whereDate('selesai_magang', '>=', $date);
     }
 
     public function dosenPembimbing()
