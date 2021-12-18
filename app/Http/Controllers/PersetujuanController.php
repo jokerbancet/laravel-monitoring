@@ -30,15 +30,30 @@ class PersetujuanController extends Controller
         if(auth()->user()->role=='dosenpembimbing'){
             $mahasiswa->orWhere(['dosenpembimbing2_id'=>auth()->user()->dosenPembimbing->id]);
         }
-        $mahasiswa=$mahasiswa->get();
-        return view('persetujuan.index', compact('mahasiswa'));
+
+        if(request()->is('persetujuan')){
+            $title = 'Data Laporan Mahasiswa';
+            $action = '/persetujuan/mhs/';
+            $mahasiswa=$mahasiswa->whereDate('mulai_magang', '<=', date('Y-m-d'))->whereDate('selesai_magang', '>=', date('Y-m-d'))->get();
+        }else{
+            $title = 'Data Histori Laporan Mahasiswa';
+            $action = '/histori-approval/';
+            $mahasiswa=$mahasiswa->get();
+        }
+        return view('persetujuan.index', compact('mahasiswa', 'title', 'action'));
     }
 
     public function mahasiswa(Pemagangan $mahasiswa)
     {
         $is_dosen1 = $mahasiswa->dosenPembimbing2!=auth()->user()->dosenPembimbing&&auth()->user()->dosenPembimbing;
         $is_dosen2 = $mahasiswa->dosenPembimbing2==auth()->user()->dosenPembimbing;
-        return view('persetujuan.mahasiswa', compact('mahasiswa', 'is_dosen1', 'is_dosen2'));
+        $laporan_dinilai = $mahasiswa->laporan->filter(function($laporan){
+            return Gate::allows('status-laporan', $laporan);
+        })->count();
+        $laporan_belum_dinilai = $mahasiswa->laporan->filter(function($laporan){
+            return !Gate::allows('status-laporan', $laporan);
+        })->count();
+        return view('persetujuan.mahasiswa', compact('mahasiswa', 'is_dosen1', 'is_dosen2', 'laporan_dinilai', 'laporan_belum_dinilai'));
     }
 
     public function show(Request $request,Laporan $laporan)
@@ -73,17 +88,7 @@ class PersetujuanController extends Controller
         return back()->with('sukses', 'Laporan telah diapprove');
     }
 
-    public function historiApproval(){
-        $mahasiswa = Pemagangan::with(['laporan'=>function($laporan){
-            return $laporan->where('status_laporan','approve')->get();
-        }]);
-        if(auth()->user()->role=='dosenpembimbing'){
-            $dosen_id = auth()->user()->dosenPembimbing->id;
-            $mahasiswa = $mahasiswa->where('dosenpembimbing_id', $dosen_id)->orWhere('dosenpembimbing2_id', $dosen_id);
-        }else{
-            $mahasiswa = $mahasiswa->where('pembimbingindustri_id', auth()->user()->pembimbingIndustri->id);
-        }
-        $mahasiswa = $mahasiswa->get();
+    public function histori_approval(Pemagangan $mahasiswa){
         return view('persetujuan.histori-approval', compact('mahasiswa'));
     }
 }

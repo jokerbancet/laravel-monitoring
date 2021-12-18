@@ -44,7 +44,7 @@
                             <div class="panel">
                                 <div class="panel-body">
                                     <form action="/laporan/lupa" method="post">
-                                        @include('laporan._form', ['lupa'=>true])
+                                        @include('laporan._form', ['lupa'=>true,'min'=>$masa_magang->mulai_magang,'max'=>$masa_magang->selesai_magang])
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </div>

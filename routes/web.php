@@ -103,7 +103,8 @@ Route::group(['middleware' => ['auth', 'CheckRole:admin,dosenpembimbing,pembimbi
     // Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::get('/persetujuan', [PersetujuanController::class, 'index']);
     Route::get('/persetujuan/mhs/{mahasiswa}', [PersetujuanController::class, 'mahasiswa']);
-    Route::get('/histori-approval', [PersetujuanController::class, 'historiApproval']);
+    Route::get('/histori-approval', [PersetujuanController::class, 'index']);
+    Route::get('/histori-approval/{mahasiswa}', [PersetujuanController::class, 'histori_approval']);
     Route::get('/persetujuan/{laporan}', [PersetujuanController::class, 'show']);
     Route::post('/persetujuan/{laporan}/approve', [PersetujuanController::class, 'approve']);
     Route::get('/data-bimbingan', [MahasiswaController::class, 'dataBimbingan']);

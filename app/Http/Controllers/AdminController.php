@@ -117,6 +117,12 @@ class AdminController extends Controller
             ->addColumn('progress', function($pemagangan){
                 return $pemagangan->laporan->where('status_laporan', 'approve')->sum('durasi').' jam';
             })
+            ->addColumn('count_laporan', function($pemagangan){
+                return $pemagangan->laporan->count();
+            })
+            ->addColumn('count_laporan_approve', function($pemagangan){
+                return $pemagangan->laporan->where('status_laporan', 'approve')->count();
+            })
             ->toJson():view('data_statistik', compact('pemagangan'));
     }
 

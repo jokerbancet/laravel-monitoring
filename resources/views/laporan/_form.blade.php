@@ -4,7 +4,7 @@
         <div class="col-sm-6">
             <div class="form-group">
                 <label for="tanggal_laporan">Tanggal Laporan</label>
-                <input type="datetime-local" id="tanggal_laporan" name="tanggal_laporan" class="form-control">
+                <input type="datetime-local" min="{{ $min }}T00:00" max="{{ $max }}T00:00" id="tanggal_laporan" name="tanggal_laporan" class="form-control" >
                 @error('tanggal_laporan')
                     <p class="text-danger">{{$message}}</p>
                 @enderror

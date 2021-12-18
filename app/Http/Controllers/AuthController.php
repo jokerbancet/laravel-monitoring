@@ -52,7 +52,7 @@ class AuthController extends Controller
         //jika isi request email dan password
         if (Auth::attempt($request->only('email','password'))) {
             //jika bernilai true, alihkan kan ke route dashboard
-            return redirect('/dashboard');
+            return  redirect()->intended('dashboard');
         }else{
             //jika bernilai false, alihkan kembali ke login
             return redirect('/login')->with('failed','Username atau sandi salah');

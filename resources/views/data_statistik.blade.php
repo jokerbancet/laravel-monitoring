@@ -21,6 +21,8 @@
                             <th>No</th>
                             <th>Nama</th>
                             <th>Akumulasi Jam</th>
+                            <th>Jumlah Laporan</th>
+                            <th>Jumlah Laporan Approve</th>
                         </thead>
                         <tbody>
 
@@ -91,6 +93,8 @@
                 {data:"DT_RowIndex"},
                 {data:"mahasiswa.nama"},
                 {data:"progress"},
+                {data:"count_laporan"},
+                {data:"count_laporan_approve"},
             ],
         });
 

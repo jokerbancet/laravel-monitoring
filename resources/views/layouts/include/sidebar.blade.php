@@ -38,17 +38,15 @@
                 <li><a href="/data-statistik" class="{{ request()->is('data-statistik')?'active':'' }}"><i class="lnr lnr-home"></i> <span>Data Statistik</span></a></li>
                 @endif
                 @can('mahasiswa')
-                    {{-- <li><a href="/profile" class=""><i class="lnr lnr-pencil"></i> <span>Profile</span></a></li> --}}
                     <li><a href="/laporan" id="laporan"><i class="lnr lnr-pencil"></i> <span>Laporan</span></a></li>
                     <li><a href="/histori-laporan" id="histori-laporan"><i class="lnr lnr-history"></i> <span>Histori Laporan</span></a></li>
                     <li><a href="/absen-ku" id="absen-ku" class="{{ request()->is('absen-ku')?'active':'' }}"><i class="lnr lnr-calendar-full"></i> <span>Absen Ku</span></a></li>
-                    {{-- <li><a href="#"><i class="lnr lnr-chart-bars"></i> <span>Grafik Kinerja</span></a></li> --}}
                     <li><a href="/lupa-laporan" class="{{ request()->is('lupa-laporan')?'active':'' }}"><i class="lnr lnr-highlight"></i> <span>Pengajuan Lupa Laporan</span></a></li>
                 @endcan
                 @canany (['pembimbingindustri','dosenpembimbing'])
                     <li><a href="/data-bimbingan" id="data-bimbingan"><i class="lnr lnr-database"></i> <span>Mahasiswa Bimbingan</span></a></li>
                     <li><a href="/persetujuan" id="persetujuan" class="{{ request()->is('persetujuan')?'active':'' }}"><i class="lnr lnr-chart-bars"></i> <span>Persetujuan</span></a></li>
-                    <li><a href="/histori-approval" id="persetujuan" class="{{ request()->is('histori-approval')?'active':'' }}"><i class="lnr lnr-history"></i> <span>Histori Persetujuan</span></a></li>
+                    <li><a href="/histori-approval" id="persetujuan" class="{{ request()->is('histori-approval*')?'active':'' }}"><i class="lnr lnr-history"></i> <span>Histori Persetujuan</span></a></li>
                 @endcanany
             </ul>
         </nav>
