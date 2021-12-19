@@ -26,7 +26,7 @@
                             </h3>
                         </div>
                         <div class="panel-body">
-                            <table class="table table-hover mydatatable" id="mydatatable">
+                            <table class="table table-hover" id="datalaporan_table">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
@@ -43,21 +43,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($data->sortByDesc('created_at') as $d)
-                                        <tr>
-                                            <td>{{ $d->id??'' }}</td>
-                                            <td>{{ $d->mahasiswa->nama??'' }}</td>
-                                            <td>{{ $d->dosenPembimbing->nama??'' }}</td>
-                                            <td>{{ $d->dosenPembimbing2->nama??'' }}</td>
-                                            <td>{{ $d->pembimbingIndustri->nama??'' }}</td>
-                                            <td>{{ $d->pembimbingIndustri->industri->nama_industri??'' }}</td>
-                                            <td>{{ $d->tanggal_laporan??'' }}</td>
-                                            <td><span class="label {{cek_status($d->approve_industri,1)}}">{{ $d->approve_industri??''}}{{ ' | '.$d->approve_industri_nilai??'' }}</span></td>
-                                            <td><span class="label {{cek_status($d->approve_dosen,1)}}">{{ $d->approve_dosen??'' }}</span></td>
-                                            <td><span class="label {{cek_status($d->approve_dosen2,1)}}">{{ $d->approve_dosen2??'' }}</span></td>
-                                            <td><span class="label {{cek_status($d->status_laporan,2)}}">{{ $d->status_laporan??'' }}</span></td>
-                                        </tr>
-                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -80,6 +65,29 @@
                 method: 'post',
                 data: {is_enabled:$(this).prop('checked')}
             })
+        })
+        $("#datalaporan_table").DataTable({
+            "processing": true,
+            "serverSide": true,
+            "bSort" : false,
+            "ajax": {
+                url: "/api/datalaporan"
+            },
+            // orderCellsTop: true,
+            fixedHeader: false,
+            "columns": [
+                {data:"id"},
+                {data:"mahasiswa.nama"},
+                {data:"dosen_pembimbing.nama"},
+                {data:"dosen_pembimbing2.nama"},
+                {data:"pembimbing_industri.nama"},
+                {data:"pembimbing_industri.industri.nama_industri"},
+                {data:"tanggal_laporan"},
+                {data:"approve_industri"},
+                {data:"approve_dospem1"},
+                {data:"approve_dospem2"},
+                {data:"status_laporan"},
+            ],
         })
     </script>
 @endpush

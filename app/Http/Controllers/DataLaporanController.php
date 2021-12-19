@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Laporan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\DataTables;
 
 class DataLaporanController extends Controller
 {
@@ -15,9 +16,33 @@ class DataLaporanController extends Controller
      */
     public function index()
     {
-        $data=Laporan::all()->sortByDesc('created_at');
-        // $is_enabled = json_decode(DB::table('settings')->where('key', 'laporan_weekend')->first()->value)->is_enabled;
-        return view('datalaporan.index', compact('data'));
+        return view('datalaporan.index');
+    }
+
+    public function ajax()
+    {
+        $query = Laporan::query()->select('id', 'id_data_bimbingan','tanggal_laporan','approve_industri','approve_industri_nilai','approve_dosen','approve_dosen2','status_laporan')->whereHas('mahasiswa')->whereHas('dosenPembimbing')->whereHas('dosenPembimbing2')->whereHas('pembimbingIndustri')->with([
+            'mahasiswa'=>function($q){ $q->select('nama'); },
+            'dosenPembimbing'=>function($q){ $q->select('nama'); },
+            'dosenPembimbing2'=>function($q){ $q->select('nama'); },
+            'pembimbingIndustri'=>function($q){ $q->select('industri_id','nama'); },
+            'pembimbingIndustri.industri'=>function($q){ $q->select('industri.id','nama_industri'); },
+        ])->orderBy('created_at', 'desc');
+        return DataTables::of($query)
+            ->addColumn('approve_industri', function($d){
+                return "<span class='label ".cek_status($d->approve_industri,1.)."'>$d->approve_industri | $d->approve_industri_nilai</span>";
+            })
+            ->addColumn('approve_dospem1', function($d){
+                return  '<span class="label '.cek_status($d->approve_dosen,1).'">'.$d->approve_dosen.'</span>';
+            })
+            ->addColumn('approve_dospem2', function($d){
+                return '<span class="label '.cek_status($d->approve_dosen2,1).'">'.$d->approve_dosen2.'</span>';
+            })
+            ->addColumn('status_laporan', function($d){
+                return '<span class="label '.cek_status($d->status_laporan,2).'">'.$d->status_laporan.'</span>';
+            })
+            ->escapeColumns([])
+            ->toJson();
     }
 
     /**
