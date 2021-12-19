@@ -68,7 +68,7 @@
             <table style="width: 100%; line-height: 25px;margin-left: 310px">
                 <tbody>
                     <tr>
-                        <td style="width: 160px">Nama</td>
+                        <td style="width: 190px">Nama</td>
                         <td style="width: 15px"> :</td>
                         <td style="width: 300">{{$pemagang->mahasiswa->nama}}</td>
                     </tr>
@@ -103,9 +103,14 @@
                         <td>{{$pemagang->selesai_magang}}</td>
                     </tr>
                     <tr>
-                        <td>Dosen Pembimbing</td>
+                        <td>Dosen Pembimbing 1</td>
                         <td class="text-center">:</td>
                         <td>{{$pemagang->dosenPembimbing->nama}}</td>
+                    </tr>
+                    <tr>
+                        <td>Dosen Pembimbing 2</td>
+                        <td class="text-center">:</td>
+                        <td>{{$pemagang->dosenPembimbing2->nama}}</td>
                     </tr>
                     <tr>
                         <td>Pembimbing Industri</td>
@@ -123,14 +128,37 @@
                         <td class="font-weight-bold">Ke - {{$pemagang->prakerin_ke}}</td>
                     </tr>
                     <tr>
-                        <td>Nilai Akhir</td>
+                        <td>Akumulasi Jam Magang</td>
                         <td class="text-center">:</td>
-                        <td class="font-weight-bold">{{$nilai_akhir}}</td>
+                        <td class="font-weight-bold">{{$pemagang->progress}}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-    </div><br><br>
+    </div>
+    <br><br>
+    <table class="table-bordered" style="text-align: center; width: 100%; margin-bottom: 20px">
+        <tr>
+            <td>Jml laporan yang harus dikumpulkan</td>
+            <td>Jml laporan</td>
+            <td>Nilai konstanta semua</td>
+            <td>Nilai konstanta approved</td>
+            <td>Nilai rata2 pem.industri</td>
+            <td>Nilai rata2 dosbing 1</td>
+            <td>Nilai rata2 dosbing 2</td>
+            <td>Nilai akhir</td>
+        </tr>
+        <tr>
+            <td>{{ $jlhd }}</td>
+            <td>{{ $pemagang->laporan->count() }}</td>
+            <td>{{ $nks }}</td>
+            <td>{{ $nka }}</td>
+            <td>{{ $pemagang->laporan()->avg('approve_industri_nilai') }}</td>
+            <td>{{ $pemagang->laporan()->avg('approve_dosen') }}</td>
+            <td>{{ $pemagang->laporan()->avg('approve_dosen2') }}</td>
+            <td>{{ $nilai_akhir }}</td>
+        </tr>
+    </table>
     <table class="table-bordered" style="width: 100%;">
         <thead>
             <tr>
