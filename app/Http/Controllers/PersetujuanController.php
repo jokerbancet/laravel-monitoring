@@ -23,18 +23,47 @@ class PersetujuanController extends Controller
             $clause=auth()->user()->role=='dosenpembimbing'?
                     ['dosenpembimbing_id'=>auth()->user()->dosenPembimbing->id]:
                     ['pembimbingindustri_id'=>auth()->user()->pembimbingIndustri->id];
-            $mahasiswa = Pemagangan::with(['laporan'=>function($laporan){
-                return $laporan->where('status_laporan','pending')->get();
-            }])->where($clause);
-        }
-        if(auth()->user()->role=='dosenpembimbing'){
-            $mahasiswa->orWhere(['dosenpembimbing2_id'=>auth()->user()->dosenPembimbing->id]);
+            $mahasiswa = Pemagangan::where($clause);
+            if(Gate::allows('dosenpembimbing')){
+                $mahasiswa->orWhere(['dosenpembimbing2_id'=>auth()->user()->dosenPembimbing->id]);
+            }
+            $mahasiswa->with(['laporan'=>function($q){
+                if(Gate::allows('dosenpembimbing')){
+                    $q->where('approve_dosen', 'pending');
+                }else{
+                    $q->where('approve_industri','pending');
+                }
+            }])->withCount(['laporan as laporan_count'=> function($laporan){
+                if(Gate::allows('dosenpembimbing')){
+                    // $pemagangan = Pemagangan::whereHas('laporan',function($q)use($laporan){
+                    //     $q->where('id', $laporan->id);
+                    // })->first();
+                    // $dospem_id = auth()->user()->dosenPembimbing->id;
+                    // if($pemagangan->dosenpembimbing_id==$dospem_id){
+                    //     $laporan->where('approve_dosen','pending');
+                    // }else{
+                    //     $laporan->where('approve_dosen2', 'pending');
+                    // }
+                    $laporan->where('approve_dosen', 'pending');
+                }else{
+                    $laporan->where('approve_industri','pending');
+                }
+            }]);
         }
 
         if(request()->is('persetujuan')){
             $title = 'Data Laporan Mahasiswa';
             $action = '/persetujuan/mhs/';
-            $mahasiswa=$mahasiswa->whereDate('mulai_magang', '<=', date('Y-m-d'))->whereDate('selesai_magang', '>=', date('Y-m-d'))->get();
+            $mahasiswa=$mahasiswa->having('laporan_count', '>', 0)->get()->filter(function($p){
+                if(Gate::allows('dosenpembimbing')){
+                    if($p->dosenpembimbing_id==auth()->user()->dosenPembimbing->id){
+                        return $p->laporan->where('approve_dosen', 'pending')->count()>0;
+                    }else{
+                        return $p->laporan->where('approve_dosen2', 'pending')->count()>0;
+                    }
+                }
+                return true;
+            });
         }else{
             $title = 'Data Histori Laporan Mahasiswa';
             $action = '/histori-approval/';
@@ -65,10 +94,11 @@ class PersetujuanController extends Controller
     public function approve(Request $request, Laporan $laporan)
     {
         $validation = [];
+        $pemagangan = $laporan->pemagangan;
         if(auth()->user()->pembimbingIndustri){
             $validation['approve_industri_nilai'] = 'required|numeric|min:0|max:100';
         }else{
-            if($laporan->pemagangan->dosenPembimbing2==auth()->user()->dosenPembimbing){
+            if($pemagangan->dosenPembimbing2==auth()->user()->dosenPembimbing){
                 $validation['approve_dosen2'] = 'required|numeric|min:0|max:100';
             }else{
                 $validation['approve_dosen'] = 'required|numeric|min:0|max:100';
@@ -85,7 +115,16 @@ class PersetujuanController extends Controller
                 'created_at'=>now()
             ]);
         }
-        return back()->with('sukses', 'Laporan telah diapprove');
+
+        $redirect = back();
+        if($pemagangan->dosenPembimbing==auth()->user()->pembimbingIndustri){
+            if($pemagangan->laporan->where('approve_industri', 'pending')->count()<1) $redirect = redirect('persetujuan');
+        }elseif($pemagangan->dosenPembimbing==auth()->user()->dosenPembimbing){
+            if($pemagangan->laporan->where('approve_dosen', 'pending')->count()<1) $redirect = redirect('persetujuan');
+        }elseif($pemagangan->dosenPembimbing2==auth()->user()->dosenPembimbing2){
+            if($pemagangan->laporan->where('approve_dosen2', 'pending')->count()<1) $redirect = redirect('persetujuan');
+        }
+        return $redirect->with('sukses', 'Laporan telah diapprove');
     }
 
     public function histori_approval(Pemagangan $mahasiswa){
