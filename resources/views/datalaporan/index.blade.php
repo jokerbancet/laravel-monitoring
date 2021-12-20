@@ -69,12 +69,12 @@
         $("#datalaporan_table").DataTable({
             "processing": true,
             "serverSide": true,
-            "bSort" : false,
+            "bSort" : true,
             "ajax": {
                 url: "/api/datalaporan"
             },
             // orderCellsTop: true,
-            fixedHeader: false,
+            fixedHeader: true,
             "columns": [
                 {data:"id"},
                 {data:"mahasiswa.nama"},

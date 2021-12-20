@@ -21,14 +21,15 @@ class DataLaporanController extends Controller
 
     public function ajax()
     {
-        $query = Laporan::query()->select('id', 'id_data_bimbingan','tanggal_laporan','approve_industri','approve_industri_nilai','approve_dosen','approve_dosen2','status_laporan')->whereHas('mahasiswa')->whereHas('dosenPembimbing')->whereHas('dosenPembimbing2')->whereHas('pembimbingIndustri')->with([
+        $query = Laporan::select('id', 'id_data_bimbingan','tanggal_laporan','approve_industri','approve_industri_nilai','approve_dosen','approve_dosen2','status_laporan')->whereHas('mahasiswa')->whereHas('dosenPembimbing')->whereHas('dosenPembimbing2')->whereHas('pembimbingIndustri')->with([
             'mahasiswa'=>function($q){ $q->select('nama'); },
             'dosenPembimbing'=>function($q){ $q->select('nama'); },
             'dosenPembimbing2'=>function($q){ $q->select('nama'); },
             'pembimbingIndustri'=>function($q){ $q->select('industri_id','nama'); },
             'pembimbingIndustri.industri'=>function($q){ $q->select('industri.id','nama_industri'); },
-        ])->orderBy('created_at', 'desc');
-        return DataTables::of($query)
+        ])->orderBy('created_at', 'desc')->get();
+        $dt = new DataTables();
+        return $dt->collection($query)
             ->addColumn('approve_industri', function($d){
                 return "<span class='label ".cek_status($d->approve_industri,1.)."'>$d->approve_industri | $d->approve_industri_nilai</span>";
             })

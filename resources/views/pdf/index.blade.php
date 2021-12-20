@@ -93,16 +93,6 @@
                         <td>{{$pemagang->mahasiswa->email}}</td>
                     </tr>
                     <tr>
-                        <td>Mulai Magang</td>
-                        <td class="text-center">:</td>
-                        <td>{{$pemagang->mulai_magang}}</td>
-                    </tr>
-                    <tr>
-                        <td>Selesai Magang</td>
-                        <td class="text-center">:</td>
-                        <td>{{$pemagang->selesai_magang}}</td>
-                    </tr>
-                    <tr>
                         <td>Dosen Pembimbing 1</td>
                         <td class="text-center">:</td>
                         <td>{{$pemagang->dosenPembimbing->nama}}</td>
@@ -127,11 +117,6 @@
                         <td class="text-center">:</td>
                         <td class="font-weight-bold">Ke - {{$pemagang->prakerin_ke}}</td>
                     </tr>
-                    <tr>
-                        <td>Akumulasi Jam Magang</td>
-                        <td class="text-center">:</td>
-                        <td class="font-weight-bold">{{$pemagang->progress}}</td>
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -139,10 +124,24 @@
     <br><br>
     <table class="table-bordered" style="text-align: center; width: 100%; margin-bottom: 20px">
         <tr>
+            <td>Mulai magang</td>
+            <td>Selesai magang</td>
+            <td>Jumlah hari magang</td>
+            <td>Akumulasi jam magang</td>
+        </tr>
+        <tr>
+            <td>{{ $pemagang->mulai_magang }}</td>
+            <td>{{ $pemagang->selesai_magang }}</td>
+            <td>{{ $jhm }}  hari</td>
+            <td>{{ $pemagang->progress }}</td>
+        </tr>
+    </table>
+    <table class="table-bordered" style="text-align: center; width: 100%; margin-bottom: 20px">
+        <tr>
             <td>Jml laporan yang harus dikumpulkan</td>
             <td>Jml laporan</td>
-            <td>Nilai konstanta semua</td>
-            <td>Nilai konstanta approved</td>
+            <td>Jml laporan approved</td>
+            <td>Nilai konstanta</td>
             <td>Nilai rata2 pem.industri</td>
             <td>Nilai rata2 dosbing 1</td>
             <td>Nilai rata2 dosbing 2</td>
@@ -151,11 +150,11 @@
         <tr>
             <td>{{ $jlhd }}</td>
             <td>{{ $pemagang->laporan->count() }}</td>
-            <td>{{ $nks }}</td>
-            <td>{{ $nka }}</td>
-            <td>{{ $pemagang->laporan()->avg('approve_industri_nilai') }}</td>
-            <td>{{ $pemagang->laporan()->avg('approve_dosen') }}</td>
-            <td>{{ $pemagang->laporan()->avg('approve_dosen2') }}</td>
+            <td>{{ $pemagang->laporan->where('status_laporan', 'approve')->count() }}</td>
+            <td>{{ number_format($nks, 3) }}</td>
+            <td>{{ number_format($pemagang->laporan()->avg('approve_industri_nilai'), 1) }}</td>
+            <td>{{ number_format($pemagang->laporan()->avg('approve_dosen'), 1) }}</td>
+            <td>{{ number_format($pemagang->laporan()->avg('approve_dosen2'), 1) }}</td>
             <td>{{ $nilai_akhir }}</td>
         </tr>
     </table>

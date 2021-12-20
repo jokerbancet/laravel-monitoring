@@ -62,15 +62,15 @@ class RelasiCapaianController extends Controller
             abort(403, 'Maaf mahasiswa ini belum selesai magang');
         }
         $jhm = Carbon::createFromFormat('Y-m-d',$pemagang->selesai_magang)->diffInDays(Carbon::createFromFormat('Y-m-d', $pemagang->mulai_magang));
-        $jlhd = $jhm/7*5;
+        $jlhd = round($jhm/7*5);
         $nks = $pemagang->laporan->count()/$jlhd;
-        $nka = $pemagang->laporan->where('status_laporan', 'approve')->count()/$jlhd;
+        // $nka = $pemagang->laporan->where('status_laporan', 'approve')->count()/$jlhd;
         $nilai = $pemagang->laporan()->where('status_laporan', 'approve')->selectRaw('sum(approve_dosen) as dospem1, sum(approve_dosen2) as dospem2, sum(approve_industri_nilai) as pembid')->first();
         $nilai_akhir = ($nilai->dospem1*30/100)+($nilai->dospem2*30/100)+($nilai->pembid*40/100);
         $capaian = $pemagang->kompetensi()->select('created_at', 'capaian_id', DB::raw('count(*) as total'))->groupBy('capaian_id')->get();
         // $avatar = $pemagang->mahasiswa->getAvatar(false);
         // dd($capaian);
-        $pdf = \PDF::loadView('pdf.index',compact('pemagang', 'capaian', 'nilai_akhir', 'jlhd', 'nks', 'nka'))->setPaper('a4','landscape');
+        $pdf = \PDF::loadView('pdf.index',compact('pemagang', 'capaian', 'nilai_akhir', 'jhm','jlhd', 'nks'))->setPaper('a4','landscape');
         return $pdf->stream("Hasil Laporan ".$pemagang->mahasiswa->nama.".pdf");
     }
 
