@@ -56,13 +56,13 @@
 <body>
     <center style="margin-top: 40px">
         <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('pdf/logo.png'))) }}" alt="" width="50" height="50">
-        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('pdf/header.png'))) }}" alt="" width="300" height="50" style="margin-left: 30px">
-        <h4>DAFTAR CAPAIAN MAHASISWA DAN REKAP LAPORAN MAHASISWA MAGANG INDUSTRI POLITEKNIK ENERGI DAN<br> PERTAMBANGAN BANDUNG</h4>
+        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('pdf/header.png'))) }}" alt="" width="300" height="50" style="margin-left: 30px; margin-bottom: 15px">
+        <br>
+        <h3>DAFTAR CAPAIAN MAHASISWA DAN REKAP LAPORAN MAHASISWA MAGANG INDUSTRI POLITEKNIK ENERGI DAN PERTAMBANGAN BANDUNG</h3>
     </center>
-    <p style="font-size: 18px; margin-top: 30px;margin-bottom: 50px">Berikut data detail mahasiswa yang melakukan magang.</p>
     <div class="row no-gutters" style="margin-top: 30px;">
         <div class="col-5">
-            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('/'.$pemagang->mahasiswa->getAvatar(false))))}}" style="width: 270px; height: 300px;margin-top: 30px;margin-left: 20px" alt="Avatar">
+            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('/'.$pemagang->mahasiswa->getAvatar(false))))}}" style="width: 65%; margin-top: 30px;margin-left: 20px" alt="Avatar">
         </div>
         <div class="col-5">
             <table style="width: 100%; line-height: 25px;margin-left: 310px">
@@ -123,90 +123,102 @@
     </div>
     <br><br>
     <table class="table-bordered" style="text-align: center; width: 100%; margin-bottom: 20px">
-        <tr>
-            <td>Mulai magang</td>
-            <td>Selesai magang</td>
-            <td>Jumlah hari magang</td>
-            <td>Akumulasi jam magang</td>
-        </tr>
-        <tr>
-            <td>{{ $pemagang->mulai_magang }}</td>
-            <td>{{ $pemagang->selesai_magang }}</td>
-            <td>{{ $jhm }}  hari</td>
-            <td>{{ $pemagang->progress }}</td>
-        </tr>
+        <thead>
+            <tr>
+                <th>Mulai Magang</th>
+                <th>Selesai Magang</th>
+                {{-- <th>Jumlah hari magang</th> --}}
+                <th>Akumulasi Jam Magang</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ $pemagang->mulai_magang }}</td>
+                <td>{{ $pemagang->selesai_magang }}</td>
+                {{-- <td>{{ $jhm }}  hari</td> --}}
+                <td>{{ $pemagang->progress }}</td>
+            </tr>
+        </tbody>
     </table>
     <table class="table-bordered" style="text-align: center; width: 100%; margin-bottom: 20px">
-        <tr>
-            <td>Jml laporan yang harus dikumpulkan</td>
-            <td>Jml laporan</td>
-            <td>Jml laporan approved</td>
-            <td>Nilai konstanta</td>
-            <td>Nilai rata2 pem.industri</td>
-            <td>Nilai rata2 dosbing 1</td>
-            <td>Nilai rata2 dosbing 2</td>
-            <td>Nilai akhir</td>
-        </tr>
-        <tr>
-            <td>{{ $jlhd }}</td>
-            <td>{{ $pemagang->laporan->count() }}</td>
-            <td>{{ $pemagang->laporan->where('status_laporan', 'approve')->count() }}</td>
-            <td>{{ number_format($nks, 3) }}</td>
-            <td>{{ number_format($pemagang->laporan()->avg('approve_industri_nilai'), 1) }}</td>
-            <td>{{ number_format($pemagang->laporan()->avg('approve_dosen'), 1) }}</td>
-            <td>{{ number_format($pemagang->laporan()->avg('approve_dosen2'), 1) }}</td>
-            <td>{{ $nilai_akhir }}</td>
-        </tr>
+        <thead>
+            <tr>
+                <th>Jumlah laporan yang harus dikumpulkan</th>
+                <th>Jumlah laporan</th>
+                <th>Jumlah laporan disetujui</th>
+                <th>Nilai konstanta</th>
+                <th>Nilai Rata - rata Pembimbing Industri</th>
+                <th>Nilai Rata - rata Dosbing 1</th>
+                <th>Nilai Rata - rata Dosbing 2</th>
+                <th>Nilai Akhir</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ $jlhd }}</td>
+                <td>{{ $pemagang->laporan->count() }}</td>
+                <td>{{ $pemagang->laporan->where('status_laporan', 'approve')->count() }}</td>
+                <td>{{ number_format($nks, 3) }}</td>
+                <td>{{ number_format($pemagang->laporan()->avg('approve_industri_nilai'), 1) }}</td>
+                <td>{{ number_format($pemagang->laporan()->avg('approve_dosen'), 1) }}</td>
+                <td>{{ number_format($pemagang->laporan()->avg('approve_dosen2'), 1) }}</td>
+                <td>{{ $nilai_akhir }}</td>
+            </tr>
+        </tbody>
     </table>
     <table class="table-bordered" style="width: 100%;">
         <thead>
             <tr>
-                <th style="width: 10px">NO</th>
+                <th style="width: 25px">No.</th>
                 <th>Keterampilan Khusus yang Tercapai</th>
-                <th style="width: 50px">Qty</th>
-                <th style="width: 150px">Tanggal Ketercapaian</th>
+                <th style="width: 100px">Qty</th>
+                <th style="width: 150px; text-align: center">Tanggal Ketercapaian</th>
             </tr>
         </thead>
         <tbody class="top">
             @foreach ($capaian as $kompetensi)
                 <tr>
-                    <td style="padding-left: 0" class="text-center">{{$loop->iteration}}</td>
+                    <td style="padding-left: 0; text-align: center">{{$loop->iteration}}</td>
                     <td>{{$kompetensi->capaian->deskripsi_capaian}}</td>
-                    <td>{{$kompetensi->total }} kali</td>
+                    <td style="text-align: center">{{$kompetensi->total }} kali</td>
                     <td>{{$kompetensi->created_at}}</td>
                 </tr>
             @endforeach
         </tbody>
     </table>
-    <p style="font-size: 18px; margin-top: 20px margin-bottom: 10px">Berikut rekap laporan mahasiswa.</p>
+    <br>
+    <br>
+    <br>
+    {{-- <p style="font-size: 18px; margin-top: 20px margin-bottom: 10px">Berikut rekap laporan mahasiswa.</p> --}}
     <table class="table-bordered">
         <thead class="text-xs-center">
             <tr>
-                <th style="width: 15px">No.</th>
-                <th>Tanggal Laporan</th>
-                <th>Kegiatan Pekerjaan</th>
-                <th>Deskripsi Pekerjaan</th>
-                <th>Durasi</th>
-                <th>Output</th>
-                <th style="width: 15px">Nilai Pembimbing Industri</th>
-                <th style="width: 15px">Nilai Dosen Pembimbing 1</th>
-                <th style="width: 15px">Nilai Dosen Pembimbing 2</th>
-                <th style="width: 15px">Status Laporan</th>
+                <th style="font-size: 12px; width: 25px">No.</th>
+                <th style="font-size: 12px; width: 70px">Tanggal Laporan</th>
+                {{-- <th>Tanggal Laporan Dibuat</th> --}}
+                {{-- <th>Kegiatan Pekerjaan</th> --}}
+                <th style="font-size: 12px;">Deskripsi Pekerjaan</th>
+                <th style="font-size: 12px; width: 50px">Durasi</th>
+                {{-- <th>Output</th> --}}
+                <th style="font-size: 12px; width: 95px">Nilai Pem.Industri</th>
+                <th style="font-size: 12px; width: 40px">Nilai Dosbing 1</th>
+                <th style="font-size: 12px; width: 40px">Nilai Dosbing 2</th>
+                {{-- <th style="width: 15px">Status Laporan</th> --}}
             </tr>
         </thead>
         <tbody class="top">
             @foreach ($pemagang->laporan as $laporan)
                 <tr>
-                    <td style="padding-left: 0" class="text-center">{{$loop->iteration}}</td>
-                    <td>{{$laporan->tanggal_laporan}}</td>
-                    <td>{{$laporan->kegiatan_pekerjaan}}</td>
-                    <td>{{$laporan->deskripsi_pekerjaan}}</td>
-                    <td>{{$laporan->output}}</td>
-                    <td>{{$laporan->durasi}}</td>
-                    <td>{{$laporan->approve_industri.' | '.$laporan->approve_industri_nilai}}</td>
-                    <td>{{$laporan->approve_dosen}}</td>
-                    <td>{{$laporan->approve_dosen2}}</td>
-                    <td>{{$laporan->status_laporan}}</td>
+                    <td style="font-size: 12px; padding-left: 0; text-align: center">{{$loop->iteration}}</td>
+                    <td style="font-size: 12px;">{{$laporan->tanggal_laporan}}</td>
+                    {{-- <td>{{$laporan->kegiatan_pekerjaan}}</td> --}}
+                    <td style="font-size: 10px;">{{$laporan->deskripsi_pekerjaan}}</td>
+                    {{-- <td>{{$laporan->output}}</td> --}}
+                    <td style="font-size: 12px; text-align: center;">{{$laporan->durasi}} Jam</td>
+                    <td style="font-size: 12px; text-align: center;">{{$laporan->approve_industri.' | '.$laporan->approve_industri_nilai}}</td>
+                    <td style="font-size: 12px; text-align: center;">{{$laporan->approve_dosen}}</td>
+                    <td style="font-size: 12px; text-align: center;">{{$laporan->approve_dosen2}}</td>
+                    {{-- <td>{{$laporan->status_laporan}}</td> --}}
                 </tr>
             @endforeach
         </tbody>
