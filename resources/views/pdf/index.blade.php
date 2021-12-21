@@ -212,7 +212,7 @@
                     <td style="font-size: 12px; padding-left: 0; text-align: center">{{$loop->iteration}}</td>
                     <td style="font-size: 12px;">{{$laporan->tanggal_laporan}}</td>
                     {{-- <td>{{$laporan->kegiatan_pekerjaan}}</td> --}}
-                    <td style="font-size: 10px;">{{$laporan->deskripsi_pekerjaan}}</td>
+                    <td style="font-size: 8px;">{{$laporan->deskripsi_pekerjaan}}</td>
                     {{-- <td>{{$laporan->output}}</td> --}}
                     <td style="font-size: 12px; text-align: center;">{{$laporan->durasi}} Jam</td>
                     <td style="font-size: 12px; text-align: center;">{{$laporan->approve_industri.' | '.$laporan->approve_industri_nilai}}</td>
