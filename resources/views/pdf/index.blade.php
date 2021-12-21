@@ -121,8 +121,8 @@
             </table>
         </div>
     </div>
-    <br><br>
-    <table class="table-bordered" style="text-align: center; width: 100%; margin-bottom: 20px">
+    <br><br><br><br>
+    <table class="table-bordered" style="text-align: center; width: 100%; margin-bottom: 20px; margin-top: 20px">
         <thead>
             <tr>
                 <th>Mulai Magang</th>
@@ -148,8 +148,8 @@
                 <th>Jumlah laporan disetujui</th>
                 <th>Nilai konstanta</th>
                 <th>Nilai Rata - rata Pembimbing Industri</th>
-                <th>Nilai Rata - rata Dosbing 1</th>
-                <th>Nilai Rata - rata Dosbing 2</th>
+                <th>Nilai Rata - rata Dosen Pembimbing 1</th>
+                <th>Nilai Rata - rata Dosen Pembimbing 2</th>
                 <th>Nilai Akhir</th>
             </tr>
         </thead>
@@ -172,7 +172,7 @@
                 <th style="width: 25px">No.</th>
                 <th>Keterampilan Khusus yang Tercapai</th>
                 <th style="width: 100px">Qty</th>
-                <th style="width: 150px; text-align: center">Tanggal Ketercapaian</th>
+                {{-- <th style="width: 150px; text-align: center">Tanggal Ketercapaian</th> --}}
             </tr>
         </thead>
         <tbody class="top">
@@ -181,7 +181,7 @@
                     <td style="padding-left: 0; text-align: center">{{$loop->iteration}}</td>
                     <td>{{$kompetensi->capaian->deskripsi_capaian}}</td>
                     <td style="text-align: center">{{$kompetensi->total }} kali</td>
-                    <td>{{$kompetensi->created_at}}</td>
+                    {{-- <td>{{$kompetensi->created_at}}</td> --}}
                 </tr>
             @endforeach
         </tbody>
@@ -201,8 +201,8 @@
                 <th style="font-size: 12px; width: 50px">Durasi</th>
                 {{-- <th>Output</th> --}}
                 <th style="font-size: 12px; width: 95px">Nilai Pem.Industri</th>
-                <th style="font-size: 12px; width: 40px">Nilai Dosbing 1</th>
-                <th style="font-size: 12px; width: 40px">Nilai Dosbing 2</th>
+                <th style="font-size: 12px; width: 40px">Nilai Dosen Pembimbing 1</th>
+                <th style="font-size: 12px; width: 40px">Nilai Dosen Pembimbing 2</th>
                 {{-- <th style="width: 15px">Status Laporan</th> --}}
             </tr>
         </thead>

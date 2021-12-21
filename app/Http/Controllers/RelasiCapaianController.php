@@ -71,7 +71,7 @@ class RelasiCapaianController extends Controller
         // $avatar = $pemagang->mahasiswa->getAvatar(false);
         // dd($capaian);
         $pdf = \PDF::loadView('pdf.index',compact('pemagang', 'capaian', 'nilai_akhir', 'jhm','jlhd', 'nks'))->setPaper('a4','landscape');
-        return $pdf->stream("Hasil Laporan ".$pemagang->mahasiswa->nama.".pdf");
+        return $pdf->stream("Hasil Laporan ".$pemagang->mahasiswa->nama." ".$pemagang->mahasiswa->jurusan." ".$pemagang->pembimbingIndustri->industri->nama_industri.".pdf");
     }
 
     /**

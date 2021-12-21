@@ -21,7 +21,7 @@ class PemaganganController extends Controller
         //ambil data_bimbingan untuk tabel
         $data_pemagangan = DB::table('data_bimbingan')
         ->join('mahasiswa', 'data_bimbingan.mahasiswa_id', '=', 'mahasiswa.id')
-        ->select('data_bimbingan.id', 'data_bimbingan.mahasiswa_id','data_bimbingan.mulai_magang', 'data_bimbingan.selesai_magang','data_bimbingan.jenis_pekerjaan', 'mahasiswa.nama','mahasiswa.jurusan')
+        ->select('data_bimbingan.id', 'data_bimbingan.mahasiswa_id','data_bimbingan.prakerin_ke', 'data_bimbingan.mulai_magang', 'data_bimbingan.selesai_magang','data_bimbingan.jenis_pekerjaan', 'mahasiswa.nama','mahasiswa.jurusan')
         ->get();
 
         //ambil data nama mahasiswa

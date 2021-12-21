@@ -29,6 +29,7 @@
                                     <tr>
                                         <th>Nama Mahasiswa</th>
                                         <th>Prodi</th>
+                                        <th>Prakerin ke</th>
                                         <th>Mulai Magang</th>
                                         <th>Selesai Magang</th>
                                         {{-- <th>Jenis Pekerjaan</th> --}}
@@ -41,6 +42,7 @@
                                         <tr>
                                             <td>{{ $p->nama}}</td>
                                             <td>{{ $p->jurusan }}</td>
+                                            <td class="text-center">{{ $p->prakerin_ke }}</td>
                                             <td>{{ $p->mulai_magang }}</td>
                                             <td>{{ $p->selesai_magang }}</td>
                                             {{-- <td>{{ $p->jenis_pekerjaan }}</td> --}}
