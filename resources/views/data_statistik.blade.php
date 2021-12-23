@@ -80,7 +80,7 @@
         var table = $('#akumulasi-table').DataTable({
             "processing": true,
             "serverSide": true,
-            "bSort" : false,
+            "bSort" : true,
             "ajax": {
                 url: "",
                 data: function(data){
