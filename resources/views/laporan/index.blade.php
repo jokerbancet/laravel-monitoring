@@ -50,7 +50,7 @@
                         {{-- Cek apakah hari ini hari libur atau bukan ['Minggu', 'Sabtu'] -> cek di LaporanController method index variable $excepted_days --}}
                         @if (!$hari_libur)
                             {{-- Cek apakah si pemagang sudah melakukan laporan hari ini atau belum --}}
-                            @if ($hasLaporanToday->count()<2)
+                            @if ($hasLaporanToday->count()<1)
                                 <div class="col-md-12">
                                     <!-- TABLE HOVER -->
                                     <div class="panel">
