@@ -30,7 +30,10 @@
 					<div class="left">
 						<div class="content">
 							<div class="header">
-								<div class="logo text-center"><img src="{{asset('admin/assets/img/logo/logo-utama-warna.png')}}" alt="pep Logo" width="60%"></div>
+								<div class="logo text-center">
+                                    <img src="{{asset('admin/assets/img/logo/logo-merdeka-small.png')}}" alt="pep Logo" width="60%">
+                                    {{-- <img src="{{asset('admin/assets/img/logo/logo-utama-warna.png')}}" alt="pep Logo" width="60%"> --}}
+                                </div>
 							</div>
                             @if (session()->has('success'))
                                 <div class="alert alert-success">{{ session()->get('success') }}</div>
@@ -50,6 +53,11 @@
 								<button type="submit" class="btn btn-primary btn-lg btn-block">LOGIN</button>
 								<div class="bottom">
 									<span class="helper-text"><i class="fa fa-lock"></i> <a href="/forgot-password">Forgot password?</a></span>
+                                    <span>
+                                        <br>
+                                        <br>
+                                        <img src="{{asset('admin/assets/img/logo/logo-stack-2.png')}}" alt="pep Logo" width="50%">
+                                    </span>
 								</div>
                                 @if (session()->has('failed'))
                                     <span class="text-danger">{{session('failed')}}</span>
@@ -60,8 +68,8 @@
 					<div class="right">
 						<div class="overlay"></div>
 						<div class="content text">
-							<h1 class="heading">Aplikasi Monitoring Magang Mahasiswa</h1>
-							<p>by PEP Bandung</p>
+							<h1 class="heading">Media Rekam Data Elektronik Praktik Kerja (MERDEKA)</h1>
+							<p>Politeknik Energi dan Pertambangan Bandung</p>
 						</div>
 					</div>
 					<div class="clearfix"></div>
