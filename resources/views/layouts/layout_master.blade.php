@@ -18,7 +18,7 @@
         <!-- GOOGLE FONTS -->
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
         <!-- ICONS -->
-        <link rel="icon" type="image/png" sizes="96x96" href="{{asset('admin/assets/img/logo-transparent.png')}}">
+        <link rel="icon" type="image/png" sizes="96x96" href="{{asset('admin/assets/img/logo-2.png')}}">
         {{-- DATATABLE --}}
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.css" />
         {{-- select2 --}}
