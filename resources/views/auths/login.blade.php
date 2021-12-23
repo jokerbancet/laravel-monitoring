@@ -50,9 +50,9 @@
 								</div>
 								<div class="form-group clearfix">
 								</div>
-								<button type="submit" class="btn btn-primary btn-lg btn-block">LOGIN</button>
+								<button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
 								<div class="bottom">
-									<span class="helper-text"><i class="fa fa-lock"></i> <a href="/forgot-password">Forgot password?</a></span>
+									<span class="helper-text"><i class="fa fa-lock"></i> <a href="/forgot-password"> Lupa Password ?</a></span>
                                     <span>
                                         <br>
                                         <br>
