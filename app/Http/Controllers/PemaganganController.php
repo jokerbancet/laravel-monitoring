@@ -32,7 +32,7 @@ class PemaganganController extends Controller
         ->select('dosenpembimbing.id', 'dosenpembimbing.nama', DB::raw('COUNT(data_bimbingan.mahasiswa_id) AS jumlah_anak'))
         ->leftJoin('data_bimbingan', 'dosenpembimbing.id', '=', 'data_bimbingan.dosenpembimbing_id')
         ->groupBy('dosenpembimbing.id')
-        ->having('jumlah_anak', '<', 10)
+        ->having('jumlah_anak', '<', 100)
         ->get();
 
         //ambil data nama pembimbing industri
