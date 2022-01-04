@@ -9,7 +9,7 @@
 			</div> --}}
             <div class="panel panel-headline">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Dashboard Aplikasi Monitoring Magang Mahasiswa</h3>
+                    <h3 class="panel-title">Dashboard Aplikasi MERDEKA (Media Rekam Data Elektronik Praktik Kerja)</h3>
                     <p class="panel-subtitle">Pertanggal: @php
                         echo date("d-m-Y");
                     @endphp</p>
