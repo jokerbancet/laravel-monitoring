@@ -48,8 +48,8 @@
                         <thead>
                             <th>No</th>
                             <th>Nama Dosen</th>
-                            <th>Jml Laporan Approve</th>
                             <th>Jml Laporan Belum Approve</th>
+                            <th>Jml Laporan Approve</th>
                         </thead>
                         <tbody></tbody>
                     </table>
@@ -62,8 +62,8 @@
                             <th>No</th>
                             <th>Nama Pembimbing Industri</th>
                             <th>Nama Industri</th>
-                            <th>Jml Laporan Approve</th>
                             <th>Jml Laporan Belum Approve</th>
+                            <th>Jml Laporan Approve</th>
                         </thead>
                         <tbody></tbody>
                     </table>
@@ -101,7 +101,7 @@
         var table_dosen = $('#data-dosen').DataTable({
             "processing": true,
             "serverSide": true,
-            "bSort" : false,
+            "bSort" : true,
             "ajax": {
                 url: "/api/data-dosen",
             },
@@ -109,15 +109,15 @@
             "columns": [
                 {data:"DT_RowIndex"},
                 {data:"nama_dosen"},
-                {data:"approved"},
                 {data:"not_approved"},
+                {data:"approved"},
             ],
         });
 
         var table_pembimbing = $('#data-pembimbing').DataTable({
             "processing": true,
             "serverSide": true,
-            "bSort" : false,
+            "bSort" : true,
             "ajax": {
                 url: "/api/data-pembimbing",
             },
@@ -126,8 +126,8 @@
                 {data:"DT_RowIndex"},
                 {data:"nama_pembimbing"},
                 {data:"nama_industri"},
-                {data:"approved"},
                 {data:"not_approved"},
+                {data:"approved"},
             ],
         });
 
