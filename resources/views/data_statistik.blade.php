@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="panel panel-headline">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Data Statistik</h3>
+                    <h3 class="panel-title">Data Statistik Mahasiswa</h3>
                 </div>
                 <div class="panel-body">
                     <div class="form-group" style="width: 150px">
@@ -16,7 +16,7 @@
                             <option value="2">Ke Dua</option>
                         </select>
                     </div>
-                    <table class="table table-bordered" id="akumulasi-table">
+                    <table class="table table-hover" id="akumulasi-table">
                         <thead>
                             <th>No</th>
                             <th>Nama</th>
