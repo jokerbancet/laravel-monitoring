@@ -30,6 +30,7 @@
                                         <th>Nama</th>
                                         <th>Email</th>
                                         <th>Tempat Industri</th>
+                                        <th>Created at</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -39,6 +40,7 @@
                                             <td>{{ $pi->nama }}</td>
                                             <td>{{ $pi->email }}</td>
                                             <td>{{ $pi->industri->nama_industri }}</td>
+                                            <td>{{ $pi->created_at }}</td>
                                             <td><a href="/pembimbingindustri/{{ $pi->id }}/detail"
                                                     class="btn btn-info btn-xs"><i class="lnr lnr-magnifier"></i></a>
                                                 <a href="/pembimbingindustri/{{ $pi->id }}/edit"
