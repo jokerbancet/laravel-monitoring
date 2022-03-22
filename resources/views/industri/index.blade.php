@@ -29,8 +29,7 @@
                                     <tr>
                                         <th>Nama Industri</th>
                                         <th>Kategori Industri</th>
-                                        <th>Email</th>
-                                        <th>Alamat</th>
+                                        <th>Created at</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -39,8 +38,7 @@
                                         <tr>
                                             <td>{{ $ind->nama_industri }}</td>
                                             <td>{{ $ind->kategori_industri }}</td>
-                                            <td>{{ $ind->email }}</td>
-                                            <td>{{ $ind->alamat }}</td>
+                                            <td>{{ $ind->created_at }}</td>
                                             <td><a href="/industri/{{ $ind->id }}/edit"
                                                     class="btn btn-warning btn-xs"><i class="lnr lnr-pencil"></i></a>
                                                 <a href="/industri/{{ $ind->id }}/delete"
