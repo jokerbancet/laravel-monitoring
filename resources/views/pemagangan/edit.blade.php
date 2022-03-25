@@ -55,7 +55,7 @@
                                         <select name="pembimbingindustri_id" id="pembimbingindustri_id" class="form-control">
                                             <option value=""></option>
                                             @foreach($pembimbingIndustri as $data)
-                                                <option value="{{ $data->id }}">{{ $data->nama }}</option>
+                                                <option value="{{ $data->id }}">{{ $data->nama.' - '.$data->industri->nama_industri }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -111,6 +111,11 @@
     <script>
         $('#subPages2').addClass('in').prev().addClass('active').removeClass('collapsed');
         $('#data-pemagang').addClass('active')
+        $(document).ready(function() {
+            $('.select2').select2({
+                theme: 'classic'
+            })
+        });
         $.ajax({
             url: '',
             success: function(pemagang){

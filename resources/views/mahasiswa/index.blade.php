@@ -33,6 +33,7 @@
                                         <th>NIM</th>
                                         <th>Jurusan</th>
                                         <th>Tahun Angkatan</th>
+                                        <th>Created at</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -44,6 +45,7 @@
                                             <td>{{ $mhs->nim }}</td>
                                             <td>{{ $mhs->jurusan }}</td>
                                             <td>{{ $mhs->tahun_angkatan }}</td>
+                                            <td>{{ $mhs->created_at }}</td>
                                             <td><a href="/mahasiswa/{{ $mhs->id }}/detail"
                                                     class="btn btn-info btn-xs"><i class="lnr lnr-magnifier"></i></a>
                                                 <a href="/mahasiswa/{{ $mhs->id }}/edit"

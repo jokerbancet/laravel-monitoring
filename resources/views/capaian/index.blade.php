@@ -30,7 +30,7 @@
                                         <th>Prodi/Jurusan</th>
                                         <th>Deskripsi</th>
                                         <th>Kategori</th>
-                                        <th>Bobot Nilai</th>
+                                        <th>Created at</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -40,7 +40,7 @@
                                             <td>{{ $c->jurusan }}</td>
                                             <td>{{ $c->deskripsi_capaian }}</td>
                                             <td>{{ $c->kategori_capaian }}</td>
-                                            <td>{{ $c->bobot_capaian }}</td>
+                                            <td>{{ $c->created_at }}</td>
                                             <td><a href="/capaian/{{ $c->id }}/edit"
                                                     class="btn btn-warning btn-xs"><i class="lnr lnr-pencil"></i></a>
                                                 <a href="/capaian/{{ $c->id }}/delete"

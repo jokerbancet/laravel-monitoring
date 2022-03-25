@@ -30,6 +30,7 @@
                                         <th>Nama</th>
                                         <th>NIDN</th>
                                         <th>Email</th>
+                                        <th>Created at</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -40,6 +41,7 @@
                                             </td>
                                             <td>{{ $dosen->nidn }}</td>
                                             <td>{{ $dosen->email }}</td>
+                                            <td>{{ $dosen->created_at }}</td>
                                             <td><a href="/dosenpembimbing/{{ $dosen->id }}/detail"
                                                     class="btn btn-info btn-xs"><i class="lnr lnr-magnifier"></i></a>
                                                 <a href="/dosenpembimbing/{{ $dosen->id }}/edit"

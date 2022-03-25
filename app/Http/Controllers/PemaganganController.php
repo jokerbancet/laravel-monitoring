@@ -21,7 +21,7 @@ class PemaganganController extends Controller
         //ambil data_bimbingan untuk tabel
         $data_pemagangan = DB::table('data_bimbingan')
         ->join('mahasiswa', 'data_bimbingan.mahasiswa_id', '=', 'mahasiswa.id')
-        ->select('data_bimbingan.id', 'data_bimbingan.mahasiswa_id','data_bimbingan.mulai_magang', 'data_bimbingan.selesai_magang','data_bimbingan.jenis_pekerjaan', 'mahasiswa.nama','mahasiswa.jurusan')
+        ->select('data_bimbingan.id', 'data_bimbingan.mahasiswa_id','data_bimbingan.prakerin_ke', 'data_bimbingan.mulai_magang', 'data_bimbingan.selesai_magang','data_bimbingan.jenis_pekerjaan', 'mahasiswa.nama','mahasiswa.jurusan')
         ->get();
 
         //ambil data nama mahasiswa
@@ -32,7 +32,7 @@ class PemaganganController extends Controller
         ->select('dosenpembimbing.id', 'dosenpembimbing.nama', DB::raw('COUNT(data_bimbingan.mahasiswa_id) AS jumlah_anak'))
         ->leftJoin('data_bimbingan', 'dosenpembimbing.id', '=', 'data_bimbingan.dosenpembimbing_id')
         ->groupBy('dosenpembimbing.id')
-        ->having('jumlah_anak', '<', 10)
+        ->having('jumlah_anak', '<', 100)
         ->get();
 
         //ambil data nama pembimbing industri

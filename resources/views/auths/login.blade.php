@@ -2,7 +2,7 @@
 <html lang="en" class="fullscreen-bg">
 
 <head>
-	<title>Aplikasi Monitoring Magang Mahasiswa | PEP Bandung</title>
+	<title>Aplikasi MERDEKA (Media Rekam Data Elektronik Praktik Kerja) | PEP Bandung</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -18,7 +18,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
 	<!-- ICONS -->
 	<link rel="apple-touch-icon" sizes="76x76" href="">
-	<link rel="icon" type="image/png" sizes="96x96" href="{{asset('admin/assets/img/logo-transparent.png')}}">
+	<link rel="icon" type="image/png" sizes="96x96" href="{{asset('admin/assets/img/logo-2.png')}}">
 </head>
 
 <body>
@@ -30,7 +30,10 @@
 					<div class="left">
 						<div class="content">
 							<div class="header">
-								<div class="logo text-center"><img src="{{asset('admin/assets/img/logo/logo-utama-warna.png')}}" alt="pep Logo" width="60%"></div>
+								<div class="logo text-center">
+                                    <img src="{{asset('admin/assets/img/logo/logo-merdeka-small.png')}}" alt="pep Logo" width="60%">
+                                    {{-- <img src="{{asset('admin/assets/img/logo/logo-utama-warna.png')}}" alt="pep Logo" width="60%"> --}}
+                                </div>
 							</div>
                             @if (session()->has('success'))
                                 <div class="alert alert-success">{{ session()->get('success') }}</div>
@@ -47,9 +50,14 @@
 								</div>
 								<div class="form-group clearfix">
 								</div>
-								<button type="submit" class="btn btn-primary btn-lg btn-block">LOGIN</button>
+								<button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
 								<div class="bottom">
-									<span class="helper-text"><i class="fa fa-lock"></i> <a href="/forgot-password">Forgot password?</a></span>
+									<span class="helper-text"><i class="fa fa-lock"></i> <a href="/forgot-password"> Lupa Password ?</a></span>
+                                    <span>
+                                        <br>
+                                        <br>
+                                        <img src="{{asset('admin/assets/img/logo/logo-stack-2.png')}}" alt="pep Logo" width="50%">
+                                    </span>
 								</div>
                                 @if (session()->has('failed'))
                                     <span class="text-danger">{{session('failed')}}</span>
@@ -60,8 +68,8 @@
 					<div class="right">
 						<div class="overlay"></div>
 						<div class="content text">
-							<h1 class="heading">Aplikasi Monitoring Magang Mahasiswa</h1>
-							<p>by PEP Bandung</p>
+							<h1 class="heading">Media Rekam Data Elektronik Praktik Kerja (MERDEKA)</h1>
+							<p>Politeknik Energi dan Pertambangan Bandung</p>
 						</div>
 					</div>
 					<div class="clearfix"></div>

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Aplikasi Monitoring Magang Mahasiswa | PEP Bandung</title>
+    <title>Aplikasi MERDEKA (Media Rekam Data Elektronik Praktik Kerja) | PEP Bandung</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -18,7 +18,7 @@
         <!-- GOOGLE FONTS -->
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
         <!-- ICONS -->
-        <link rel="icon" type="image/png" sizes="96x96" href="{{asset('admin/assets/img/logo-transparent.png')}}">
+        <link rel="icon" type="image/png" sizes="96x96" href="{{asset('admin/assets/img/logo-2.png')}}">
         {{-- DATATABLE --}}
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.css" />
         {{-- select2 --}}
