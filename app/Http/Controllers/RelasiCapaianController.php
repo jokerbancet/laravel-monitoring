@@ -65,7 +65,7 @@ class RelasiCapaianController extends Controller
         $jlhd = round($jhm/7*5);
         $nks = $pemagang->laporan->count()/$jlhd;
         // $nka = $pemagang->laporan->where('status_laporan', 'approve')->count()/$jlhd;
-        $nilai = $pemagang->laporan()->where('status_laporan', 'approve')->selectRaw('sum(approve_dosen) as dospem1, sum(approve_dosen2) as dospem2, sum(approve_industri_nilai) as pembid')->first();
+        $nilai = $pemagang->laporan()->where('status_laporan', 'approve')->selectRaw('avg(approve_dosen) as dospem1, avg(approve_dosen2) as dospem2, avg(approve_industri_nilai) as pembid')->first();
         $nilai_akhir = ($nilai->dospem1*30/100)+($nilai->dospem2*30/100)+($nilai->pembid*40/100);
         $capaian = $pemagang->kompetensi()->select('created_at', 'capaian_id', DB::raw('count(*) as total'))->groupBy('capaian_id')->get();
         // $avatar = $pemagang->mahasiswa->getAvatar(false);
