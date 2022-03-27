@@ -45,7 +45,11 @@
                 @endcan
                 @canany (['pembimbingindustri','dosenpembimbing'])
                     <li><a href="/data-bimbingan" id="data-bimbingan"><i class="lnr lnr-database"></i> <span>Mahasiswa Bimbingan</span></a></li>
+                    @can('hrd')
+                    <li><a href="/rekap-laporan" id="persetujuan" class="{{ request()->is('rekap-laporan')?'active':'' }}"><i class="lnr lnr-chart-bars"></i> <span>Rekap Laporan</span></a></li>
+                    @else
                     <li><a href="/persetujuan" id="persetujuan" class="{{ request()->is('persetujuan')?'active':'' }}"><i class="lnr lnr-chart-bars"></i> <span>Persetujuan</span></a></li>
+                    @endcan
                     <li><a href="/histori-approval" id="persetujuan" class="{{ request()->is('histori-approval*')?'active':'' }}"><i class="lnr lnr-history"></i> <span>Histori Persetujuan</span></a></li>
                 @endcanany
             </ul>
