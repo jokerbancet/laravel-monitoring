@@ -16,20 +16,6 @@
         *::after {
         box-sizing: border-box;
         }
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-            margin-right: -15px;
-            margin-left: -15px;
-        }
-        .no-gutters {
-            margin-right: 0;
-            margin-left: 0;
-        }
-        .col-5 {
-            flex: 0 0 41.6666666667%;
-            max-width: 41.6666666667%;
-        }
         body{
             margin-left: 100px;
             margin-right: 100px;
@@ -56,73 +42,68 @@
 <body>
     <center style="margin-top: 40px">
         <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('pdf/logo.png'))) }}" alt="" width="50" height="50">
-        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('pdf/header.png'))) }}" alt="" width="300" height="50" style="margin-left: 30px; margin-bottom: 15px">
+        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('pdf/header.png'))) }}" alt="" width="300" height="50" style="margin-left: 25px; margin-bottom: 15px">
         <br>
         <h3>DAFTAR CAPAIAN MAHASISWA DAN REKAP LAPORAN MAHASISWA MAGANG INDUSTRI POLITEKNIK ENERGI DAN PERTAMBANGAN BANDUNG</h3>
     </center>
-    <div class="row no-gutters" style="margin-top: 30px;">
-        <div class="col-5">
-            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('/'.$pemagang->mahasiswa->getAvatar(false))))}}" style="width: 65%; margin-top: 30px;margin-left: 20px" alt="Avatar">
-        </div>
-        <div class="col-5">
-            <table style="width: 100%; line-height: 25px;margin-left: 310px">
-                <tbody>
-                    <tr>
-                        <td style="width: 190px">Nama</td>
-                        <td style="width: 15px"> :</td>
-                        <td style="width: 300">{{$pemagang->mahasiswa->nama}}</td>
-                    </tr>
-                    <tr>
-                        <td>NIM</td>
-                        <td class="text-center">:</td>
-                        <td>{{$pemagang->mahasiswa->nim}}</td>
-                    </tr>
-                    <tr>
-                        <td>Jurusan</td>
-                        <td class="text-center">:</td>
-                        <td>{{$pemagang->mahasiswa->jurusan}}</td>
-                    </tr>
-                    <tr>
-                        <td>Tahun Angkatan</td>
-                        <td class="text-center">:</td>
-                        <td>{{$pemagang->mahasiswa->tahun_angkatan}}</td>
-                    </tr>
-                    <tr>
-                        <td>Email</td>
-                        <td class="text-center">:</td>
-                        <td>{{$pemagang->mahasiswa->email}}</td>
-                    </tr>
-                    <tr>
-                        <td>Dosen Pembimbing 1</td>
-                        <td class="text-center">:</td>
-                        <td>{{$pemagang->dosenPembimbing->nama}}</td>
-                    </tr>
-                    <tr>
-                        <td>Dosen Pembimbing 2</td>
-                        <td class="text-center">:</td>
-                        <td>{{$pemagang->dosenPembimbing2->nama}}</td>
-                    </tr>
-                    <tr>
-                        <td>Pembimbing Industri</td>
-                        <td class="text-center">:</td>
-                        <td>{{$pemagang->pembimbingIndustri->nama}}</td>
-                    </tr>
-                    <tr>
-                        <td>Industri</td>
-                        <td class="text-center">:</td>
-                        <td>{{$pemagang->pembimbingIndustri->industri->nama_industri}}</td>
-                    </tr>
-                    <tr>
-                        <td>Praktik Kerja Industri</td>
-                        <td class="text-center">:</td>
-                        <td class="font-weight-bold">Ke - {{$pemagang->prakerin_ke}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <div>
+        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('/'.$pemagang->mahasiswa->getAvatar(false))))}}" style="display:inline-block;float:left;width: 30%; margin-top: 30px;margin-left: 20px;background:blue;" alt="Avatar">
+        <table style="width: 60%; line-height: 25px;margin-left: 34%;margin-top: 3%">
+            <tbody>
+                <tr>
+                    <td style="width: 190px">Nama</td>
+                    <td style="width: 15px"> :</td>
+                    <td style="width: 300">{{$pemagang->mahasiswa->nama}}</td>
+                </tr>
+                <tr>
+                    <td>NIM</td>
+                    <td class="text-center">:</td>
+                    <td>{{$pemagang->mahasiswa->nim}}</td>
+                </tr>
+                <tr>
+                    <td>Jurusan</td>
+                    <td class="text-center">:</td>
+                    <td>{{$pemagang->mahasiswa->jurusan}}</td>
+                </tr>
+                <tr>
+                    <td>Tahun Angkatan</td>
+                    <td class="text-center">:</td>
+                    <td>{{$pemagang->mahasiswa->tahun_angkatan}}</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td class="text-center">:</td>
+                    <td>{{$pemagang->mahasiswa->email}}</td>
+                </tr>
+                <tr>
+                    <td>Dosen Pembimbing 1</td>
+                    <td class="text-center">:</td>
+                    <td>{{$pemagang->dosenPembimbing->nama}}</td>
+                </tr>
+                <tr>
+                    <td>Dosen Pembimbing 2</td>
+                    <td class="text-center">:</td>
+                    <td>{{$pemagang->dosenPembimbing2->nama}}</td>
+                </tr>
+                <tr>
+                    <td>Pembimbing Industri</td>
+                    <td class="text-center">:</td>
+                    <td>{{$pemagang->pembimbingIndustri->nama}}</td>
+                </tr>
+                <tr>
+                    <td>Industri</td>
+                    <td class="text-center">:</td>
+                    <td>{{$pemagang->pembimbingIndustri->industri->nama_industri}}</td>
+                </tr>
+                <tr>
+                    <td>Praktik Kerja Industri</td>
+                    <td class="text-center">:</td>
+                    <td class="font-weight-bold">Ke - {{$pemagang->prakerin_ke}}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-    <br><br><br><br>
-    <table class="table-bordered" style="text-align: center; width: 100%; margin-bottom: 20px; margin-top: 20px">
+    <table class="table-bordered" style="text-align: center; width: 100%; margin-bottom: 20px; margin-top: 30px">
         <thead>
             <tr>
                 <th>Mulai Magang</th>

@@ -17,12 +17,13 @@
                         <div class="panel">
                             <div class="panel-body">
                                 <span class="h4">
-                                    {{(auth()->user()->mahasiswa->dosenpembimbing->isNotEmpty()?'Dosen Pembimbing 1 : '.auth()->user()->mahasiswa->dosenpembimbing[0]->nama:'')}}
+                                    {{($pemagang->dosenpembimbing?'Dosen Pembimbing 1 : '.$pemagang->dosenpembimbing->nama:'')}}
                                     <br>
-                                    {{('Dosen Pembimbing 2 : '.auth()->user()->mahasiswa->pemagangan->dosenPembimbing2->nama)}}
+                                    {{('Dosen Pembimbing 2 : '.$pemagang->dosenPembimbing2->nama??'')}}
                                 </span><br>
-                                <span class="h4">Pembimbing Industri: {{auth()->user()->mahasiswa->pembimbingindustri->isNotEmpty()?auth()->user()->mahasiswa->pembimbingindustri[0]->nama:''}}.</span><br>
-                                <span class="h4">Nama Industri: {{auth()->user()->mahasiswa->pembimbingindustri->isNotEmpty()?auth()->user()->mahasiswa->pembimbingindustri[0]->industri->nama_industri:''}}.</span>
+                                <span class="h4">Pembimbing Industri: {{$pemagang->pembimbingindustri->nama??''}}.</span><br>
+                                <span class="h4">Nama Industri: {{$pemagang->pembimbingindustri->industri->nama_industri??''}}.</span><br>
+                                <span class="h4">Prakerin Ke: {{ $pemagang->prakerin_ke }}</span>
                             </div>
                         </div>
                     </div>
@@ -55,10 +56,7 @@
                                     <!-- TABLE HOVER -->
                                     <div class="panel">
                                         <div class="panel-heading">
-                                            <h1 class="panel-title">Pelaporan Magang Hari ini. Tanggal : @php
-                                                date_default_timezone_set('asia/jakarta');
-                                                echo date('D, d-m-Y H:i');
-                                            @endphp</h1>
+                                            <h1 class="panel-title">Pelaporan Magang Hari ini. Tanggal : {{ Carbon\Carbon::now()->isoFormat('LLLL') }}</h1>
                                         </div>
                                         <div class="panel-body">
                                             <form action="/laporan/create" method="post">

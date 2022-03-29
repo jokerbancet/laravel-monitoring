@@ -22,9 +22,16 @@ class AuthController extends Controller
     {
         $credentials = $request->validate(['email' => 'required|email']);
 
-        Password::sendResetLink($credentials);
+        // Password::sendResetLink($credentials);
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+     
+        return $status === Password::RESET_LINK_SENT
+                    ? redirect('/login')->with(['success' => __($status)])
+                    : back()->withErrors(['email' => __($status)]);
 
-        return redirect('/login')->with('success', 'Email reset sandi berhasil dikirimkan');
+        // return redirect('/login')->with('success', 'Email reset sandi berhasil dikirimkan');
     }
 
     public function reset()
