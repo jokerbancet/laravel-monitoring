@@ -99,6 +99,12 @@
                         </div>
                         <div class="col-md-6">
                             <h3 class="text-center">Capaian Mahasiswa</h3>
+                            <select id="filter_kategori" class="form-control">
+                                <option value="">Semua</option>
+                                <option>Terampil</option>
+                                <option>Mengetahui</option>
+                                <option>Mengikuti</option>
+                            </select>
                             <table class="table table-bordered">
                                 <tbody id="capaian-mahasiswa">
 
@@ -122,9 +128,15 @@
         $('#subPages2').addClass('in').prev().addClass('active').removeClass('collapsed');
         $('#data-relasi-capaian').addClass('active')
 
-        function detail(mahasiswa_id){
+        $('#filter_kategori').on('change', function(){
+            detail($(this).data('mid'), $(this).val())
+        })
+
+        function detail(mahasiswa_id, kategori = ''){
+            $('#filter_kategori').attr('data-mid', mahasiswa_id);
             $.ajax({
                 url: `{{url('/rel_capaian/${mahasiswa_id}')}}`,
+                data: {kategori},
                 success: function(pemagang){
                     $('#avatar').attr('src','/images/'+pemagang.mahasiswa.photo);
                     for(i in pemagang.mahasiswa){
@@ -140,21 +152,22 @@
                     }
                     let today = new Date;
                     let tanggal = today.toISOString().split('T')[0];
-                    console.log(tanggal, pemagang.selesai_magang);
                     if(tanggal>=pemagang.selesai_magang){
                         $('#link-print').show();
-                        $('#link-print').attr('href',`{{url('/rel_capaian/${pemagang.id}/print')}}`)
+                        $('#link-print').attr('href',`{{url('/rel_capaian/${pemagang.id}/print?kategori=${kategori}')}}`)
                     }else{
                         $('#link-print').hide();
                     }
-                    pemagang.kompetensi.forEach((v,k)=>{
-                        $('#capaian-mahasiswa').append(`
-                            <tr>
-                                <td style="width: 10px;vertical-align: top">${k+1}</td>
-                                <td>${v.capaian.deskripsi_capaian}</td>
-                            </tr>
-                        `)
-                    })
+                    if(pemagang.kompetensi.length>0){
+                        pemagang.kompetensi.forEach((v,k)=>{
+                            $('#capaian-mahasiswa').append(`
+                                <tr>
+                                    <td style="width: 10px;vertical-align: top">${k+1}</td>
+                                    <td>${v.capaian.deskripsi_capaian}</td>
+                                </tr>
+                            `)
+                        })
+                    }
                 }
             })
         }
