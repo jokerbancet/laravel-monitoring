@@ -44,10 +44,10 @@ class Pemagangan extends Model
         return $this->hasMany(Laporan::class, 'id_data_bimbingan','id');
     }
 
-    public function kompetensi()
-    {
-        return $this->hasMany(DataKompetensi::class, 'mahasiswa_id','mahasiswa_id');
-    }
+    // public function kompetensi()
+    // {
+    //     return $this->hasMany(DataKompetensi::class, 'mahasiswa_id','mahasiswa_id');
+    // }
 
     public function dosenPembimbing()
     {

@@ -77,10 +77,10 @@ class Mahasiswa extends Model
         return $this->belongsToMany(PembimbingIndustri::class, 'data_bimbingan', 'mahasiswa_id', 'pembimbingindustri_id')->withPivot(['mulai_magang','selesai_magang']);
     }
 
-    public function dataKompetensi()
-    {
-        return $this->hasMany(DataKompetensi::class, 'mahasiswa_id', 'id');
-    }
+    // public function dataKompetensi()
+    // {
+    //     return $this->hasMany(DataKompetensi::class, 'mahasiswa_id', 'id');
+    // }
 
     public function capaian()
     {

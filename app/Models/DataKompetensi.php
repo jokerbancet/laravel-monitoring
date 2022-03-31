@@ -10,10 +10,10 @@ class DataKompetensi extends Model
     use HasFactory;
     protected $table = 'data_kompetensi';
 
-    public function mahasiswa()
-    {
-        return $this->belongsTo(Mahasiswa::class, 'mahasiswa_id', 'id');
-    }
+    // public function mahasiswa()
+    // {
+    //     return $this->belongsTo(Mahasiswa::class, 'mahasiswa_id', 'id');
+    // }
 
     public function capaian()
     {

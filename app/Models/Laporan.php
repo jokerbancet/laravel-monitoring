@@ -64,4 +64,9 @@ class Laporan extends Model
                 return '<span class="label label-'.$type2[$this->$column].'">'.$this->$column.'</span>';
         }
     }
+
+    public function kompetensi()
+    {
+        return $this->hasOne(DataKompetensi::class);
+    }
 }

@@ -101,9 +101,9 @@
                             <h3 class="text-center">Capaian Mahasiswa</h3>
                             <select id="filter_kategori" class="form-control">
                                 <option value="">Semua</option>
-                                <option>Terampil</option>
-                                <option>Mengetahui</option>
-                                <option>Mengikuti</option>
+                                <option value="terampil">Terampil</option>
+                                <option value="mengetahui">Mengetahui</option>
+                                <option value="mengikuti">Mengikuti</option>
                             </select>
                             <table class="table table-bordered">
                                 <tbody id="capaian-mahasiswa">
