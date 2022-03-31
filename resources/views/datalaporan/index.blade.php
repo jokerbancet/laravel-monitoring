@@ -26,25 +26,27 @@
                             </h3>
                         </div>
                         <div class="panel-body">
-                            <table class="table table-hover" id="datalaporan_table">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Nama Mahasiswa</th>
-                                        <th>Dosen Pembimbing</th>
-                                        <th>Dosen Pembimbing 2</th>
-                                        <th>Pembimbing Industri</th>
-                                        <th>Industri</th>
-                                        <th>Tanggal Laporan</th>
-                                        <th>Persetujuan Pembimbing Industri</th>
-                                        <th>Persetujuan Dosen Pembimbing 1</th>
-                                        <th>Persetujuan Dosen Pembimbing 2</th>
-                                        <th>Status Laporan</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
+                            <div class="table-responsive">
+                                <table class="table table-hover" id="datalaporan_table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nama Mahasiswa</th>
+                                            <th>Dosen Pembimbing</th>
+                                            <th>Dosen Pembimbing 2</th>
+                                            <th>Pembimbing Industri</th>
+                                            <th>Industri</th>
+                                            <th>Tanggal Laporan</th>
+                                            <th>Persetujuan Pembimbing Industri</th>
+                                            <th>Persetujuan Dosen Pembimbing 1</th>
+                                            <th>Persetujuan Dosen Pembimbing 2</th>
+                                            <th>Status Laporan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <!-- END TABLE HOVER -->

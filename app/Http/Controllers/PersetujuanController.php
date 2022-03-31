@@ -75,12 +75,12 @@ class PersetujuanController extends Controller
         $laporan->update($request->toArray());
         if ($laporan->approve_dosen !== 'pending' && $laporan->approve_dosen2 !== 'pending' && $laporan->approve_industri !== 'pending') {
             $laporan->update(['status_laporan' => 'approve']);
-            DB::table('data_kompetensi')->insert([
-                'mahasiswa_id' => $laporan->mahasiswa->id,
-                'jurusan' => $laporan->mahasiswa->jurusan,
-                'capaian_id' => $laporan->capaian_id,
-                'created_at' => now()
-            ]);
+            // DB::table('data_kompetensi')->insert([
+            //     'mahasiswa_id' => $laporan->mahasiswa->id,
+            //     'jurusan' => $laporan->mahasiswa->jurusan,
+            //     'capaian_id' => $laporan->capaian_id,
+            //     'created_at' => now()
+            // ]);
         }
 
         $redirect = back();
