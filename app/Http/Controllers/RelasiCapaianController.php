@@ -22,20 +22,6 @@ class RelasiCapaianController extends Controller
         return view('relasi.index', compact('pemagang'));
     }
 
-    // public function set()
-    // {
-    //     DB::unprepared('SET FOREIGN_KEY_CHECKS=0;TRUNCATE data_kompetensi');
-    //     $laporan = Laporan::where('status_laporan', 'approve')->get();
-    //     foreach($laporan as $l){
-    //         DataKompetensi::create([
-    //             'laporan_id' => $l->id,
-    //             'jurusan' => $l->mahasiswa->jurusan,
-    //             'capaian_id' => $l->capaian_id
-    //         ]);
-    //     }
-    //     DB::unprepared('SET FOREIGN_KEY_CHECKS=1;');
-    // }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -66,11 +52,11 @@ class RelasiCapaianController extends Controller
     public function show(Pemagangan $pemagang)
     {
         $kategori = request('kategori');
-        $kompetensi = $pemagang->laporan()->where('status_laporan', 'approve')->with('capaian');
+        $kompetensi = $pemagang->laporan()->select('capaian_id',DB::raw('count(*) as total'))->where('status_laporan', 'approve')->with('capaian');
         if($kategori!=''){
             $kompetensi->where('approve_industri', $kategori);
         }
-        $pemagang->kompetensi = $kompetensi->get();
+        $pemagang->kompetensi = $kompetensi->groupBy('capaian_id')->get();
         $pemagang->mahasiswa;
         return request()->ajax()?response()->json($pemagang):abort(403, 'permintaan harus ajax');
     }
@@ -87,13 +73,8 @@ class RelasiCapaianController extends Controller
         $nilai = $pemagang->laporan()->where('status_laporan', 'approve')->selectRaw('avg(approve_dosen) as dospem1, avg(approve_dosen2) as dospem2, avg(approve_industri_nilai) as pembid')->first();
         $nilai_akhir = ($nilai->dospem1*30/100)+($nilai->dospem2*30/100)+($nilai->pembid*40/100)*$nks;
         
-        $capaian = $pemagang->laporan()->select('created_at', 'capaian_id', DB::raw('count(*) as total'))->groupBy('capaian_id')->where('status_laporan', 'approve')->with('capaian');
-        if(request('kategori')!=''){
-            $capaian->where('approve_industri', request('kategori'));
-        }
-        $capaian = $capaian->get();
-        // $avatar = $pemagang->mahasiswa->getAvatar(false);
-        // dd($capaian);
+        $capaian = $pemagang->laporan()->select('created_at', 'capaian_id', 'approve_industri')->where('status_laporan', 'approve')->with('capaian')->get()->groupBy('capaian_id');
+
         $pdf = \PDF::loadView('pdf.index',compact('pemagang', 'capaian', 'nilai_akhir', 'jhm','jlhd', 'nks'))->setPaper('a4','landscape');
         return $pdf->stream("Hasil Laporan ".$pemagang->mahasiswa->nama." ".$pemagang->mahasiswa->jurusan." ".$pemagang->pembimbingIndustri->industri->nama_industri.".pdf");
     }

@@ -152,17 +152,21 @@
             <tr>
                 <th style="width: 25px">No.</th>
                 <th>Keterampilan Khusus yang Tercapai</th>
+                <th style="width: 80px; text-align: center">Terampil</th>
+                <th style="width: 100px; text-align: center">Mengetahui</th>
+                <th style="width: 80px; text-align: center">Mengikuti</th>
                 <th style="width: 100px">Qty</th>
-                {{-- <th style="width: 150px; text-align: center">Tanggal Ketercapaian</th> --}}
             </tr>
         </thead>
         <tbody class="top">
             @foreach ($capaian as $kompetensi)
                 <tr>
                     <td style="padding-left: 0; text-align: center">{{$loop->iteration}}</td>
-                    <td>{{$kompetensi->capaian->deskripsi_capaian}}</td>
-                    <td style="text-align: center">{{$kompetensi->total }} kali</td>
-                    {{-- <td>{{$kompetensi->created_at}}</td> --}}
+                    <td>{{$kompetensi[0]->capaian->deskripsi_capaian}}</td>
+                    <td style="text-align: center">{{$kompetensi->where('approve_industri','terampil')->count()}}</td>
+                    <td style="text-align: center">{{$kompetensi->where('approve_industri','mengetahui')->count()}}</td>
+                    <td style="text-align: center">{{$kompetensi->where('approve_industri','mengikuti')->count()}}</td>
+                    <td style="text-align: center">{{$kompetensi->count() }} kali</td>
                 </tr>
             @endforeach
         </tbody>

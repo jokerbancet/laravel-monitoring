@@ -75,22 +75,9 @@ class PersetujuanController extends Controller
         $laporan->update($request->toArray());
         if ($laporan->approve_dosen !== 'pending' && $laporan->approve_dosen2 !== 'pending' && $laporan->approve_industri !== 'pending') {
             $laporan->update(['status_laporan' => 'approve']);
-            // DB::table('data_kompetensi')->insert([
-            //     'mahasiswa_id' => $laporan->mahasiswa->id,
-            //     'jurusan' => $laporan->mahasiswa->jurusan,
-            //     'capaian_id' => $laporan->capaian_id,
-            //     'created_at' => now()
-            // ]);
         }
 
         $redirect = back();
-        // if($pemagangan->dosenPembimbing==auth()->user()->pembimbingIndustri){
-        //     if($pemagangan->laporan->where('approve_industri', 'pending')->count()<1) $redirect = redirect('persetujuan');
-        // }elseif($pemagangan->dosenPembimbing==auth()->user()->dosenPembimbing){
-        //     if($pemagangan->laporan->where('approve_dosen', 'pending')->count()<1) $redirect = redirect('persetujuan');
-        // }elseif($pemagangan->dosenPembimbing2==auth()->user()->dosenPembimbing2){
-        //     if($pemagangan->laporan->where('approve_dosen2', 'pending')->count()<1) $redirect = redirect('persetujuan');
-        // }
         return $redirect->with('sukses', 'Laporan telah diapprove');
     }
 

@@ -84,7 +84,6 @@ Route::group(['middleware' => ['auth', 'CheckRole:admin']], function(){
     Route::get('/capaian/{id}/delete',[IndikatorCapaianController::class, 'delete']);
 
     //Data Relasi capaian
-    // Route::get('/rel_capaian/set',[RelasiCapaianController::class, 'set']);
     Route::get('/rel_capaian',[RelasiCapaianController::class, 'index']);
     Route::get('/rel_capaian/{pemagang}',[RelasiCapaianController::class, 'show']);
     Route::get('/rel_capaian/{pemagang}/print',[RelasiCapaianController::class, 'print']);

@@ -154,7 +154,7 @@
                     let tanggal = today.toISOString().split('T')[0];
                     if(tanggal>=pemagang.selesai_magang){
                         $('#link-print').show();
-                        $('#link-print').attr('href',`{{url('/rel_capaian/${pemagang.id}/print?kategori=${kategori}')}}`)
+                        $('#link-print').attr('href',`{{url('/rel_capaian/${pemagang.id}/print')}}`)
                     }else{
                         $('#link-print').hide();
                     }
@@ -164,6 +164,7 @@
                                 <tr>
                                     <td style="width: 10px;vertical-align: top">${k+1}</td>
                                     <td>${v.capaian.deskripsi_capaian}</td>
+                                    <td>${v.total}</td>
                                 </tr>
                             `)
                         })
