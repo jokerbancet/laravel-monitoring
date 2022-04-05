@@ -23,9 +23,6 @@
                                 <ul class="list-unstyled list-justify">
                                     <li>Nomor Induk Mahasiswa<span>{{ $mahasiswa->nim }}</span></li>
                                     <li>Email <span>{{ $mahasiswa->email }}</span></li>
-                                    <li>Jenis Kelamin <span>{{ $mahasiswa->jk }}</span></li>
-                                    <li>Agama <span>{{ $mahasiswa->agama }}</span>
-                                    <li>Alamat <span>{{ $mahasiswa->alamat }}</span>
                                     <li>Prodi <span>{{ $mahasiswa->jurusan }}</span>
                                     <li>Tahun Angkatan <span>{{ $mahasiswa->tahun_angkatan }}</span>
                                     </li>
@@ -43,9 +40,9 @@
                         <div class="custom-tabs-line tabs-line-bottom left-aligned">
                             <ul class="nav" role="tablist">
                                 <li class="active">
-                                    <a href="#tab-bottom-left1" role="tab" data-toggle="tab">History Laporan</a>
+                                    <a href="#tab-bottom-left1" role="tab" data-toggle="tab">Histori Laporan</a>
                                 </li>
-                                <li><a href="#tab-bottom-left2" role="tab" data-toggle="tab">Dosen Pembimbing</a></li>
+                                <li><a href="#tab-bottom-left2" role="tab" data-toggle="tab">Informasi Prakerin</a></li>
                             </ul>
                         </div>
                         <div class="tab-content">
@@ -89,7 +86,7 @@
                                         <th></th>
                                         <th>Prakerin Ke</th>
                                         <th>Status Prakerin</th>
-                                        <th>Progres Prakerin Prakerin</th>
+                                        <th>Progres Akumulasi Jam Prakerin</th>
                                     </thead>
                                     <tbody>
                                         @foreach ($mahasiswa->pemagangans as $pemagangan)
@@ -104,9 +101,10 @@
                                             <tr class="detail-tr">
                                                 <td colspan="4">
                                                     <ul>
-                                                        <li>Dospem 1 : {{ $pemagangan->dosenPembimbing->nama }}</li>
-                                                        <li>Dospem 2 : {{ $pemagangan->dosenPembimbing2->nama }}</li>
+                                                        <li>Dosen Pembimbing 1 : {{ $pemagangan->dosenPembimbing->nama }}</li>
+                                                        <li>Dosen Pembimbing 2 : {{ $pemagangan->dosenPembimbing2->nama }}</li>
                                                         <li>Pembimbing Industri : {{ $pemagangan->pembimbingIndustri->nama }}</li>
+                                                        <li>Tempat Magang : {{ $pemagangan->pembimbingIndustri->industri->nama_industri }}</li>
                                                         <li>Mulai Magang : {{ $pemagangan->mulai_magang }}</li>
                                                         <li>Selesai Magang : {{ $pemagangan->selesai_magang }}</li>
                                                     </ul>

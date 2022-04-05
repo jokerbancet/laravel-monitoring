@@ -26,6 +26,7 @@
                                     <th>NIM</th>
                                     <th>Jurusan</th>
                                     <th>Industri</th>
+                                    <th>Prakerin ke</th>
                                     @if (auth()->user()->pembimbingIndustri)
                                         <th>Dosen Pembimbing</th>
                                         <th>Dosen Pembimbing 2</th>
@@ -44,6 +45,7 @@
                                         <td>{{ $data->mahasiswa->nim }}</td>
                                         <td>{{ $data->mahasiswa->jurusan }}</td>
                                         <td>{{ $data->pembimbingIndustri->industri->nama_industri ?? '' }}</td>
+                                        <td align="center">{{ $data->prakerin_ke }}</td>
                                         @if (auth()->user()->pembimbingIndustri)
                                             <td>{{ $data->dosenPembimbing->nama??'' }}</td>
                                             <td>{{ $data->dosenPembimbing2->nama??'' }}</td>

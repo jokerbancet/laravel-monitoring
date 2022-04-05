@@ -23,9 +23,6 @@
                             <ul class="list-unstyled list-justify">
                                 <li>Nomor Induk Mahasiswa<span>{{ $mahasiswa->mahasiswa->nim }}</span></li>
                                 <li>Email <span>{{ $mahasiswa->mahasiswa->email }}</span></li>
-                                <li>Jenis Kelamin <span>{{ $mahasiswa->mahasiswa->jk }}</span></li>
-                                <li>Agama <span>{{ $mahasiswa->mahasiswa->agama }}</span>
-                                <li>Alamat <span>{{ $mahasiswa->mahasiswa->alamat }}</span>
                                 <li>Prodi <span>{{ $mahasiswa->mahasiswa->jurusan }}</span>
                                 <li>Tahun Angkatan <span>{{ $mahasiswa->mahasiswa->tahun_angkatan }}</span>
                                 </li>
