@@ -16,6 +16,7 @@ use App\Http\Controllers\RelasiCapaianController;
 use App\Http\Controllers\DataLaporanController;
 use App\Http\Controllers\PersetujuanController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', [AuthController::class, 'login'])->name('login');
 Route::get('/login', [AuthController::class, 'login'])->name('login');
@@ -41,6 +42,7 @@ Route::group(['middleware' => ['auth', 'CheckRole:admin']], function(){
     Route::get('/mahasiswa/{id}/edit', [MahasiswaController::class, 'edit']);
     Route::post('/mahasiswa/{id}/update', [MahasiswaController::class, 'update']);
     Route::get('/mahasiswa/{id}/delete', [MahasiswaController::class, 'delete']);
+    Route::put('/mahasiswa/{mahasiswa}/change-password', [MahasiswaController::class, 'change_password']);
 
     //Data Master Dosen Pembimbing
     Route::get('/dosenpembimbing', [DosenpembimbingController::class, 'index']);
@@ -95,6 +97,7 @@ Route::group(['middleware' => ['auth', 'CheckRole:admin']], function(){
     Route::post('/inputlaporan/excel', [AdminController::class, 'excel_laporan']);
 
     Route::get('/data-statistik', [AdminController::class, 'data_statistik']);
+    Route::resource('user', UserController::class);
 });
 
 Route::get('/capaian/{mahasiswa?}', [IndikatorCapaianController::class, 'show']);

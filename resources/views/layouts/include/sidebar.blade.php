@@ -5,8 +5,8 @@
                 <li><a href="/dashboard" id="dashboard" class=""><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
                 @if (auth()->user()->role == 'admin')
                 <li>
-                    <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Data Master</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-                    <div id="subPages" class="collapse ">
+                    <a href="#subPages" data-toggle="collapse" class="{{ request()->is('user*')?'active':'collapsed' }}"><i class="lnr lnr-file-empty"></i> <span>Data Master</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                    <div id="subPages" class="collapse {{ request()->is('user*')?'in':'' }}">
                         <ul class="nav active">
                             <li><a href="/mahasiswa" id="mahasiswa">Data Mahasiswa</a></li>
                             <li><a href="/dosenpembimbing" id="dosenpembimbing">Data Dosen Pembimbing</a></li>
@@ -14,6 +14,7 @@
                             <li><a href="/hrd" id="hrd" class="{{ request()->is('hrd')?'active':'' }}">Data HRD</a></li>
                             <li><a href="/industri" id="industri">Data Tempat Industri</a></li>
                             <li><a href="/capaian" id="capaian">Data Indikator Capaian</a></li>
+                            <li><a href="/user" class="{{ request()->is('user*')?'active':'' }}">Data User</a></li>
                         </ul>
                     </div>
                 </li>

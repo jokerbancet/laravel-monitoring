@@ -47,7 +47,7 @@
                                         </p>
                                     @endif
                             </div>
-                            <div class="form-row">
+                            <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="jk">Jenis Kelamin</label>
                                     <select name="jk" id="jk" class="form-control">
@@ -110,6 +110,7 @@
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Edit Data</button>
                                 <a href="/mahasiswa" class="btn btn-warning">Kembali</a>
+                                <a href="#" class="btn btn-success" onclick="changePasswordModal({{ $mahasiswa }})">Ganti Kata Sandi</a>
                             </div>
                         </form>
                     </div>
@@ -118,6 +119,7 @@
         </div>
     </div>
 </div>
+@include('mahasiswa.change-password')
 @endsection
 
 @push('js')

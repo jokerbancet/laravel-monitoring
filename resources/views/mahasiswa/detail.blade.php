@@ -34,6 +34,7 @@
                             <div class="margin-top-30 text-center">
                                 <a href="/mahasiswa/{{ $mahasiswa->id }}/edit" class="btn btn-warning">Edit Data</a>
                                 <button href="" class="btn btn-primary" onclick="goBack()">Kembali</button>
+                                <a href="#" class="btn btn-success" onclick="changePasswordModal({{ $mahasiswa }})">Ganti Kata Sandi</a>
                             </div>
                         </div>
                     </div>
@@ -119,6 +120,7 @@
         </div>
     </div>
 </div>
+@include('mahasiswa.change-password')
 @endsection
 
 @push('js')

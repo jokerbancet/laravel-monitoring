@@ -183,4 +183,13 @@ class MahasiswaController extends Controller
 
         return $request->ajax()?response()->json($dates):view('mahasiswa.absen');
     }
+
+    public function change_password(Request $request, Mahasiswa $mahasiswa)
+    {
+        $mahasiswa->update([
+            'password' => bcrypt($request->password)
+        ]);
+        return $request->ajax()?response()->json('Password '.$mahasiswa->nama.' berhasil diganti')
+            :redirect('/mahasiswa')->with('sukses','Password '.$mahasiswa->nama.' berhasil diganti');
+    }
 }
