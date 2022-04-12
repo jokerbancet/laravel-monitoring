@@ -54,9 +54,12 @@
                                         @endif
                                         <td>{!! $data->is_active !!}</td>
                                         <td>
-                                            <a href="{{url('/data-bimbingan/'.$data->mahasiswa->id.'/detail')}}" class="btn btn-info">
+                                            <a href="{{url('/data-bimbingan/'.$data->mahasiswa->id.'/detail')}}" class="btn btn-info btn-xs">
                                                 Detail
                                             </a>
+                                            @if ($data->selesai_magang<=date('Y-m-d'))
+                                                <a href="/data-bimbingan/{{ $data->id }}/print" target="_blank" class="btn btn-success btn-xs">Print</a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

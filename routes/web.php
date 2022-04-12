@@ -112,6 +112,7 @@ Route::group(['middleware' => ['auth', 'CheckRole:admin,dosenpembimbing,pembimbi
     Route::post('/persetujuan/{laporan}/approve', [PersetujuanController::class, 'approve']);
     Route::get('/data-bimbingan', [MahasiswaController::class, 'dataBimbingan']);
     Route::get('/data-bimbingan/{mahasiswa}/detail', [MahasiswaController::class, 'detail_bimbingan']);
+    Route::get('/data-bimbingan/{pemagang}/print',[RelasiCapaianController::class, 'print']);
     Route::get('/rekap-laporan', [PersetujuanController::class, 'rekap']);
     Route::get('/rekap-laporan/{mahasiswa}', [PersetujuanController::class, 'rekap_show']);
 });

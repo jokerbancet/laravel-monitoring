@@ -96,7 +96,12 @@
                                                 </td>
                                                 <td>{{ $pemagangan->prakerin_ke }}</td>
                                                 <td>{!! $pemagangan->is_active !!}</td>
-                                                <td>{{ $pemagangan->progress }}</td>
+                                                <td style="display: flex; justify-content: space-between">
+                                                    {{ $pemagangan->progress }}
+                                                    @if ($pemagangan->selesai_magang<=date('Y-m-d'))
+                                                        <a href="/data-bimbingan/{{ $pemagangan->id }}/print" target="_blank" class="btn btn-primary btn-xs">Print</a>
+                                                    @endif
+                                                </td>
                                             </tr>
                                             <tr class="detail-tr">
                                                 <td colspan="4">
