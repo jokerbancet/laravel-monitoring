@@ -9,12 +9,22 @@
                     <h3 class="panel-title">Data Statistik Mahasiswa</h3>
                 </div>
                 <div class="panel-body">
-                    <div class="form-group" style="width: 150px">
-                        <label for="prakerin-ke">Prakerin Ke</label>
-                        <select name="" id="prakerin-ke" class="form-control">
-                            <option value="1">Ke Satu</option>
-                            <option value="2">Ke Dua</option>
-                        </select>
+                    <div style="display: flex">
+                        <div class="form-group" style="width: 150px; margin-right: 10px">
+                            <label for="tahun">Tahun</label>
+                            <select name="" id="tahun" class="form-control">
+                                @foreach ($tahun as $thn => $v)
+                                    <option>{{ $thn }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group" style="width: 150px">
+                            <label for="prakerin-ke">Prakerin Ke</label>
+                            <select name="" id="prakerin-ke" class="form-control">
+                                <option value="1">Ke Satu</option>
+                                <option value="2">Ke Dua</option>
+                            </select>
+                        </div>
                     </div>
                     <table class="table table-hover" id="akumulasi-table">
                         <thead>
@@ -85,6 +95,7 @@
                 url: "",
                 data: function(data){
                     data.filter_prakerin = $('#prakerin-ke').val();
+                    data.filter_tahun = $('#tahun').val();
                 }
             },
             // orderCellsTop: true,
@@ -131,7 +142,7 @@
             ],
         });
 
-        $('#prakerin-ke').on('change', function(){
+        $('#prakerin-ke,#tahun').on('change', function(){
             table.draw();
         })
 
@@ -152,7 +163,6 @@
         });
 
         function setPie(){
-            console.log($('#pie-prakerin-ke').val());
             $.ajax({
                 url: '/api/data-statistik',
                 data: {prakerin_ke:$('#pie-prakerin-ke').val()},

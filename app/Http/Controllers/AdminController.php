@@ -111,9 +111,12 @@ class AdminController extends Controller
 
     public function data_statistik(Request $request)
     {
-        $pemagangan = Pemagangan::with('mahasiswa')->get();
+        $pemagangan = Pemagangan::whereHas('mahasiswa')->where('prakerin_ke', $request->filter_prakerin)->whereYear('mulai_magang',$request->filter_tahun)->with('mahasiswa')->get();
+        $tahun = Pemagangan::pluck('mulai_magang')->groupBy(function($item,$key){
+            return date('Y', strtotime($item));
+        });
         $dt = new DataTables;
-        return request()->ajax()? $dt->collection($pemagangan->where('prakerin_ke', $request->filter_prakerin))
+        return request()->ajax()? $dt->collection($pemagangan)
             ->addIndexColumn()
             ->addColumn('progress', function($pemagangan){
                 return $pemagangan->laporan->where('status_laporan', 'approve')->sum('durasi').' jam';
@@ -124,7 +127,7 @@ class AdminController extends Controller
             ->addColumn('count_laporan_approve', function($pemagangan){
                 return $pemagangan->laporan->where('status_laporan', 'approve')->count();
             })
-            ->toJson():view('data_statistik', compact('pemagangan'));
+            ->toJson():view('data_statistik', compact('pemagangan', 'tahun'));
     }
 
     public function api_data_statistik(Request $request)
