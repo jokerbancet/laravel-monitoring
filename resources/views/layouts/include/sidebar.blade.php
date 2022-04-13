@@ -37,6 +37,7 @@
                     </div>
                 </li>
                 <li><a href="/data-statistik" class="{{ request()->is('data-statistik')?'active':'' }}"><i class="lnr lnr-home"></i> <span>Data Statistik</span></a></li>
+                <li><a href="/activity-log" class="{{ request()->is('activity-log')?'active':'' }}"><i class="lnr lnr-history"></i> <span>Aktifitas Log</span></a></li>
                 @endif
                 @can('mahasiswa')
                     <li><a href="/laporan" id="laporan"><i class="lnr lnr-pencil"></i> <span>Laporan</span></a></li>

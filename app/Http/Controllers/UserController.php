@@ -92,6 +92,37 @@ class UserController extends Controller
         return redirect('user')->with('sukses', 'Data User berhasil diedit');
     }
 
+    public function reset_password(Request $request, User $user)
+    {
+        switch($user->role){
+            case 'mahasiswa': 
+                $password = 'passwordmahasiswa';
+                $url = 'mahasiswa';
+                break;
+            case 'dosenpembimbing':
+                $password = 'passworddosen';
+                $url = 'dosenpembimbing';
+                break;
+            case 'pembimbingindustri':
+                if($user->pembimbingIndustri->is_hrd){
+                    $password = 'passworddpi';
+                    $url = 'pembimbingindustri';
+                }else{
+                    $password = 'passwordhrd';
+                    $url = 'hrd';
+                }
+                break;
+            default:
+                $password = '123456';
+                break;
+        }
+        $user->update([
+            'password' => bcrypt($password)
+        ]);
+        return $request->ajax()?response()->json('Password '.$user->name.' berhasil direset')
+            :back()->with('sukses','Password '.$user->name.' berhasil direset');
+    }
+
     /**
      * Remove the specified resource from storage.
      *

@@ -57,7 +57,7 @@ class LaporanController extends Controller
     public function create(LaporanRequest $request)
     {
         Laporan::create(collect($request)->put('id_data_bimbingan',auth()->user()->mahasiswa->pemagangan->id)->toArray()); //Cuma sebaris kang
-
+        activity()->log('Membuat laporan');
         return redirect('/laporan')->with('sukses','Data Berhasil di input');
     }
 
@@ -88,6 +88,7 @@ class LaporanController extends Controller
             }else{
                 return redirect('/laporan')->with('failed','Pada tanggal '.$tanggal.' anda belum menjadi peserta magang');
             }
+            activity()->log('Membuat lupa laporan');
             return redirect('/histori-laporan')->with('sukses','Data Berhasil di input');
         }else{
             return redirect('/laporan')->with('failed','Anda sudah laporan 2x tanggal '.$tanggal);
@@ -135,6 +136,7 @@ class LaporanController extends Controller
     public function update(LaporanRequest $request, Laporan $laporan)
     {
         $laporan->update($request->all());
+        activity()->log('Memperbarui laporan');
         return redirect('/laporan')->with('sukses', 'Laporan berhasi diperbarui.');
     }
 

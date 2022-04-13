@@ -25,12 +25,26 @@
     </div>
 </div>
 
+@push('css')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8/dist/sweetalert2.min.css">
+@endpush
 @push('js')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8/dist/sweetalert2.min.js"></script>
     <script>
-        function changePasswordModal(mahasiswa){
-            $('#mahasiswa-nama').text(mahasiswa.nama)
-            $('#form-change-password').attr('action', `/mahasiswa/${mahasiswa.id}/change-password`)
-            $('#modalChangePassword').modal('toggle')
+        function changePasswordModal(user){
+            Swal.fire({
+                title: 'Apakah yakin ingin reset password?',
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonText: 'Batal',
+                confirmButtonText: 'Ya',
+            }).then(result => {
+                if(result.isConfirmed){
+                    $('#form-change-password').attr('action', `/user/${user.id}/reset-password`).submit()
+                }
+            })
+            // $('#user-nama').text(user.nama)
+            // $('#modalChangePassword').modal('toggle')
         }
     </script>
 @endpush

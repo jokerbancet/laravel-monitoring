@@ -110,7 +110,7 @@
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Edit Data</button>
                                 <a href="/mahasiswa" class="btn btn-warning">Kembali</a>
-                                <a href="#" class="btn btn-success" onclick="changePasswordModal({{ $mahasiswa }})">Ganti Kata Sandi</a>
+                                <a href="#" class="btn btn-success" onclick="changePasswordModal({{ $mahasiswa->user }})">Reset Kata Sandi</a>
                             </div>
                         </form>
                     </div>
@@ -119,7 +119,7 @@
         </div>
     </div>
 </div>
-@include('mahasiswa.change-password')
+@include('user.reset-password')
 @endsection
 
 @push('js')

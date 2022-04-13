@@ -42,7 +42,6 @@ Route::group(['middleware' => ['auth', 'CheckRole:admin']], function(){
     Route::get('/mahasiswa/{id}/edit', [MahasiswaController::class, 'edit']);
     Route::post('/mahasiswa/{id}/update', [MahasiswaController::class, 'update']);
     Route::get('/mahasiswa/{id}/delete', [MahasiswaController::class, 'delete']);
-    Route::put('/mahasiswa/{mahasiswa}/change-password', [MahasiswaController::class, 'change_password']);
 
     //Data Master Dosen Pembimbing
     Route::get('/dosenpembimbing', [DosenpembimbingController::class, 'index']);
@@ -97,7 +96,9 @@ Route::group(['middleware' => ['auth', 'CheckRole:admin']], function(){
     Route::post('/inputlaporan/excel', [AdminController::class, 'excel_laporan']);
 
     Route::get('/data-statistik', [AdminController::class, 'data_statistik']);
+    Route::get('activity-log', [AdminController::class, 'activity_log']);
     Route::resource('user', UserController::class);
+    Route::put('/user/{user}/reset-password', [UserController::class, 'reset_password']);
 });
 
 Route::get('/capaian/{mahasiswa?}', [IndikatorCapaianController::class, 'show']);

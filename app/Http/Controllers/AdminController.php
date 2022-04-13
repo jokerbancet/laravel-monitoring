@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ActivityLog;
 use App\Models\DosenPembimbing;
 use App\Models\Laporan;
 use App\Models\Mahasiswa;
@@ -221,5 +222,11 @@ class AdminController extends Controller
         return $dt->collection(collect($collection))
                 ->addIndexColumn()
                 ->toJson();
+    }
+
+    public function activity_log()
+    {
+        $logs = ActivityLog::latest()->limit(10)->get();
+        return view('activity-log', compact('logs'));
     }
 }

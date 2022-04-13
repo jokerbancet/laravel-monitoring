@@ -103,7 +103,8 @@ class MahasiswaController extends Controller
     public function detail($id)
     {
         $data_mahasiswa = Mahasiswa::find($id);
-        return view('mahasiswa.detail', ['mahasiswa' => $data_mahasiswa]);
+        $logs = $data_mahasiswa->user->logs()->latest()->limit(10)->get();
+        return view('mahasiswa.detail', ['mahasiswa' => $data_mahasiswa, 'logs'=>$logs]);
     }
 
     public function detail_bimbingan(Mahasiswa $mahasiswa)
@@ -182,14 +183,5 @@ class MahasiswaController extends Controller
         }
 
         return $request->ajax()?response()->json($dates):view('mahasiswa.absen');
-    }
-
-    public function change_password(Request $request, Mahasiswa $mahasiswa)
-    {
-        $mahasiswa->update([
-            'password' => bcrypt($request->password)
-        ]);
-        return $request->ajax()?response()->json('Password '.$mahasiswa->nama.' berhasil diganti')
-            :redirect('/mahasiswa')->with('sukses','Password '.$mahasiswa->nama.' berhasil diganti');
     }
 }

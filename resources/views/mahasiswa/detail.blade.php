@@ -34,7 +34,7 @@
                             <div class="margin-top-30 text-center">
                                 <a href="/mahasiswa/{{ $mahasiswa->id }}/edit" class="btn btn-warning">Edit Data</a>
                                 <button href="" class="btn btn-primary" onclick="goBack()">Kembali</button>
-                                <a href="#" class="btn btn-success" onclick="changePasswordModal({{ $mahasiswa }})">Ganti Kata Sandi</a>
+                                <a href="#" class="btn btn-success" onclick="changePasswordModal({{ $mahasiswa->user }})">Reset Kata Sandi</a>
                             </div>
                         </div>
                     </div>
@@ -52,29 +52,15 @@
                             {{-- aktifitas --}}
                             <div class="tab-pane fade in active" id="tab-bottom-left1">
                                 <ul class="list-unstyled activity-timeline">
-                                    <li>
-                                        <i class="fa fa-comment activity-icon"></i>
-                                        <p>Commented on post <a href="#">Prototyping</a> <span class="timestamp">2
-                                                minutes ago</span></p>
-                                    </li>
-                                    <li>
-                                        <i class="fa fa-cloud-upload activity-icon"></i>
-                                        <p>Uploaded new file <a href="#">Proposal.docx</a> to project <a href="#">New
-                                                Year Campaign</a> <span class="timestamp">7 hours ago</span></p>
-                                    </li>
+                                    @foreach ($logs as $log)
                                     <li>
                                         <i class="fa fa-plus activity-icon"></i>
-                                        <p>Added <a href="#">Martin</a> and <a href="#">3 others colleagues</a> to
-                                            project repository <span class="timestamp">Yesterday</span></p>
+                                        <p>{{ $log->description }} <span class="timestamp">{{$log->created_at->diffForHumans()}}</span></p>
                                     </li>
-                                    <li>
-                                        <i class="fa fa-check activity-icon"></i>
-                                        <p>Finished 80% of all <a href="#">assigned tasks</a> <span class="timestamp">1
-                                                day ago</span></p>
-                                    </li>
+                                    @endforeach
                                 </ul>
-                                <div class="margin-top-30 text-center"><a href="#" class="btn btn-default">See all
-                                        activity</a></div>
+                                {{-- <div class="margin-top-30 text-center"><a href="#" class="btn btn-default">See all
+                                        activity</a></div> --}}
                             </div>
                             {{-- pembimbing --}}
                             <div class="tab-panel fade" id="tab-bottom-left2">
@@ -120,7 +106,7 @@
         </div>
     </div>
 </div>
-@include('mahasiswa.change-password')
+@include('user.reset-password')
 @endsection
 
 @push('js')

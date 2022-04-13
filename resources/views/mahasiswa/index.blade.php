@@ -55,7 +55,7 @@
                                                     onclick="return confirm('Yakin data dengan nama {{ $mhs->nama }} akan dihapus?')"><i
                                                         class="lnr lnr-trash"></i></a>
                                                 <a href="#" class="btn btn-success btn-xs" 
-                                                    onclick="changePasswordModal({{ $mhs }})"><i class="lnr lnr-lock"></i></a>
+                                                    onclick="changePasswordModal({{ $mhs->user }})"><i class="lnr lnr-lock"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -70,7 +70,7 @@
     </div>
 </div>
 
-@include('mahasiswa.change-password')
+@include('user.reset-password')
 <!-- Modal Form Import Excel -->
 <div class="modal fade" id="importExcel" role="dialog" aria-labelledby="importExcelLabel"
     aria-hidden="true">

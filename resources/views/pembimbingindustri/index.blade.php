@@ -49,6 +49,8 @@
                                                     class="btn btn-danger btn-xs"
                                                     onclick="return confirm('Yakin data dengan nama {{ $pi->nama }} akan dihapus?')"><i
                                                         class="lnr lnr-trash"></i></a>
+                                                <a href="#" class="btn btn-success btn-xs" 
+                                                    onclick="changePasswordModal({{ $pi->user }})"><i class="lnr lnr-lock"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -63,6 +65,7 @@
     </div>
 </div>
 
+@include('user.reset-password')
 
 <!-- Modal -->
 <div class="modal fade" id="tambahdatapi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
