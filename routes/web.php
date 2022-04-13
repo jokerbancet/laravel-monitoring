@@ -37,11 +37,15 @@ Route::group(['middleware' => ['auth', 'CheckRole:admin']], function(){
     //Data Master Mahasiswa
     Route::post('/mahasiswa/excel', [AdminController::class, 'excel_mahasiswa']);
     Route::get('/mahasiswa', [MahasiswaController::class, 'index']);
+    Route::get('/mahasiswa/trash', [MahasiswaController::class, 'trash']);
     Route::post('/mahasiswa/create', [MahasiswaController::class, 'create']);
     Route::get('/mahasiswa/{id}/detail', [MahasiswaController::class, 'detail']);
     Route::get('/mahasiswa/{id}/edit', [MahasiswaController::class, 'edit']);
     Route::post('/mahasiswa/{id}/update', [MahasiswaController::class, 'update']);
     Route::get('/mahasiswa/{id}/delete', [MahasiswaController::class, 'delete']);
+    Route::get('/mahasiswa/{id}/restore', [MahasiswaController::class, 'restore']);
+    Route::delete('/mahasiswa/delete-selected', [MahasiswaController::class, 'delete_selected']);
+    Route::patch('/mahasiswa/restore-selected', [MahasiswaController::class, 'restore_selected']);
 
     //Data Master Dosen Pembimbing
     Route::get('/dosenpembimbing', [DosenpembimbingController::class, 'index']);

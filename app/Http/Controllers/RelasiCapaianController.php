@@ -18,7 +18,7 @@ class RelasiCapaianController extends Controller
      */
     public function index()
     {
-        $pemagang=Pemagangan::all();;
+        $pemagang=Pemagangan::whereHas('mahasiswa')->get();;
         return view('relasi.index', compact('pemagang'));
     }
 

@@ -32,7 +32,6 @@
                                         <th>Prakerin ke</th>
                                         <th>Mulai Magang</th>
                                         <th>Selesai Magang</th>
-                                        {{-- <th>Jenis Pekerjaan</th> --}}
                                         <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -40,12 +39,11 @@
                                 <tbody>
                                     @foreach($pemagangan as $p)
                                         <tr>
-                                            <td>{{ $p->nama}}</td>
-                                            <td>{{ $p->jurusan }}</td>
+                                            <td>{{ $p->mahasiswa->nama}}</td>
+                                            <td>{{ $p->mahasiswa->jurusan }}</td>
                                             <td class="text-center">{{ $p->prakerin_ke }}</td>
                                             <td>{{ $p->mulai_magang }}</td>
                                             <td>{{ $p->selesai_magang }}</td>
-                                            {{-- <td>{{ $p->jenis_pekerjaan }}</td> --}}
                                                 @php
                                                     $tgl_sekarang = strtotime(date("d-m-Y"));
                                                     $tgl_selesai = strtotime($p->selesai_magang);

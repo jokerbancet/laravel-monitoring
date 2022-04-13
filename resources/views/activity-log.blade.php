@@ -12,6 +12,7 @@
                     <table class="table table-striped">
                         <thead>
                             <th>Nama</th>
+                            <th>Role</th>
                             <th>Deskripsi</th>
                             <th>Waktu</th>
                         </thead>
@@ -19,6 +20,8 @@
                             @foreach ($logs as $log)
                                 <tr>
                                     <td>{{ $log->user->name }}</td>
+                                    <td>
+                                        <span class="badge bg-primary">{{ ucfirst($log->user->role) }}</span></td>
                                     <td>{{ $log->description }}</td>
                                     <td>
                                         {{ $log->created_at }}

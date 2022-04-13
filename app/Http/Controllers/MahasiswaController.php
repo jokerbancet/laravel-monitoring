@@ -23,12 +23,15 @@ class MahasiswaController extends Controller
      */
     public function index(Request $request)
     {
-        // if($request->has('cari')){
-        //     $data_mahasiswa = Mahasiswa::where('nama_depan', 'LIKE','%'.$request->cari.'%')->get();
-        // }else{
-        // }
         $data_mahasiswa = Mahasiswa::all();
-        return view('mahasiswa.index', ['data_mahasiswa' => $data_mahasiswa]);
+        $trash = Mahasiswa::onlyTrashed()->count();
+        return view('mahasiswa.index', ['data_mahasiswa' => $data_mahasiswa, 'trash' => $trash]);
+    }
+
+    public function trash()
+    {
+        $mahasiswa = Mahasiswa::onlyTrashed()->get();
+        return view('mahasiswa.trash', compact('mahasiswa'));
     }
 
     /**
@@ -73,7 +76,6 @@ class MahasiswaController extends Controller
 
     public function dataBimbingan()
     {
-
         if(Gate::allows('hrd')){
             $mahasiswa = Pemagangan::with(['laporan'=>function($laporan){
                 return $laporan->where('status_laporan','pending')->get();
@@ -90,7 +92,7 @@ class MahasiswaController extends Controller
                 $mahasiswa->orWhere(['dosenpembimbing2_id'=>$id]);
             }
         }
-        $mahasiswa=$mahasiswa->get();
+        $mahasiswa=$mahasiswa->whereHas('mahasiswa')->get();
         return view('mahasiswa.data',compact('mahasiswa'));
     }
 
@@ -102,7 +104,7 @@ class MahasiswaController extends Controller
      */
     public function detail($id)
     {
-        $data_mahasiswa = Mahasiswa::find($id);
+        $data_mahasiswa = Mahasiswa::findOrFail($id);
         $logs = $data_mahasiswa->user->logs()->latest()->limit(10)->get();
         return view('mahasiswa.detail', ['mahasiswa' => $data_mahasiswa, 'logs'=>$logs]);
     }
@@ -153,7 +155,7 @@ class MahasiswaController extends Controller
     {
         $data_mahasiswa = Mahasiswa::find($id);
         $email = $data_mahasiswa->email;
-        User::where('email', $email)->delete();
+        // User::where('email', $email)->delete();
         $data_mahasiswa->delete($id);
         return redirect('/mahasiswa')->with('sukses','Data Berhasil di hapus');
     }
@@ -183,5 +185,32 @@ class MahasiswaController extends Controller
         }
 
         return $request->ajax()?response()->json($dates):view('mahasiswa.absen');
+    }
+
+    public function delete_selected(Request $request)
+    {
+        if($request->delete_all=='true'){
+            Mahasiswa::query()->delete();
+        }else{
+            Mahasiswa::whereIn('id', explode(',', $request->id))->delete();
+        }
+        return back()->with('sukses', 'Berhasil menghapus mahasiswa');
+    }
+
+    public function restore($id)
+    {
+        Mahasiswa::withTrashed()->find($id)->restore();
+
+        return redirect('/mahasiswa')->with('sukses','Data Berhasil direstore');
+    }
+
+    public function restore_selected(Request $request)
+    {
+        if($request->restore_all=='true'){
+            Mahasiswa::withTrashed()->restore();
+        }else{
+            Mahasiswa::withTrashed()->whereIn('id', explode(',', $request->id))->restore();
+        }
+        return redirect('/mahasiswa')->with('sukses', 'Berhasil menghapus mahasiswa');
     }
 }

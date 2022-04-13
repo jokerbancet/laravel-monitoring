@@ -5,7 +5,7 @@
             <label for="id_data_bimbingan">Pemagang</label>
             <select name="id_data_bimbingan" id="id_data_bimbingan" class="form-control select2">
                 <option value=""></option>
-                @foreach (App\Models\Pemagangan::all() as $pemagang)
+                @foreach (App\Models\Pemagangan::whereHas('mahasiswa')->get() as $pemagang)
                     <option value="{{ $pemagang->id }}">{{ $pemagang->mahasiswa->nama }} (Prakerin Ke-{{ $pemagang->prakerin_ke }})</option>
                 @endforeach
             </select>

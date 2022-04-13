@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Laporan;
 use App\Models\Pemagangan;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Models\Mahasiswa;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Gate;
 
 class PersetujuanController extends Controller
@@ -30,11 +28,11 @@ class PersetujuanController extends Controller
         if (request()->is('persetujuan')) {
             $title = 'Data Laporan Mahasiswa';
             $action = '/persetujuan/mhs/';
-            $mahasiswa = $mahasiswa->having('laporan_count', '>', 0)->get();
+            $mahasiswa = $mahasiswa->having('laporan_count', '>', 0)->whereHas('mahasiswa')->get();
         } else {
             $title = 'Data Histori Laporan Mahasiswa';
             $action = '/histori-approval/';
-            $mahasiswa = $mahasiswa->get();
+            $mahasiswa = $mahasiswa->whereHas('mahasiswa')->get();
         }
         return view('persetujuan.index', compact('mahasiswa', 'title', 'action'));
     }
@@ -77,6 +75,7 @@ class PersetujuanController extends Controller
             $laporan->update(['status_laporan' => 'approve']);
         }
 
+        activity()->log('Melakukan approve laporan '.$laporan->mahasiswa->nama);
         $redirect = back();
         return $redirect->with('sukses', 'Laporan telah diapprove');
     }

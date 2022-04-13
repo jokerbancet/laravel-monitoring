@@ -25,9 +25,30 @@
                             </div>
                         </div>
                         <div class="panel-body">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 20px">
+                                <div style="display: flex">
+                                    <a href="/mahasiswa/trash" class="btn btn-sm btn-info">
+                                        Sampah <span class="bg-primary" style="margin-left: 5px; border-radius: 50%; padding: 2px 5px">{{ $trash }}</span></a>
+                                    <select name="filter" id="filter" class="form-control" style="margin-left: 10px">
+                                        <option>Semua</option>
+                                        @foreach ($data_mahasiswa->groupBy('tahun_angkatan') as $thn => $item)
+                                            <option>{{ $thn }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div>
+                                    <button class="btn btn-sm btn-danger" style="margin-right: 10px" id="soft-delete-all">Delete All</button>
+                                    <button class="btn btn-sm btn-warning" id="soft-delete">Delete Selected</button>
+                                </div>
+                            </div>
                             <table class="table table-hover mydatatable" id="mydatatable">
                                 <thead>
                                     <tr>
+                                        <th style="width: 20px">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="checkAll">
+                                            </div>
+                                        </th>
                                         <th>Nama Lengkap</th>
                                         <th>Email</th>
                                         <th>NIM</th>
@@ -40,6 +61,11 @@
                                 <tbody>
                                     @foreach($data_mahasiswa as $mhs)
                                         <tr>
+                                            <td style="width: 20px">
+                                                <div class="form-check">
+                                                    <input class="form-check-input selectbox" type="checkbox" value="{{ $mhs->id }}" id="check{{ $loop->iteration }}">
+                                                </div>
+                                            </td>
                                             <td>{{ $mhs->nama }}</td>
                                             <td>{{ $mhs->email }}</td>
                                             <td>{{ $mhs->nim }}</td>
@@ -208,11 +234,68 @@
     </div>
 </div>
 
-
+<form action="/mahasiswa/delete-selected" method="post" id="form-delete-selected">
+    @csrf
+    @method('delete')
+    <input type="hidden" name="delete_all" value="false">
+    <input type="hidden" name="id" value="" id="id-mhs">
+</form>
 @endsection
 
 @push('js')
     <script>
+        function setChecked(){
+            let is_checked = $('#checkAll').prop('checked');
+            $('.selectbox').prop('checked', is_checked)
+        }
+        setChecked();
+        $('#checkAll').on('change', setChecked)
+        $('#soft-delete').on('click', function(){
+            let selected = []
+            $('.selectbox:checked').each((k, node) => {
+                selected.push(node.value)
+            })
+            
+            if(selected.length<1){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Pilih data terlebih dahulu',
+                    toast: true,
+                    position: 'top-end',
+                    timer: 3000,
+                    timerProgressBar: true,
+                    showConfirmButton: false
+                })
+                return 0;
+            }
+            Swal.fire({
+                title: 'Apakah yakin ingin menghapus?',
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonText: 'Batal',
+                confirmButtonText: 'Ya',
+            }).then(result => {
+                if(result.isConfirmed){
+                    $('#id-mhs').val(selected)
+                    $('input[name=delete_all]').val(false)
+                    $('#form-delete-selected').submit()
+                }
+            })
+        })
+        $('#soft-delete-all').on('click', function(){
+            Swal.fire({
+                title: 'Apakah yakin ingin menghapus semua data?',
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonText: 'Batal',
+                confirmButtonText: 'Ya',
+            }).then(result => {
+                if(result.isConfirmed){
+                    $('input[name=delete_all]').val(true)
+                    $('#form-delete-selected').submit()
+                }
+            })
+        })
         $('#subPages').addClass('in').prev().addClass('active').removeClass('collapsed');
         $('#mahasiswa').addClass('active')
         $('.table-excel').hide();
@@ -239,6 +322,11 @@
                     }
                 })
             }
+        })
+        $('#filter').on('change', function(){
+            table
+                .column( 5 )
+                .search($(this).val()=='Semua'?'':this.value).draw()
         })
     </script>
 @endpush

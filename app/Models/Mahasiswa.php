@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Symfony\Component\VarDumper\Cloner\Data;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Mahasiswa extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $table = 'mahasiswa';
     protected $fillable = [
         'user_id',

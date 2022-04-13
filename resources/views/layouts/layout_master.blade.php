@@ -23,6 +23,7 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.css" />
         {{-- select2 --}}
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8/dist/sweetalert2.min.css">
         @stack('css')
         @livewireStyles
 </head>
@@ -55,8 +56,9 @@
     <script src="{{ asset('admin/assets/scripts/moment.min.js')}}"></script>
     <script src="{{ asset('admin/assets/scripts/moment-timezone.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8/dist/sweetalert2.min.js"></script>
     <script>
-        $('.mydatatable').DataTable();
+        var table = $('.mydatatable').DataTable();
 
         function goBack() {
             window.history.back();
