@@ -59,6 +59,7 @@ class AuthController extends Controller
         //jika isi request email dan password
         if (Auth::attempt($request->only('email','password'))) {
             //jika bernilai true, alihkan kan ke route dashboard
+            activity()->log('Login aplikasi pada IP Address '.$request->ip());
             return  redirect()->intended('dashboard');
         }else{
             //jika bernilai false, alihkan kembali ke login
@@ -67,6 +68,7 @@ class AuthController extends Controller
     }
     public function logout()
     {
+        activity()->log('Logout aplikasi');
         //menghapus session, redirect ke login
         Auth::logout();
         return redirect('/login');

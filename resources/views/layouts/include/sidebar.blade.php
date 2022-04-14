@@ -55,9 +55,9 @@
                     <li><a href="/histori-approval" id="persetujuan" class="{{ request()->is('histori-approval*')?'active':'' }}"><i class="lnr lnr-history"></i> <span>Histori Persetujuan</span></a></li>
                 @endcanany
                 @can('admin-prodi')
-                    <li><a href="/mahasiswa" id="mahasiswa">Data Mahasiswa</a></li>
-                    <li><a href="/pemagangan" id="data-pemagang">Data Pemagangan</a></li>
-                    <li><a href="/rel_capaian" id="data-relasi-capaian">Data Relasi Capaian</a></li>
+                    <li><a href="/mahasiswa" id="mahasiswa"><i class="fa fa-graduation-cap" style="margin-right: 10px; font-size: 20px"></i>Data Mahasiswa</a></li>
+                    <li><a href="/pemagangan" id="data-pemagang"><i class="fa fa-person-digging" style="margin-right: 10px; font-size: 20px"></i>Data Pemagangan</a></li>
+                    <li><a href="/rel_capaian" id="data-relasi-capaian"><i class="fa fa-check-double" style="margin-right: 10px; font-size: 20px"></i>Data Relasi Capaian</a></li>
                     <li>
                         <a href="#subPages3" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Data Laporan</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                         <div id="subPages3" class="collapse ">
