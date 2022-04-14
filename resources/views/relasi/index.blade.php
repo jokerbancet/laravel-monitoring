@@ -19,7 +19,7 @@
                         </div>
                         <div class="panel-body">
                             @canany(['admin','direktur'])
-                                <div style="display: flex;">
+                                <div style="display: flex; width: 20%">
                                     <div class="form-group">
                                         <label for="filter-prakerin">Prakerin</label>
                                         <select name="filter-prakerin" id="filter-prakerin" class="form-control" style="width: 120px">
@@ -37,6 +37,9 @@
                                             <option>Teknologi Metalurgi</option>
                                         </select>
                                     </div>
+                                    @can('admin')
+                                        <button style="align-self: flex-start; margin: 25px 10px" id="batch-export" class="btn btn-success">Batch Export PDF</button>
+                                    @endcan
                                 </div>
                             @endcanany
                             <table class="table mydatatable">
@@ -52,7 +55,12 @@
                                 <tbody>
                                     @foreach ($pemagang as $data)
                                         <tr>
-                                            <td>{{$loop->iteration}}</td>
+                                            {{-- <td>{{$loop->iteration}}</td> --}}
+                                            <td>
+                                                <div class="form-check">
+                                                    <input type="checkbox" value="{{ $data->id }}" class="form-check-input selectbox" {{ $data->is_active?'disabled':'' }}>
+                                                </div>
+                                            </td>
                                             <td>{{$data->mahasiswa->nama}}</td>
                                             <td>{{ $data->prakerin_ke }}</td>
                                             <td>{{$data->mahasiswa->jurusan}}</td>
@@ -142,6 +150,12 @@
         </div>
     </div>
 </div>
+
+<form action="/rel_capaian/batch-export" method="post" target="_blank" id="form-batch-export">
+    @csrf
+    @method('put')
+    <input type="hidden" name="id" id="id-pemagang">
+</form>
 @endsection
 
 @push('js')
@@ -202,6 +216,37 @@
             table
                 .column( 3 )
                 .search($(this).val()=='Semua'?'':this.value).draw()
+        })
+        $('#batch-export').on('click', function(){
+            let selected = []
+            $('.selectbox:checked').each((k, node) => {
+                selected.push(node.value)
+            })
+            
+            if(selected.length<1){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Pilih data terlebih dahulu',
+                    toast: true,
+                    position: 'top-end',
+                    timer: 3000,
+                    timerProgressBar: true,
+                    showConfirmButton: false
+                })
+                return 0;
+            }
+            Swal.fire({
+                title: 'Apakah yakin ingin mengekspor?',
+                icon: 'info',
+                showCancelButton: true,
+                cancelButtonText: 'Batal',
+                confirmButtonText: 'Ya',
+            }).then(result => {
+                if(result.isConfirmed){
+                    $('#id-pemagang').val(selected)
+                    $('#form-batch-export').submit()
+                }
+            })
         })
     </script>
 @endpush

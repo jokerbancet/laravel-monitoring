@@ -69,6 +69,9 @@ Route::group(['middleware' => ['auth', 'CheckRole:admin']], function(){
     Route::post('/capaian/{id}/update',[IndikatorCapaianController::class, 'update']);
     Route::get('/capaian/{id}/delete',[IndikatorCapaianController::class, 'delete']);
 
+    // Relasi KK
+    Route::put('/rel_capaian/batch-export',[RelasiCapaianController::class, 'batch_export']);
+
     //Data Laporan mahasiswa
     Route::post('/inputlaporan/excel', [AdminController::class, 'excel_laporan']);
 
@@ -76,6 +79,7 @@ Route::group(['middleware' => ['auth', 'CheckRole:admin']], function(){
     Route::resource('user', UserController::class);
     Route::put('/user/{user}/reset-password', [UserController::class, 'reset_password']);
 });
+
 Route::middleware(['auth','CheckRole:admin,Kaprodi*,Direktur'])->group(function(){
     Route::get('/data-statistik', [AdminController::class, 'data_statistik']);
     Route::get('data-statistik-ajax', [AdminController::class, 'api_data_statistik']);

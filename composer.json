@@ -17,7 +17,8 @@
         "phpoffice/phpspreadsheet": "^1.18",
         "phpoffice/phpword": "^0.18.3",
         "spatie/laravel-activitylog": "^4.5",
-        "yajra/laravel-datatables-oracle": "~9.0"
+        "yajra/laravel-datatables-oracle": "~9.0",
+        "zanysoft/laravel-zip": "^1.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

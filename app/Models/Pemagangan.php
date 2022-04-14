@@ -28,10 +28,12 @@ class Pemagangan extends Model
         return $laporan." / $jam jam";
     }
 
-    public function getIsActiveAttribute()
+    public function getIsActiveAttribute($style=true)
     {
         $active = $this->mulai_magang<=date('Y-m-d')&&date('Y-m-d')<=$this->selesai_magang;
-        return $active?'<span class="label label-primary">Sedang Magang</span>':'<span class="label label-success">Selesai Magang</span>';
+        return $style?
+            ($active?'<span class="label label-primary">Sedang Magang</span>':'<span class="label label-success">Selesai Magang</span>')
+            :$active;
     }
 
     public function mahasiswa()
