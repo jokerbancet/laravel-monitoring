@@ -23,12 +23,11 @@ class MahasiswaController extends Controller
      */
     public function index(Request $request)
     {
-        if(auth()->user()->role=='admin'){
+        if(in_array(auth()->user()->role, ['admin','Direktur'])){
             $data_mahasiswa = Mahasiswa::all();
             $trash = Mahasiswa::onlyTrashed()->count();
         }else{
-            $jurusan = substr(auth()->user()->role, 0, 6);
-            $jurusan = ltrim(auth()->user()->role, $jurusan);
+            $jurusan = jurusan();
             $data_mahasiswa = Mahasiswa::where('jurusan', $jurusan)->get();
             $trash = Mahasiswa::onlyTrashed()->where('jurusan',$jurusan)->count();
         }

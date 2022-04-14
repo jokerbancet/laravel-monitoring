@@ -18,6 +18,27 @@
                             <h2 class="panel-title">Relasi Capaian dengan mahasiswa.</h2>
                         </div>
                         <div class="panel-body">
+                            @canany(['admin','direktur'])
+                                <div style="display: flex;">
+                                    <div class="form-group">
+                                        <label for="filter-prakerin">Prakerin</label>
+                                        <select name="filter-prakerin" id="filter-prakerin" class="form-control" style="width: 120px">
+                                            <option>Semua</option>
+                                            <option value="1">Ke-1</option>
+                                            <option value="2">Ke-2</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" style="margin-left: 10px">
+                                        <label for="filter-jurusan">Jurusan</label>
+                                        <select name="filter-jurusan" id="filter-jurusan" class="form-control" style="width: 200px">
+                                            <option>Semua</option>
+                                            <option>Teknologi Geologi</option>
+                                            <option>Teknologi Pertambangan</option>
+                                            <option>Teknologi Metalurgi</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            @endcanany
                             <table class="table mydatatable">
                                 <thead>
                                     <tr>
@@ -172,5 +193,15 @@
                 }
             })
         }
+        $('#filter-prakerin').on('change', function(){
+            table
+                .column( 2 )
+                .search($(this).val()=='Semua'?'':this.value).draw()
+        })
+        $('#filter-jurusan').on('change', function(){
+            table
+                .column( 3 )
+                .search($(this).val()=='Semua'?'':this.value).draw()
+        })
     </script>
 @endpush

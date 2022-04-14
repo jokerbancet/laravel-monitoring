@@ -70,15 +70,15 @@ Route::group(['middleware' => ['auth', 'CheckRole:admin']], function(){
     Route::get('/capaian/{id}/delete',[IndikatorCapaianController::class, 'delete']);
 
     //Data Laporan mahasiswa
-    // Route::get('/datalaporan',[DataLaporanController::class, 'index']);
-    // Route::view('/inputlaporan', 'datalaporan.create');
-    // Route::post('/inputlaporan', [DataLaporanController::class, 'store']);
-    // Route::post('/inputlaporan/excel', [AdminController::class, 'excel_laporan']);
+    Route::post('/inputlaporan/excel', [AdminController::class, 'excel_laporan']);
 
-    Route::get('/data-statistik', [AdminController::class, 'data_statistik']);
     Route::get('activity-log', [AdminController::class, 'activity_log']);
     Route::resource('user', UserController::class);
     Route::put('/user/{user}/reset-password', [UserController::class, 'reset_password']);
+});
+Route::middleware(['auth','CheckRole:admin,Kaprodi*,Direktur'])->group(function(){
+    Route::get('/data-statistik', [AdminController::class, 'data_statistik']);
+    Route::get('data-statistik-ajax', [AdminController::class, 'api_data_statistik']);
 });
 
 Route::get('/capaian/{mahasiswa?}', [IndikatorCapaianController::class, 'show']);
@@ -110,7 +110,8 @@ Route::group(['middleware' => ['auth', 'CheckRole:mahasiswa']], function(){
     Route::get('/lupa-laporan', [LaporanController::class, 'index']);
 });
 
-Route::group(['middleware'=>['auth', 'CheckRole:admin,Admin Teknologi Geologi,Admin Teknologi Pertambangan,Admin Teknologi Metalurgi']], function(){
+// Route::group(['middleware'=>['auth', 'CheckRole:admin,Admin Teknologi Geologi,Admin Teknologi Pertambangan,Admin Teknologi Metalurgi']], function(){
+Route::group(['middleware'=>['auth', 'CheckRole:admin,Admin*,Kaprodi*,Direktur']], function(){
     // Data Mahasiswa
     Route::get('/mahasiswa', [MahasiswaController::class, 'index']);
     Route::get('/mahasiswa/trash', [MahasiswaController::class, 'trash']);
@@ -141,5 +142,4 @@ Route::group(['middleware'=>['auth', 'CheckRole:admin,Admin Teknologi Geologi,Ad
     Route::get('/datalaporan-ajax', [DataLaporanController::class, 'ajax']);
     Route::get('/inputlaporan', [DataLaporanController::class, 'create']);
     Route::post('/inputlaporan', [DataLaporanController::class, 'store']);
-    Route::post('/inputlaporan/excel', [AdminController::class, 'excel_laporan']);
 });

@@ -16,10 +16,10 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next,...$roles)
     {
-        if(in_array($request->user()->role, $roles)) {
-            return $next($request);
-        }else{
-            return back();
+        $result = [];
+        foreach($roles as $role){
+            $result[] = str_contains($role, '*')?str_contains($request->user()->role, rtrim($role, '*')):$request->user()->role == $role;
         }
+        return in_array(true, $result)? $next($request) : back();
     }
 }

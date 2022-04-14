@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DataKompetensi;
-use App\Models\Laporan;
 use App\Models\Pemagangan;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class RelasiCapaianController extends Controller
@@ -18,11 +15,10 @@ class RelasiCapaianController extends Controller
      */
     public function index()
     {
-        if(auth()->user()->role=='admin'){
+        if(in_array(auth()->user()->role, ['admin','Direktur'])){
             $pemagang=Pemagangan::whereHas('mahasiswa')->get();
         }else{
-            $jurusan = substr(auth()->user()->role, 0, 6);
-            $jurusan = ltrim(auth()->user()->role, $jurusan);
+            $jurusan = jurusan();
             $pemagang=Pemagangan::whereHas('mahasiswa', function($q)use($jurusan){
                 $q->where('jurusan',$jurusan);
             })->get();

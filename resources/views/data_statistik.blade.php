@@ -25,6 +25,17 @@
                                 <option value="2">Ke Dua</option>
                             </select>
                         </div>
+                        @canany(['admin','direktur'])
+                            <div class="form-group" style="width: 180px; margin-left: 10px">
+                                <label for="filter-jurusan">Jurusan</label>
+                                <select name="" id="filter-jurusan" class="form-control">
+                                    <option value="">Semua</option>
+                                    <option>Teknologi Geologi</option>
+                                    <option>Teknologi Pertambangan</option>
+                                    <option>Teknologi Metalurgi</option>
+                                </select>
+                            </div>
+                        @endcanany
                     </div>
                     <table class="table table-hover" id="akumulasi-table">
                         <thead>
@@ -42,12 +53,22 @@
             </div>
             <div class="panel">
                 <div class="panel-body">
-                    <div class="form-group" style="width: 150px">
-                        <label for="pie-prakerin-ke">Prakerin Ke</label>
-                        <select name="" id="pie-prakerin-ke" class="form-control" onchange="setPie()">
-                            <option value="1">Ke Satu</option>
-                            <option value="2">Ke Dua</option>
-                        </select>
+                    <div style="display: flex">
+                        <div class="form-group" style="width: 150px; margin-right: 10px">
+                            <label for="pie-tahun">Tahun</label>
+                            <select name="" id="pie-tahun" class="form-control" onchange="setPie()">
+                                @foreach ($tahun as $thn => $v)
+                                    <option>{{ $thn }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group" style="width: 150px">
+                            <label for="pie-prakerin-ke">Prakerin Ke</label>
+                            <select name="" id="pie-prakerin-ke" class="form-control" onchange="setPie()">
+                                <option value="1">Ke Satu</option>
+                                <option value="2">Ke Dua</option>
+                            </select>
+                        </div>
                     </div>
                     <div id="chartContainer" style="height: 300px; width: 100%;"></div>
                 </div>
@@ -96,6 +117,7 @@
                 data: function(data){
                     data.filter_prakerin = $('#prakerin-ke').val();
                     data.filter_tahun = $('#tahun').val();
+                    data.filter_jurusan = $('#filter-jurusan').val();
                 }
             },
             // orderCellsTop: true,
@@ -142,7 +164,7 @@
             ],
         });
 
-        $('#prakerin-ke,#tahun').on('change', function(){
+        $('#prakerin-ke,#tahun,#filter-jurusan').on('change', function(){
             table.draw();
         })
 
@@ -164,8 +186,8 @@
 
         function setPie(){
             $.ajax({
-                url: '/api/data-statistik',
-                data: {prakerin_ke:$('#pie-prakerin-ke').val()},
+                url: '/data-statistik-ajax',
+                data: {prakerin_ke:$('#pie-prakerin-ke').val(),tahun:$('#pie-tahun').val()},
                 success: function(dataPoints){
                     chart.options.data[0].dataPoints = dataPoints;
                     chart.render();

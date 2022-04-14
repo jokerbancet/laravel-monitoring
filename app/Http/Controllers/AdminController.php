@@ -111,7 +111,15 @@ class AdminController extends Controller
 
     public function data_statistik(Request $request)
     {
-        $pemagangan = Pemagangan::whereHas('mahasiswa')->where('prakerin_ke', $request->filter_prakerin)->whereYear('mulai_magang',$request->filter_tahun)->with('mahasiswa')->get();
+        $pemagangan = Pemagangan::whereHas('mahasiswa', function($q)use($request){
+            if(!in_array(auth()->user()->role, ['admin','Direktur'])){
+                $q->where('jurusan', jurusan());
+            }else{
+                if($request->filter_jurusan!=''){
+                    $q->where('jurusan', $request->filter_jurusan);
+                }
+            }
+        })->where('prakerin_ke', $request->filter_prakerin)->whereYear('mulai_magang',$request->filter_tahun)->with('mahasiswa')->get();
         $tahun = Pemagangan::pluck('mulai_magang')->groupBy(function($item,$key){
             return date('Y', strtotime($item));
         });
@@ -132,7 +140,11 @@ class AdminController extends Controller
 
     public function api_data_statistik(Request $request)
     {
-        $pemagangan = Pemagangan::where('prakerin_ke', ($request->prakerin_ke??1))->get();
+        $pemagangan = Pemagangan::whereHas('mahasiswa', function($q){
+            if(!in_array(auth()->user()->role, ['admin','Direktur'])){
+                $q->where('jurusan', jurusan());
+            }
+        })->where('prakerin_ke', ($request->prakerin_ke??1))->whereYear('mulai_magang', $request->tahun??date('Y'))->get();
         $response = [
             ['y'=>0,'jml'=>0,'name'=>'0 - 100','exploded'=>true],
             ['y'=>0,'jml'=>0,'name'=>'101 - 200'],
@@ -169,7 +181,7 @@ class AdminController extends Controller
                 }
             }
         }
-        $total = $pemagangan->count();
+        $total = $pemagangan->count()==0?1:$pemagangan->count();
 
         foreach($response as $i => $v){
             $response[$i]['y'] = $v['jml']/$total*100;

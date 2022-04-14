@@ -32,9 +32,11 @@
                                 </ul>
                             </div>
                             <div class="margin-top-30 text-center">
-                                <a href="/mahasiswa/{{ $mahasiswa->id }}/edit" class="btn btn-warning">Edit Data</a>
                                 <button href="" class="btn btn-primary" onclick="goBack()">Kembali</button>
-                                <a href="#" class="btn btn-success" onclick="changePasswordModal({{ $mahasiswa->user }})">Reset Kata Sandi</a>
+                                @canany(['admin','admin-prodi'])
+                                    <a href="/mahasiswa/{{ $mahasiswa->id }}/edit" class="btn btn-warning">Edit Data</a>
+                                    <a href="#" class="btn btn-success" onclick="changePasswordModal({{ $mahasiswa->user }})">Reset Kata Sandi</a>
+                                @endcanany
                             </div>
                         </div>
                     </div>

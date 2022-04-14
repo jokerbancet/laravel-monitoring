@@ -5,7 +5,7 @@
         <div class="container-fluid">
             {{-- <div class="alert alert-warning alert-dismissible" role="alert">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<i class="fa fa-warning"></i>  Fitur Absen-ku pada Menu Mahasiswa sedang dalam proses perbaikan. Mohon maaf atas ketidaknyamanannya.
+				<i style="color: white; font-size: 20px" class="fa fa-warning"></i>  Fitur Absen-ku pada Menu Mahasiswa sedang dalam proses perbaikan. Mohon maaf atas ketidaknyamanannya.
 			</div> --}}
             <div class="panel panel-headline">
                 <div class="panel-heading">
@@ -18,7 +18,7 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="metric">
-                                <span class="icon"><i class="fa fa-user"></i></span>
+                                <span class="icon"><i style="color: white; font-size: 20px" class="fa fa-user"></i></span>
                                 <p>
                                     <span class="number">{{ $data->count()}}</span>
                                     <span class="title">Total Mahasiswa</span>
@@ -27,7 +27,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="metric">
-                                <span class="icon"><i class="fa fa-user"></i></span>
+                                <span class="icon"><i style="color: white; font-size: 20px" class="fa fa-user"></i></span>
                                 <p>
                                     <span class="number">{{$data2->count()}}</span>
                                     <span class="title">Total Dosen Pembimbing</span>
@@ -36,7 +36,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="metric">
-                                <span class="icon"><i class="fa fa-user"></i></span>
+                                <span class="icon"><i style="color: white; font-size: 20px" class="fa fa-user"></i></span>
                                 <p>
                                     <span class="number">{{$data3->count()}}</span>
                                     <span class="title">Total Pembimbing Industri</span>
@@ -45,7 +45,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="metric">
-                                <span class="icon"><i class="fa fa-industry"></i></span>
+                                <span class="icon"><i style="color: white; font-size: 20px" class="fa fa-industry"></i></span>
                                 <p>
                                     <span class="number">{{$data4->count()}}</span>
                                     <span class="title">Total Industri</span>

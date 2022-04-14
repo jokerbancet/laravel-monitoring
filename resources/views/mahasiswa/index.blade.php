@@ -20,28 +20,46 @@
                                 @if (auth()->user()->role=='admin')
                                     <button type="button" class="btn" data-toggle="modal" data-target="#importExcel">Import Excel</button>
                                 @endif
-                                <button type="button" class="btn" data-toggle="modal"
-                                    data-target="#tambahdatamahasiswa">
-                                    <i class="lnr lnr-plus-circle"></i>
-                                </button>
+                                @canany(['admin','admin-prodi'])
+                                    <button type="button" class="btn" data-toggle="modal"
+                                        data-target="#tambahdatamahasiswa">
+                                        <i class="lnr lnr-plus-circle"></i>
+                                    </button>
+                                @endcanany
                             </div>
                         </div>
                         <div class="panel-body">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 20px">
+                            <div style="display: flex; justify-content: space-between;">
                                 <div style="display: flex">
-                                    <a href="/mahasiswa/trash" class="btn btn-sm btn-info">
-                                        Sampah <span class="bg-primary" style="margin-left: 5px; border-radius: 50%; padding: 2px 5px">{{ $trash }}</span></a>
-                                    <select name="filter" id="filter" class="form-control" style="margin-left: 10px">
-                                        <option>Semua</option>
-                                        @foreach ($data_mahasiswa->groupBy('tahun_angkatan') as $thn => $item)
-                                            <option>{{ $thn }}</option>
-                                        @endforeach
-                                    </select>
+                                    <div class="form-group">
+                                        <label for="filter">Tahun Angkatan</label>
+                                        <select name="filter" id="filter" class="form-control" style="width: 120px">
+                                            <option>Semua</option>
+                                            @foreach ($data_mahasiswa->groupBy('tahun_angkatan') as $thn => $item)
+                                                <option>{{ $thn }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    @canany(['admin', 'direktur'])
+                                        <div class="form-group" style="margin-left: 10px">
+                                            <label for="filter-jurusan">Jurusan</label>
+                                            <select name="filter-jurusan" id="filter-jurusan" class="form-control">
+                                                <option>Semua</option>
+                                                <option>Teknologi Geologi</option>
+                                                <option>Teknologi Pertambangan</option>
+                                                <option>Teknologi Metalurgi</option>
+                                            </select>
+                                        </div>
+                                    @endcanany
                                 </div>
-                                <div>
-                                    <button class="btn btn-sm btn-danger" style="margin-right: 10px" id="soft-delete-all">Delete All</button>
-                                    <button class="btn btn-sm btn-warning" id="soft-delete">Delete Selected</button>
-                                </div>
+                                @canany(['admin','admin-prodi'])
+                                    <div>
+                                        <a href="/mahasiswa/trash" class="btn btn-sm btn-info" style="margin-right: 10px">
+                                            Sampah <span class="bg-primary" style="margin-left: 5px; border-radius: 50%; padding: 2px 5px">{{ $trash }}</span></a>
+                                        <button class="btn btn-sm btn-danger" style="margin-right: 10px" id="soft-delete-all">Delete All</button>
+                                        <button class="btn btn-sm btn-warning" id="soft-delete">Delete Selected</button>
+                                    </div>
+                                @endcanany
                             </div>
                             <table class="table table-hover mydatatable" id="mydatatable">
                                 <thead>
@@ -76,6 +94,7 @@
                                             <td>{{ $mhs->created_at }}</td>
                                             <td><a href="/mahasiswa/{{ $mhs->id }}/detail"
                                                     class="btn btn-info btn-xs"><i class="lnr lnr-magnifier"></i></a>
+                                                @canany(['admin','admin-prodi'])
                                                 <a href="/mahasiswa/{{ $mhs->id }}/edit"
                                                     class="btn btn-warning btn-xs"><i class="lnr lnr-pencil"></i></a>
                                                 <a href="/mahasiswa/{{ $mhs->id }}/delete"
@@ -84,6 +103,7 @@
                                                         class="lnr lnr-trash"></i></a>
                                                 <a href="#" class="btn btn-success btn-xs" 
                                                     onclick="changePasswordModal({{ $mhs->user }})"><i class="lnr lnr-lock"></i></a>
+                                                @endcanany
                                             </td>
                                         </tr>
                                     @endforeach
@@ -334,6 +354,11 @@
         $('#filter').on('change', function(){
             table
                 .column( 5 )
+                .search($(this).val()=='Semua'?'':this.value).draw()
+        })
+        $('#filter-jurusan').on('change', function(){
+            table
+                .column( 4 )
                 .search($(this).val()=='Semua'?'':this.value).draw()
         })
     </script>

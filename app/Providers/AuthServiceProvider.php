@@ -27,6 +27,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        Gate::define('admin', function(User $user){
+            return $user->role=='admin';
+        });
         Gate::define('dosenpembimbing', function(User $user){
             return $user->role=='dosenpembimbing';
         });
@@ -41,6 +44,12 @@ class AuthServiceProvider extends ServiceProvider
         });
         Gate::define('admin-prodi', function(User $user){
             return substr($user->role, 0, 15) == 'Admin Teknologi';
+        });
+        Gate::define('kaprodi', function(User $user){
+            return substr($user->role, 0, 7) == 'Kaprodi';
+        });
+        Gate::define('direktur', function(User $user){
+            return $user->role == 'Direktur';
         });
         Gate::define('status-laporan', function(User $user, Laporan $laporan){
             $pemagang = $laporan->pemagangan;

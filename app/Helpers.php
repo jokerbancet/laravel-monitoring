@@ -25,3 +25,16 @@ if(!function_exists('cek_status')){
         }
     }
 }
+
+if(!function_exists('jurusan')){
+    function jurusan()
+    {
+        $trim = '';
+        if(str_contains(auth()->user()->role,'Kaprodi ')){
+            $trim = substr(auth()->user()->role, 0, 8); 
+        }else if(str_contains(auth()->user()->role,'Admin Teknologi')){
+            $trim = substr(auth()->user()->role, 0, 6);
+        }
+        return ltrim(auth()->user()->role, $trim);
+    }
+}

@@ -19,14 +19,13 @@ class PemaganganController extends Controller
     public function index()
     {
         //ambil data_bimbingan untuk tabel
-        if(auth()->user()->role=='admin'){
+        if(in_array(auth()->user()->role, ['admin','Direktur'])){
             $data_pemagangan = Pemagangan::whereHas('mahasiswa')->get();
             
             //ambil data nama mahasiswa
             $data1 = Mahasiswa::withCount('pemagangan')->having('pemagangan_count', "<", 2)->get();
         }else{
-            $jurusan = substr(auth()->user()->role, 0, 6);
-            $jurusan = ltrim(auth()->user()->role, $jurusan);
+            $jurusan = jurusan();
             $data_pemagangan = Pemagangan::whereHas('mahasiswa', function($q)use($jurusan){
                 $q->where('jurusan',$jurusan);
             })->get();
@@ -102,11 +101,10 @@ class PemaganganController extends Controller
      */
     public function edit(Pemagangan $pemagang)
     {
-        if(auth()->user()->role=='admin'){
+        if(in_array(auth()->user()->role, ['admin','Direktur'])){
             $mahasiswa          = Mahasiswa::all();
         }else{
-            $jurusan = substr(auth()->user()->role, 0, 6);
-            $jurusan = ltrim(auth()->user()->role, $jurusan);
+            $jurusan = jurusan();
             $mahasiswa          = Mahasiswa::where('jurusan',$jurusan)->get();
         }
         $dosenPembimbing    = DosenPembimbing::all();

@@ -21,7 +21,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('data-statistik', [AdminController::class, 'api_data_statistik']);
 Route::get('data-dosen', [AdminController::class, 'data_dosen']);
 Route::get('data-pembimbing', [AdminController::class, 'data_pembimbing']);
 

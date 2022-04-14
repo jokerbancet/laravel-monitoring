@@ -23,9 +23,8 @@ class DataLaporanController extends Controller
     public function ajax()
     {
         $query = Laporan::select('id', 'id_data_bimbingan','tanggal_laporan','approve_industri','approve_industri_nilai','approve_dosen','approve_dosen2','status_laporan')->whereHas('mahasiswa', function($q){
-            if(auth()->user()->role!='admin'){
-                $jurusan = substr(auth()->user()->role, 0, 6);
-                $jurusan = ltrim(auth()->user()->role, $jurusan);
+            if(!in_array(auth()->user()->role, ['admin','Direktur'])){
+                $jurusan = jurusan();
                 $q->where('jurusan', $jurusan);
             }
         })->whereHas('dosenPembimbing')->whereHas('dosenPembimbing2')->whereHas('pembimbingIndustri')->with([
@@ -62,9 +61,8 @@ class DataLaporanController extends Controller
     public function create()
     {
         $pemagangs = Pemagangan::whereHas('mahasiswa', function($q){
-            if(auth()->user()->role!='admin'){
-                $jurusan = substr(auth()->user()->role, 0, 6);
-                $jurusan = ltrim(auth()->user()->role, $jurusan);
+            if(!in_array(auth()->user()->role, ['admin','Direktur'])){
+                $jurusan = jurusan();
                 $q->where('jurusan', $jurusan);
             }
         })->get();
@@ -92,50 +90,5 @@ class DataLaporanController extends Controller
         Laporan::create($validate);
 
         return back()->with('sukses', 'Laporan berhasil diinput.');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

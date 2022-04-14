@@ -17,13 +17,45 @@
                         <div class="panel-heading">
                             <h3 class="panel-title">Data Pemagangan</h3>
                             <div class="right">
-                                <button type="button" class="btn" data-toggle="modal"
+                                @canany(['admin','admin-prodi'])
+                                    <button type="button" class="btn" data-toggle="modal"
                                     data-target="#tambahdatamagang">
                                     <i class="lnr lnr-plus-circle"></i>
                                 </button>
+                                @endcanany
                             </div>
                         </div>
                         <div class="panel-body">
+                            @canany(['admin','direktur'])
+                                <div style="display: flex;">
+                                    <div class="form-group">
+                                        <label for="filter-tahun">Tahun</label>
+                                        <select name="filter-tahun" id="filter-tahun" class="form-control" style="width: 100px">
+                                            <option>Semua</option>
+                                            @foreach ($pemagangan->groupBy(fn($item) => date('Y', strtotime($item->mulai_magang)) ) as $thn => $item)
+                                            <option>{{ $thn }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group" style="margin-left: 10px">
+                                        <label for="filter-prakern">Prakerin</label>
+                                        <select name="filter-prakerin" id="filter-prakerin" class="form-control" style="width: 120px">
+                                            <option>Semua</option>
+                                            <option value="1">Ke-1</option>
+                                            <option value="2">Ke-2</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" style="margin-left: 10px">
+                                        <label for="filter-jurusan">Jurusan</label>
+                                        <select name="filter-jurusan" id="filter-jurusan" class="form-control" style="width: 200px">
+                                            <option>Semua</option>
+                                            <option>Teknologi Geologi</option>
+                                            <option>Teknologi Pertambangan</option>
+                                            <option>Teknologi Metalurgi</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            @endcanany
                             <table class="table table-hover mydatatable" id="mydatatable">
                                 <thead>
                                     <tr>
@@ -56,14 +88,17 @@
                                                 }
                                                 @endphp
                                             </td>
-                                            <td><a href="/mahasiswa/{{ $p->mahasiswa_id }}/detail"
+                                            <td>
+                                                <a href="/mahasiswa/{{ $p->mahasiswa_id }}/detail"
                                                     class="btn btn-info btn-xs"><i class="lnr lnr-magnifier"></i></a>
-                                                <a href="/pemagangan/{{ $p->id }}/edit"
-                                                    class="btn btn-warning btn-xs"><i class="lnr lnr-pencil"></i></a>
-                                                <a href="/pemagangan/{{ $p->id }}/delete"
-                                                    class="btn btn-danger btn-xs"
-                                                    onclick="return confirm('Yakin data dengan nama {{ $p->nama }} akan dihapus?')"><i
-                                                        class="lnr lnr-trash"></i></a>
+                                                @canany(['admin','admin-prodi'])
+                                                    <a href="/pemagangan/{{ $p->id }}/edit"
+                                                        class="btn btn-warning btn-xs"><i class="lnr lnr-pencil"></i></a>
+                                                    <a href="/pemagangan/{{ $p->id }}/delete"
+                                                        class="btn btn-danger btn-xs"
+                                                        onclick="return confirm('Yakin data dengan nama {{ $p->nama }} akan dihapus?')"><i
+                                                            class="lnr lnr-trash"></i></a>
+                                                @endcanany
                                             </td>
                                         </tr>
                                     @endforeach
@@ -181,5 +216,20 @@
                 theme: 'classic'
             })
         });
+        $('#filter-tahun').on('change', function(){
+            table
+                .column( 3   )
+                .search($(this).val()=='Semua'?'':this.value).draw()
+        })
+        $('#filter-prakerin').on('change', function(){
+            table
+                .column( 2 )
+                .search($(this).val()=='Semua'?'':this.value).draw()
+        })
+        $('#filter-jurusan').on('change', function(){
+            table
+                .column( 1 )
+                .search($(this).val()=='Semua'?'':this.value).draw()
+        })
     </script>
 @endpush

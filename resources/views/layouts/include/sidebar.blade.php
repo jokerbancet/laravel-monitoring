@@ -54,7 +54,7 @@
                     @endcan
                     <li><a href="/histori-approval" id="persetujuan" class="{{ request()->is('histori-approval*')?'active':'' }}"><i class="lnr lnr-history"></i> <span>Histori Persetujuan</span></a></li>
                 @endcanany
-                @can('admin-prodi')
+                @canany(['admin-prodi','kaprodi','direktur'])
                     <li><a href="/mahasiswa" id="mahasiswa"><i class="fa fa-graduation-cap" style="margin-right: 10px; font-size: 20px"></i>Data Mahasiswa</a></li>
                     <li><a href="/pemagangan" id="data-pemagang"><i class="fa fa-person-digging" style="margin-right: 10px; font-size: 20px"></i>Data Pemagangan</a></li>
                     <li><a href="/rel_capaian" id="data-relasi-capaian"><i class="fa fa-check-double" style="margin-right: 10px; font-size: 20px"></i>Data Relasi Capaian</a></li>
@@ -63,11 +63,16 @@
                         <div id="subPages3" class="collapse ">
                             <ul class="nav active">
                                 <li><a href="/datalaporan" id="data-laporan">Data Laporan</a></li>
+                                @canany(['admin','admin-prodi'])
                                 <li><a href="/inputlaporan" class="{{ request()->is('inputlaporan')?'active':'' }}">Input Laporan</a></li>
+                                @endcanany
                             </ul>
                         </div>
                     </li>
-                @endcan
+                @endcanany
+                @canany(['kaprodi','direktur'])
+                <li><a href="/data-statistik" class="{{ request()->is('data-statistik')?'active':'' }}"><i class="lnr lnr-home"></i> <span>Data Statistik</span></a></li>
+                @endcanany
             </ul>
         </nav>
     </div>
