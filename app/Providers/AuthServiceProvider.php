@@ -39,6 +39,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('hrd', function(User $user){
             return $user->role=='pembimbingindustri'&&$user->pembimbingIndustri->is_hrd==1;
         });
+        Gate::define('admin-prodi', function(User $user){
+            return substr($user->role, 0, 15) == 'Admin Teknologi';
+        });
         Gate::define('status-laporan', function(User $user, Laporan $laporan){
             $pemagang = $laporan->pemagangan;
             if($pemagang->dosenPembimbing==auth()->user()->dosenpembimbing){

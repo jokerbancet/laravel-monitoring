@@ -5,7 +5,7 @@
     <div class="main-content">
         <div class="container-fluid">
             {{-- Cek apakah si mahasiswa terdaftar sebagai pemagang atau tidak --}}
-            @if (!is_null(auth()->user()->mahasiswa->pemagangan))
+            @if (!is_null(auth()->user()->mahasiswa->pemagangan??null))
             <div class="panel">
                 <div class="panel-body">
                     <h2 class="text-center">Absen Ku</h2>
@@ -24,7 +24,7 @@
 </div>
 @endsection
 
-@if (!is_null(auth()->user()->mahasiswa->pemagangan))
+@if (!is_null(auth()->user()->mahasiswa->pemagangan??null))
     @push('css')
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
     @endpush

@@ -19,14 +19,22 @@ class PemaganganController extends Controller
     public function index()
     {
         //ambil data_bimbingan untuk tabel
-        // $data_pemagangan = DB::table('data_bimbingan')
-        // ->join('mahasiswa', 'data_bimbingan.mahasiswa_id', '=', 'mahasiswa.id')
-        // ->select('data_bimbingan.id', 'data_bimbingan.mahasiswa_id','data_bimbingan.prakerin_ke', 'data_bimbingan.mulai_magang', 'data_bimbingan.selesai_magang','data_bimbingan.jenis_pekerjaan', 'mahasiswa.nama','mahasiswa.jurusan')
-        // ->get();
-        $data_pemagangan = Pemagangan::whereHas('mahasiswa')->get();
+        if(auth()->user()->role=='admin'){
+            $data_pemagangan = Pemagangan::whereHas('mahasiswa')->get();
+            
+            //ambil data nama mahasiswa
+            $data1 = Mahasiswa::withCount('pemagangan')->having('pemagangan_count', "<", 2)->get();
+        }else{
+            $jurusan = substr(auth()->user()->role, 0, 6);
+            $jurusan = ltrim(auth()->user()->role, $jurusan);
+            $data_pemagangan = Pemagangan::whereHas('mahasiswa', function($q)use($jurusan){
+                $q->where('jurusan',$jurusan);
+            })->get();
+            
+            //ambil data nama mahasiswa
+            $data1 = Mahasiswa::withCount('pemagangan')->where('jurusan',$jurusan)->having('pemagangan_count', "<", 2)->get();
+        }
 
-        //ambil data nama mahasiswa
-        $data1 = Mahasiswa::withCount('pemagangan')->having('pemagangan_count', "<", 2)->get();
 
         //ambil data nama dosen pembimbing
         $data2 = DB::table('dosenpembimbing')
@@ -94,7 +102,13 @@ class PemaganganController extends Controller
      */
     public function edit(Pemagangan $pemagang)
     {
-        $mahasiswa          = Mahasiswa::all();
+        if(auth()->user()->role=='admin'){
+            $mahasiswa          = Mahasiswa::all();
+        }else{
+            $jurusan = substr(auth()->user()->role, 0, 6);
+            $jurusan = ltrim(auth()->user()->role, $jurusan);
+            $mahasiswa          = Mahasiswa::where('jurusan',$jurusan)->get();
+        }
         $dosenPembimbing    = DosenPembimbing::all();
         $pembimbingIndustri = PembimbingIndustri::all();
         return request()->ajax()?response()->json($pemagang):view('pemagangan.edit',compact('pemagang','mahasiswa','dosenPembimbing','pembimbingIndustri'));

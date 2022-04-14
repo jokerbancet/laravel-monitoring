@@ -25,7 +25,6 @@ Route::get('data-statistik', [AdminController::class, 'api_data_statistik']);
 Route::get('data-dosen', [AdminController::class, 'data_dosen']);
 Route::get('data-pembimbing', [AdminController::class, 'data_pembimbing']);
 
-Route::get('datalaporan', [DataLaporanController::class, 'ajax']);
 Route::post('/set-enable-laporan', function (Request $request) {
     DB::table('settings')->where('key', 'laporan_weekend')->update(['value'=>json_encode($request->only('is_enabled'))]);
 });

@@ -53,7 +53,7 @@
                             </div>
                         </div>
                         @can('mahasiswa')
-                        @foreach (auth()->user()->mahasiswa->pemagangans as $pemagangan)
+                        @foreach (auth()->user()->mahasiswa->pemagangans??[] as $pemagangan)
                             <div class="col-md-6">
                                 <div class="metric">
                                     @php

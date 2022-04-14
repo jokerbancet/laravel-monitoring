@@ -12,7 +12,7 @@
                     </div>
                 </div>
                 {{-- Cek apakah si mahasiswa terdaftar sebagai pemagang atau tidak --}}
-                @if (!is_null(auth()->user()->mahasiswa->pemagangan))
+                @if (!is_null(auth()->user()->mahasiswa->pemagangan??null))
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-body">

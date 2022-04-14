@@ -54,6 +54,20 @@
                     @endcan
                     <li><a href="/histori-approval" id="persetujuan" class="{{ request()->is('histori-approval*')?'active':'' }}"><i class="lnr lnr-history"></i> <span>Histori Persetujuan</span></a></li>
                 @endcanany
+                @can('admin-prodi')
+                    <li><a href="/mahasiswa" id="mahasiswa">Data Mahasiswa</a></li>
+                    <li><a href="/pemagangan" id="data-pemagang">Data Pemagangan</a></li>
+                    <li><a href="/rel_capaian" id="data-relasi-capaian">Data Relasi Capaian</a></li>
+                    <li>
+                        <a href="#subPages3" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Data Laporan</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                        <div id="subPages3" class="collapse ">
+                            <ul class="nav active">
+                                <li><a href="/datalaporan" id="data-laporan">Data Laporan</a></li>
+                                <li><a href="/inputlaporan" class="{{ request()->is('inputlaporan')?'active':'' }}">Input Laporan</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                @endcan
             </ul>
         </nav>
     </div>

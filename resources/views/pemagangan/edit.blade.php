@@ -26,7 +26,7 @@
                                         <label for="mahasiswa_id">Nama Mahasiswa</label>
                                         <select name="mahasiswa_id" id="mahasiswa_id" class="form-control">
                                             @foreach($mahasiswa as $data)
-                                                <option value="{{ $data->id }}">{{ $data->nama }}</option>
+                                                <option value="{{ $data->id }}">{{ $data->nama }} - {{ $data->jurusan }}</option>
                                             @endforeach
                                         </select>
                                     </div>

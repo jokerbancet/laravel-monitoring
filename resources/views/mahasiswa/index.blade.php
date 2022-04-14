@@ -17,7 +17,9 @@
                         <div class="panel-heading">
                             <h3 class="panel-title">Data Mahasiswa</h3>
                             <div class="right">
-                                <button type="button" class="btn" data-toggle="modal" data-target="#importExcel">Import Excel</button>
+                                @if (auth()->user()->role=='admin')
+                                    <button type="button" class="btn" data-toggle="modal" data-target="#importExcel">Import Excel</button>
+                                @endif
                                 <button type="button" class="btn" data-toggle="modal"
                                     data-target="#tambahdatamahasiswa">
                                     <i class="lnr lnr-plus-circle"></i>
@@ -97,49 +99,51 @@
 </div>
 
 @include('user.reset-password')
-<!-- Modal Form Import Excel -->
-<div class="modal fade" id="importExcel" role="dialog" aria-labelledby="importExcelLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form action="/mahasiswa/excel" id="formExcel" method="post" enctype="multipart/form-data">
-                @csrf
-                <div class="modal-header">
-                    <h5 class="modal-title" id="importExcelLabel">Import Data Mahasiswa</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group margin-bottom-10">
-                        <label for="excel">Pilih Excel</label>
-                        <input type="file" name="excel" id="excel" class="form-control">
+@if (auth()->user()->role=='admin')
+    <!-- Modal Form Import Excel -->
+    <div class="modal fade" id="importExcel" role="dialog" aria-labelledby="importExcelLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="/mahasiswa/excel" id="formExcel" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="importExcelLabel">Import Data Mahasiswa</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="table-responsive">
-                        <table class="table table-excel table-striped">
-                            <th>NIM</th>
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama</th>
-                                    <th>EMAIL</th>
-                                    <th>Jenis Kelamin</th>
-                                    <th>Agama</th>
-                                    <th>Alamat</th>
-                                    <th>Jurusan</th>
-                                    <th>Tahun Angkatan</th>
-                                </tr>
-                            </thead>
-                        </table>
+                    <div class="modal-body">
+                        <div class="form-group margin-bottom-10">
+                            <label for="excel">Pilih Excel</label>
+                            <input type="file" name="excel" id="excel" class="form-control">
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-excel table-striped">
+                                <th>NIM</th>
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama</th>
+                                        <th>EMAIL</th>
+                                        <th>Jenis Kelamin</th>
+                                        <th>Agama</th>
+                                        <th>Alamat</th>
+                                        <th>Jurusan</th>
+                                        <th>Tahun Angkatan</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-info">Import</button>
-                </div>
-            </form>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info">Import</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
+@endif
 
 <!-- Modal -->
 <div class="modal fade" id="tambahdatamahasiswa" role="dialog" aria-labelledby="exampleModalLabel"
@@ -204,11 +208,15 @@
                     </div>
                     <div class="form-group">
                         <label for="jurusan">jurusan</label>
+                        @if (auth()->user()->role=='admin')
                         <select name="jurusan" id="jurusan" class="form-control">
-                            <option value="Teknologi Geologi"{{old('jurusan') == 'Teknologi Geologi' ? ' selected' : ''}}>Teknologi Geologi</option>
-                            <option value="Teknologi Pertambangan"{{old('jurusan') == 'Teknologi Pertambangan' ? ' selected' : ''}}>Teknologi Pertambangan</option>
-                            <option value="Teknologi Metalurgi"{{old('jurusan') == 'Teknologi Metalurgi' ? ' selected' : ''}}>Teknologi Metalurgi</option>
+                            <option {{old('jurusan') == 'Teknologi Geologi' ? ' selected' : ''}}>Teknologi Geologi</option>
+                            <option {{old('jurusan') == 'Teknologi Pertambangan' ? ' selected' : ''}}>Teknologi Pertambangan</option>
+                            <option {{old('jurusan') == 'Teknologi Metalurgi' ? ' selected' : ''}}>Teknologi Metalurgi</option>
                         </select>
+                        @else
+                        <input type="text" name="jurusan" id="jurusan" class="form-control" value="{{ $jurusan }}" readonly>
+                        @endif
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Tahun Angkatan</label>

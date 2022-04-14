@@ -84,28 +84,30 @@
                             </div>
                             <div class="form-group">
                                 <label for="jurusan">Prodi</label>
+                                @if (auth()->user()->role=='admin')
                                     <select name="jurusan" id="jurusan" class="form-control">
                                         <option value="Teknologi Geologi" @if ($mahasiswa->jurusan == 'Teknologi Geologi') selected @endif>Teknologi Geologi</option>
                                         <option value="Teknologi Pertambangan" @if ($mahasiswa->jurusan == 'Teknologi Pertambangan') selected @endif>Teknologi Pertambangan</option>
                                         <option value="Teknologi Metalurgi" @if ($mahasiswa->jurusan == 'Teknologi Metalurgi') selected @endif>Teknologi Metalurgi</option>
                                     </select>
+                                @else
+                                    <input type="text" name="jurusan" id="jurusan" value="{{ $mahasiswa->jurusan }}" readonly class="form-control">
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Tahun Angkatan</label>
                                 <input type="text" class="form-control" name="tahun_angkatan"
                                     placeholder="Masukan Tahun Angkatan" value="{{ $mahasiswa->tahun_angkatan }}">
-                                    @if($errors->has('tahun angkatan'))
-                                        <p class="text-danger">{{ $errors->first('tahun angkatan') }}
-                                        </p>
-                                    @endif
+                                @if($errors->has('tahun angkatan'))
+                                    <p class="text-danger">{{ $errors->first('tahun angkatan') }} </p>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Foto</label>
                                 <input type="file" class="form-control" name="avatar">
                                 @if($errors->has('avatar'))
-                                        <p class="text-danger">{{ $errors->first('avatar') }}
-                                        </p>
-                                    @endif
+                                    <p class="text-danger">{{ $errors->first('avatar') }} </p>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Edit Data</button>

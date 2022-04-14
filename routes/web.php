@@ -36,16 +36,6 @@ Route::group(['middleware'=>['auth']],function(){
 Route::group(['middleware' => ['auth', 'CheckRole:admin']], function(){
     //Data Master Mahasiswa
     Route::post('/mahasiswa/excel', [AdminController::class, 'excel_mahasiswa']);
-    Route::get('/mahasiswa', [MahasiswaController::class, 'index']);
-    Route::get('/mahasiswa/trash', [MahasiswaController::class, 'trash']);
-    Route::post('/mahasiswa/create', [MahasiswaController::class, 'create']);
-    Route::get('/mahasiswa/{id}/detail', [MahasiswaController::class, 'detail']);
-    Route::get('/mahasiswa/{id}/edit', [MahasiswaController::class, 'edit']);
-    Route::post('/mahasiswa/{id}/update', [MahasiswaController::class, 'update']);
-    Route::get('/mahasiswa/{id}/delete', [MahasiswaController::class, 'delete']);
-    Route::get('/mahasiswa/{id}/restore', [MahasiswaController::class, 'restore']);
-    Route::delete('/mahasiswa/delete-selected', [MahasiswaController::class, 'delete_selected']);
-    Route::patch('/mahasiswa/restore-selected', [MahasiswaController::class, 'restore_selected']);
 
     //Data Master Dosen Pembimbing
     Route::get('/dosenpembimbing', [DosenpembimbingController::class, 'index']);
@@ -71,15 +61,6 @@ Route::group(['middleware' => ['auth', 'CheckRole:admin']], function(){
     Route::get('/industri/{id}/edit', [IndustriController::class, 'edit']);
     Route::post('/industri/{id}/update', [IndustriController::class, 'update']);
     Route::get('/industri/{id}/delete', [IndustriController::class, 'delete']);
-    // Route::get('/industri/{id}/detail', [IndustriCoqntroller::class, 'detail']);
-
-    //Data Pemagangan
-    Route::get('/pemagangan',[PemaganganController::class, 'index']);
-    Route::post('/pemagangan/create',[PemaganganController::class, 'create']);
-    Route::get('/pemagangan/{pemagang}', [PemaganganController::class, 'show']);
-    Route::get('/pemagangan/{pemagang}/edit', [PemaganganController::class, 'edit']);
-    Route::put('/pemagangan/{pemagang}/update', [PemaganganController::class, 'update']);
-    Route::get('/pemagangan/{id}/delete', [PemaganganController::class, 'delete']);
 
     //Data indikator capaian
     Route::get('/capaian',[IndikatorCapaianController::class, 'index']);
@@ -88,16 +69,11 @@ Route::group(['middleware' => ['auth', 'CheckRole:admin']], function(){
     Route::post('/capaian/{id}/update',[IndikatorCapaianController::class, 'update']);
     Route::get('/capaian/{id}/delete',[IndikatorCapaianController::class, 'delete']);
 
-    //Data Relasi capaian
-    Route::get('/rel_capaian',[RelasiCapaianController::class, 'index']);
-    Route::get('/rel_capaian/{pemagang}',[RelasiCapaianController::class, 'show']);
-    Route::get('/rel_capaian/{pemagang}/print',[RelasiCapaianController::class, 'print']);
-
     //Data Laporan mahasiswa
-    Route::get('/datalaporan',[DataLaporanController::class, 'index']);
-    Route::view('/inputlaporan', 'datalaporan.create');
-    Route::post('/inputlaporan', [DataLaporanController::class, 'store']);
-    Route::post('/inputlaporan/excel', [AdminController::class, 'excel_laporan']);
+    // Route::get('/datalaporan',[DataLaporanController::class, 'index']);
+    // Route::view('/inputlaporan', 'datalaporan.create');
+    // Route::post('/inputlaporan', [DataLaporanController::class, 'store']);
+    // Route::post('/inputlaporan/excel', [AdminController::class, 'excel_laporan']);
 
     Route::get('/data-statistik', [AdminController::class, 'data_statistik']);
     Route::get('activity-log', [AdminController::class, 'activity_log']);
@@ -134,3 +110,36 @@ Route::group(['middleware' => ['auth', 'CheckRole:mahasiswa']], function(){
     Route::get('/lupa-laporan', [LaporanController::class, 'index']);
 });
 
+Route::group(['middleware'=>['auth', 'CheckRole:admin,Admin Teknologi Geologi,Admin Teknologi Pertambangan,Admin Teknologi Metalurgi']], function(){
+    // Data Mahasiswa
+    Route::get('/mahasiswa', [MahasiswaController::class, 'index']);
+    Route::get('/mahasiswa/trash', [MahasiswaController::class, 'trash']);
+    Route::post('/mahasiswa/create', [MahasiswaController::class, 'create']);
+    Route::get('/mahasiswa/{id}/detail', [MahasiswaController::class, 'detail']);
+    Route::get('/mahasiswa/{id}/edit', [MahasiswaController::class, 'edit']);
+    Route::post('/mahasiswa/{id}/update', [MahasiswaController::class, 'update']);
+    Route::get('/mahasiswa/{id}/delete', [MahasiswaController::class, 'delete']);
+    Route::get('/mahasiswa/{id}/restore', [MahasiswaController::class, 'restore']);
+    Route::delete('/mahasiswa/delete-selected', [MahasiswaController::class, 'delete_selected']);
+    Route::patch('/mahasiswa/restore-selected', [MahasiswaController::class, 'restore_selected']);
+
+    // Pemagangan
+    Route::get('/pemagangan',[PemaganganController::class, 'index']);
+    Route::post('/pemagangan/create',[PemaganganController::class, 'create']);
+    Route::get('/pemagangan/{pemagang}', [PemaganganController::class, 'show']);
+    Route::get('/pemagangan/{pemagang}/edit', [PemaganganController::class, 'edit']);
+    Route::put('/pemagangan/{pemagang}/update', [PemaganganController::class, 'update']);
+    Route::get('/pemagangan/{id}/delete', [PemaganganController::class, 'delete']);
+
+    // Data Relasi Capaian
+    Route::get('/rel_capaian',[RelasiCapaianController::class, 'index']);
+    Route::get('/rel_capaian/{pemagang}',[RelasiCapaianController::class, 'show']);
+    Route::get('/rel_capaian/{pemagang}/print',[RelasiCapaianController::class, 'print']);
+
+    // Data Laporan
+    Route::get('/datalaporan',[DataLaporanController::class, 'index']);
+    Route::get('/datalaporan-ajax', [DataLaporanController::class, 'ajax']);
+    Route::get('/inputlaporan', [DataLaporanController::class, 'create']);
+    Route::post('/inputlaporan', [DataLaporanController::class, 'store']);
+    Route::post('/inputlaporan/excel', [AdminController::class, 'excel_laporan']);
+});

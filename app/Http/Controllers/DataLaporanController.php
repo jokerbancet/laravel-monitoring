@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Laporan;
+use App\Models\Pemagangan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
@@ -21,13 +22,20 @@ class DataLaporanController extends Controller
 
     public function ajax()
     {
-        $query = Laporan::select('id', 'id_data_bimbingan','tanggal_laporan','approve_industri','approve_industri_nilai','approve_dosen','approve_dosen2','status_laporan')->whereHas('mahasiswa')->whereHas('dosenPembimbing')->whereHas('dosenPembimbing2')->whereHas('pembimbingIndustri')->with([
+        $query = Laporan::select('id', 'id_data_bimbingan','tanggal_laporan','approve_industri','approve_industri_nilai','approve_dosen','approve_dosen2','status_laporan')->whereHas('mahasiswa', function($q){
+            if(auth()->user()->role!='admin'){
+                $jurusan = substr(auth()->user()->role, 0, 6);
+                $jurusan = ltrim(auth()->user()->role, $jurusan);
+                $q->where('jurusan', $jurusan);
+            }
+        })->whereHas('dosenPembimbing')->whereHas('dosenPembimbing2')->whereHas('pembimbingIndustri')->with([
             'mahasiswa'=>function($q){ $q->select('nama'); },
             'dosenPembimbing'=>function($q){ $q->select('nama'); },
             'dosenPembimbing2'=>function($q){ $q->select('nama'); },
             'pembimbingIndustri'=>function($q){ $q->select('industri_id','nama'); },
             'pembimbingIndustri.industri'=>function($q){ $q->select('industri.id','nama_industri'); },
         ])->orderBy('created_at', 'desc')->get();
+        
         $dt = new DataTables();
         return $dt->collection($query)
             ->addColumn('approve_industri', function($d){
@@ -53,7 +61,14 @@ class DataLaporanController extends Controller
      */
     public function create()
     {
-        //
+        $pemagangs = Pemagangan::whereHas('mahasiswa', function($q){
+            if(auth()->user()->role!='admin'){
+                $jurusan = substr(auth()->user()->role, 0, 6);
+                $jurusan = ltrim(auth()->user()->role, $jurusan);
+                $q->where('jurusan', $jurusan);
+            }
+        })->get();
+        return view('datalaporan.create', compact('pemagangs'));
     }
 
     /**

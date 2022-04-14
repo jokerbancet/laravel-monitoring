@@ -18,7 +18,15 @@ class RelasiCapaianController extends Controller
      */
     public function index()
     {
-        $pemagang=Pemagangan::whereHas('mahasiswa')->get();;
+        if(auth()->user()->role=='admin'){
+            $pemagang=Pemagangan::whereHas('mahasiswa')->get();
+        }else{
+            $jurusan = substr(auth()->user()->role, 0, 6);
+            $jurusan = ltrim(auth()->user()->role, $jurusan);
+            $pemagang=Pemagangan::whereHas('mahasiswa', function($q)use($jurusan){
+                $q->where('jurusan',$jurusan);
+            })->get();
+        }
         return view('relasi.index', compact('pemagang'));
     }
 

@@ -24,7 +24,7 @@ class LaporanController extends Controller
         $pemagang = auth()->user()->pemagang;
 
         //ambil data master_capaian
-        $data = DB::table('master_capaian')->where('jurusan',$mahasiswa->jurusan)->get();
+        $data = DB::table('master_capaian')->where('jurusan',$mahasiswa->jurusan??'')->get();
 
         // Hari yang dikecualikan untuk laporan ['sabtu','minggu'];
         $is_enabled = $pemagang->laporan_weekend??0;
@@ -41,7 +41,7 @@ class LaporanController extends Controller
                     :collect([]);
 
         // Cek apakah si user nya sudah melewati masa akhir magang
-        $masa_magang=Pemagangan::where('mahasiswa_id',$mahasiswa->id)
+        $masa_magang=Pemagangan::where('mahasiswa_id',$mahasiswa->id??'')
                                 ->whereDate('mulai_magang','<=',date('Y-m-d'))
                                 ->whereDate('selesai_magang','>=',date('Y-m-d'))->first();
 

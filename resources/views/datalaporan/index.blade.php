@@ -73,7 +73,7 @@
             "serverSide": true,
             "bSort" : true,
             "ajax": {
-                url: "/api/datalaporan"
+                url: "/datalaporan-ajax"
             },
             // orderCellsTop: true,
             fixedHeader: true,
