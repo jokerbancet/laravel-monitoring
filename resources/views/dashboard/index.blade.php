@@ -85,6 +85,7 @@
         $.ajax({
             url: '/check-password',
             success: (result) => {
+                console.log(result);
                 if(result){
                     Swal.fire({
                         icon: 'warning',
