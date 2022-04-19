@@ -19,7 +19,7 @@
                         </div>
                         <div class="panel-body">
                             @canany(['admin','direktur'])
-                                <div style="display: flex; width: 20%">
+                                <div style="display: flex; width: 100%">
                                     <div class="form-group">
                                         <label for="filter-prakerin">Prakerin</label>
                                         <select name="filter-prakerin" id="filter-prakerin" class="form-control" style="width: 120px">
@@ -28,13 +28,22 @@
                                             <option value="2">Ke-2</option>
                                         </select>
                                     </div>
-                                    <div class="form-group" style="margin-left: 10px">
+                                    <div class="form-group" style="margin-left: 10px;">
                                         <label for="filter-jurusan">Jurusan</label>
                                         <select name="filter-jurusan" id="filter-jurusan" class="form-control" style="width: 200px">
                                             <option>Semua</option>
                                             <option>Teknologi Geologi</option>
                                             <option>Teknologi Pertambangan</option>
                                             <option>Teknologi Metalurgi</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" style="margin-left: 10px; width: 120px">
+                                        <label for="filter-tahun">Tahun Magang</label>
+                                        <select id="filter-tahun" class="form-control">
+                                            <option>Semua</option>
+                                            @foreach ($pemagang->groupBy(fn($item) => date('Y', strtotime($item->mulai_magang)) ) as $thn => $item)
+                                                <option>{{ $thn }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     @can('admin')
@@ -45,10 +54,15 @@
                             <table class="table mydatatable">
                                 <thead>
                                     <tr>
-                                        <th style="width: 10px">NO</th>
+                                        <th style="width: 10px">
+                                            <div class="form-check">
+                                                <input type="checkbox" id="selectAll" class="form-check-input">
+                                            </div>
+                                        </th>
                                         <th>Nama Mahasiswa</th>
                                         <th>Prakerin Ke</th>
                                         <th>Jurusan</th>
+                                        <th>Mulai Magang</th>
                                         <th style="width: 10px">Aksi</th>
                                     </tr>
                                 </thead>
@@ -61,9 +75,10 @@
                                                     <input type="checkbox" value="{{ $data->id }}" class="form-check-input selectbox" {{ $data->is_active?'disabled':'' }}>
                                                 </div>
                                             </td>
-                                            <td>{{$data->mahasiswa->nama}}</td>
+                                            <td>{{ $data->mahasiswa->nama }}</td>
                                             <td>{{ $data->prakerin_ke }}</td>
-                                            <td>{{$data->mahasiswa->jurusan}}</td>
+                                            <td>{{ $data->mahasiswa->jurusan }}</td>
+                                            <td>{{ $data->mulai_magang }}</td>
                                             <td>
                                                 <button class="btn btn-info" onclick="detail({{$data->id}})" data-toggle="modal" data-target="#modalDetail">
                                                     <i class="fa fa-search"></i>
@@ -163,10 +178,6 @@
         $('#subPages2').addClass('in').prev().addClass('active').removeClass('collapsed');
         $('#data-relasi-capaian').addClass('active')
 
-        $('#filter_kategori').on('change', function(){
-            detail($(this).data('mid'), $(this).val())
-        })
-
         function detail(mahasiswa_id, kategori = ''){
             $('#filter_kategori').attr('data-mid', mahasiswa_id);
             $.ajax({
@@ -207,6 +218,15 @@
                 }
             })
         }
+        function setCheck(){
+            let checked = $('#selectAll').prop('checked')
+            $('.selectbox').prop('checked', checked)
+        }
+        setCheck()
+        $('#selectAll').on('change', setCheck)
+        $('#filter_kategori').on('change', function(){
+            detail($(this).data('mid'), $(this).val())
+        })
         $('#filter-prakerin').on('change', function(){
             table
                 .column( 2 )
@@ -215,6 +235,11 @@
         $('#filter-jurusan').on('change', function(){
             table
                 .column( 3 )
+                .search($(this).val()=='Semua'?'':this.value).draw()
+        })
+        $('#filter-tahun').on('change', function(){
+            table
+                .column( 4 )
                 .search($(this).val()=='Semua'?'':this.value).draw()
         })
         $('#batch-export').on('click', function(){
