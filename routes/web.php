@@ -112,6 +112,9 @@ Route::group(['middleware' => ['auth', 'CheckRole:mahasiswa']], function(){
     Route::get('/histori-laporan', [LaporanController::class, 'history']);
     Route::get('/absen-ku', [MahasiswaController::class, 'absen']);
     Route::get('/lupa-laporan', [LaporanController::class, 'index']);
+
+    // Check default password
+    Route::get('/check-password', [UserController::class, 'check_password']);
 });
 
 // Route::group(['middleware'=>['auth', 'CheckRole:admin,Admin Teknologi Geologi,Admin Teknologi Pertambangan,Admin Teknologi Metalurgi']], function(){

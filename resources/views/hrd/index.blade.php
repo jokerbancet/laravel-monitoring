@@ -48,7 +48,7 @@
                                                     onclick="return confirm('Yakin data dengan nama {{ $pi->nama }} akan dihapus?')"><i
                                                         class="lnr lnr-trash"></i></a>
                                                 <a href="#" class="btn btn-success btn-xs"  
-                                                    onclick="changePasswordModal({{ $pi->user }})"><i class="lnr lnr-lock"></i></a>
+                                                    onclick="changePasswordModal({{ collect($pi->user)->merge(['is_hrd'=>true]) }})"><i class="lnr lnr-lock"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach

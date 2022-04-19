@@ -28,8 +28,18 @@
 @push('js')
     <script>
         function changePasswordModal(user){
+            let passwords = {
+                'mahasiswa': 'passwordmahasiswa',
+                'dosenpembimbing' : 'passworddosen',
+                'pembimbingindustri': 'passworddpi'
+            };
+            let password = passwords[user.role];
+            if(user.hasOwnProperty('is_hrd')&&user.is_hrd){
+                password = 'passwordhrd';
+            }
             Swal.fire({
                 title: 'Apakah yakin ingin reset password?',
+                text: 'Password Default: '+password,
                 icon: 'warning',
                 showCancelButton: true,
                 cancelButtonText: 'Batal',

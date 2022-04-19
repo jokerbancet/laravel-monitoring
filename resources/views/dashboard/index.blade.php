@@ -81,4 +81,25 @@
 
 @push('js')
     <script>$('#dashboard').addClass('active')</script>
+    <script>
+        $.ajax({
+            url: '/check-password',
+            success: (result) => {
+                if(result){
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Password anda masih default!',
+                        text: 'Silahkan klik "Ganti" untuk mengganti password.',
+                        showCancelButton: true,
+                        confirmButtonText: 'Ganti',
+                        cancelButtonText: 'Batal'
+                    }).then(result => {
+                        if(result.isConfirmed){
+                            window.location.href = '/ganti-password'
+                        }
+                    })
+                }
+            }
+        })
+    </script>
 @endpush

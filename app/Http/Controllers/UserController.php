@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -133,5 +134,14 @@ class UserController extends Controller
     {
         $user->delete();
         return back()->with('sukses', 'Data User berhasil dihapus');
+    }
+
+    public function check_password()
+    {
+        $password = auth()->user()->password;
+        if(auth()->user()->role=='mahasiswa'){
+            return Hash::check('passwordmahasiswa', $password);
+        }
+        return false;
     }
 }
