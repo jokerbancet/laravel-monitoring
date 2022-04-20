@@ -58,6 +58,7 @@ class RelasiCapaianController extends Controller
 
     public function batch_export(Request $request)
     {
+        set_time_limit(300);
         $pemagangs = Pemagangan::whereIn('id', explode(',', $request->id))->get();
 
         $files = [];
@@ -84,7 +85,7 @@ class RelasiCapaianController extends Controller
         // $nka = $pemagang->laporan->where('status_laporan', 'approve')->count()/$jlhd;
         $nilai = $pemagang->laporan()->where('status_laporan', 'approve')->selectRaw('avg(approve_dosen) as dospem1, avg(approve_dosen2) as dospem2, avg(approve_industri_nilai) as pembid')->first();
         $nilai_akhir = ($nilai->dospem1*30/100)+($nilai->dospem2*30/100)+($nilai->pembid*40/100)*$nks;
-        
+
         $capaian = $pemagang->laporan()->select('id','id_data_bimbingan','created_at', 'capaian_id', 'approve_industri')->where('status_laporan', 'approve')->with('capaian')->get()->groupBy('capaian_id');
 
         return \PDF::loadView('pdf.index',compact('pemagang', 'capaian', 'nilai_akhir', 'jhm','jlhd', 'nks'))->setPaper('a4','landscape');

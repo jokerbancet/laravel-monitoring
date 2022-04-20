@@ -41,14 +41,17 @@
 </head>
 <body>
     <center style="margin-top: 40px">
-        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('pdf/logo.png'))) }}" alt="" width="50" height="50">
-        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('pdf/header.png'))) }}" alt="" width="300" height="50" style="margin-left: 25px; margin-bottom: 15px">
+        {{-- <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('pdf/logo.png'))) }}" alt="" width="50" height="50">
+        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('pdf/header.png'))) }}" alt="" width="300" height="50" style="margin-left: 25px; margin-bottom: 15px"> --}}
         <br>
         <h3>DAFTAR CAPAIAN MAHASISWA DAN REKAP LAPORAN MAHASISWA MAGANG INDUSTRI POLITEKNIK ENERGI DAN PERTAMBANGAN BANDUNG</h3>
     </center>
-    <div>
-        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('/'.$pemagang->mahasiswa->getAvatar(false))))}}" style="display:inline-block;float:left;width: 30%; margin-top: 30px;margin-left: 20px;background:blue;" alt="Avatar">
-        <table style="width: 60%; line-height: 25px;margin-left: 34%;margin-top: 3%">
+    <div >
+        {{-- <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('/'.$pemagang->mahasiswa->getAvatar(false))))}}" style="display:inline-block;float:left;width: 30%; margin-top: 30px;margin-left: 20px;background:blue;" alt="Avatar"> --}}
+        <center>
+            <h4 style="margin-top: 3%; margin-bottom: 2%">Data Pemagangan Mahasiswa</h4>
+        </center>
+        <table style="width: 60%; line-height: 25px;">
             <tbody>
                 <tr>
                     <td style="width: 190px">Nama</td>
@@ -143,15 +146,16 @@
                 <td>{{ number_format($pemagang->laporan()->avg('approve_industri_nilai'), 1) }}</td>
                 <td>{{ number_format($pemagang->laporan()->avg('approve_dosen'), 1) }}</td>
                 <td>{{ number_format($pemagang->laporan()->avg('approve_dosen2'), 1) }}</td>
-                <td>{{ $nilai_akhir }}</td>
+                <td>{{ number_format($nilai_akhir) }}</td>
             </tr>
         </tbody>
     </table>
+    <center style="margin-bottom: 2%"><h4>Keterampilan Khusus yang Tercapai</h4></center>
     <table class="table-bordered" style="width: 100%;">
         <thead>
             <tr>
                 <th style="width: 25px">No.</th>
-                <th>Keterampilan Khusus yang Tercapai</th>
+                <th>Keterampilan Khusus</th>
                 <th style="width: 80px; text-align: center">Terampil</th>
                 <th style="width: 100px; text-align: center">Mengamati</th>
                 <th style="width: 80px; text-align: center">Mengikuti</th>
@@ -175,6 +179,7 @@
     <br>
     <br>
     {{-- <p style="font-size: 18px; margin-top: 20px margin-bottom: 10px">Berikut rekap laporan mahasiswa.</p> --}}
+    <center style="margin-bottom: 2%"><h4>Rekap Laporan Mahasiswa</h4></center>
     <table class="table-bordered">
         <thead class="text-xs-center">
             <tr>
