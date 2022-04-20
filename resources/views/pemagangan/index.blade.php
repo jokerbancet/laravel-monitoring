@@ -32,7 +32,7 @@
                                         <label for="filter-tahun">Tahun</label>
                                         <select name="filter-tahun" id="filter-tahun" class="form-control" style="width: 100px">
                                             <option>Semua</option>
-                                            @foreach ($pemagangan->groupBy(fn($item) => date('Y', strtotime($item->mulai_magang)) ) as $thn => $item)
+                                            @foreach ($pemagangan->groupBy(fn($item) => date('Y', strtotime($item->mulai_magang)) )->sortKeys() as $thn => $item)
                                             <option>{{ $thn }}</option>
                                             @endforeach
                                         </select>
@@ -76,18 +76,7 @@
                                             <td class="text-center">{{ $p->prakerin_ke }}</td>
                                             <td>{{ $p->mulai_magang }}</td>
                                             <td>{{ $p->selesai_magang }}</td>
-                                                @php
-                                                    $tgl_sekarang = strtotime(date("d-m-Y"));
-                                                    $tgl_selesai = strtotime($p->selesai_magang);
-                                                @endphp
-                                            <td>@php
-                                                if($tgl_sekarang < $tgl_selesai){
-                                                    echo '<span class="label label-primary">Sedang Magang</span>';
-                                                }else{
-                                                    echo '<span class="label label-success">Selesai Magang</span>';
-                                                }
-                                                @endphp
-                                            </td>
+                                            <td>{!! $p->is_active !!}</td>
                                             <td>
                                                 <a href="/mahasiswa/{{ $p->mahasiswa_id }}/detail"
                                                     class="btn btn-info btn-xs"><i class="lnr lnr-magnifier"></i></a>

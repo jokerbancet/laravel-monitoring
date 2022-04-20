@@ -35,7 +35,7 @@
                                         <label for="filter">Tahun Angkatan</label>
                                         <select name="filter" id="filter" class="form-control" style="width: 120px">
                                             <option>Semua</option>
-                                            @foreach ($data_mahasiswa->groupBy('tahun_angkatan') as $thn => $item)
+                                            @foreach ($data_mahasiswa->groupBy('tahun_angkatan')->sortKeys() as $thn => $item)
                                                 <option>{{ $thn }}</option>
                                             @endforeach
                                         </select>

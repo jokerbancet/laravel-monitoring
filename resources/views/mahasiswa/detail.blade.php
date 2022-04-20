@@ -81,7 +81,7 @@
                                                         <button class="btn btn-sm btn-info btn-show-tr" style="border-radius: 50%; padding-left: 10px; padding-right: 10px"><i class="fa fa-plus"></i></button>
                                                     </td>
                                                     <td>{{ $pemagangan->prakerin_ke }}</td>
-                                                    <td>{!! $pemagangan->getIsActiveAttribute() !!}</td>
+                                                    <td>{!! $pemagangan->is_active !!}</td>
                                                     <td>{{ $pemagangan->progress }}</td>
                                                 </tr>
                                                 <tr class="detail-tr">

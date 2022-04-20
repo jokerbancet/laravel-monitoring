@@ -13,7 +13,7 @@
                         <div class="form-group" style="width: 150px; margin-right: 10px">
                             <label for="tahun">Tahun</label>
                             <select name="" id="tahun" class="form-control">
-                                @foreach ($tahun as $thn => $v)
+                                @foreach ($tahun->sortKeys() as $thn => $v)
                                     <option>{{ $thn }}</option>
                                 @endforeach
                             </select>
@@ -57,7 +57,7 @@
                         <div class="form-group" style="width: 150px; margin-right: 10px">
                             <label for="pie-tahun">Tahun</label>
                             <select name="" id="pie-tahun" class="form-control" onchange="setPie()">
-                                @foreach ($tahun as $thn => $v)
+                                @foreach ($tahun->sortKeys() as $thn => $v)
                                     <option>{{ $thn }}</option>
                                 @endforeach
                             </select>

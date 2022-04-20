@@ -41,7 +41,7 @@
                                         <label for="filter-tahun">Tahun Magang</label>
                                         <select id="filter-tahun" class="form-control">
                                             <option>Semua</option>
-                                            @foreach ($pemagang->groupBy(fn($item) => date('Y', strtotime($item->mulai_magang)) ) as $thn => $item)
+                                            @foreach ($pemagang->groupBy(fn($item) => date('Y', strtotime($item->mulai_magang)) )->sortKeys() as $thn => $item)
                                                 <option>{{ $thn }}</option>
                                             @endforeach
                                         </select>
@@ -72,7 +72,7 @@
                                             {{-- <td>{{$loop->iteration}}</td> --}}
                                             <td>
                                                 <div class="form-check">
-                                                    <input type="checkbox" value="{{ $data->id }}" class="form-check-input selectbox" {{ $data->is_active?'disabled':'' }}>
+                                                    <input type="checkbox" value="{{ $data->id }}" class="form-check-input selectbox" {{ str_contains($data->is_active, 'Sedang Magang')?'disabled':'' }}>
                                                 </div>
                                             </td>
                                             <td>{{ $data->mahasiswa->nama }}</td>
