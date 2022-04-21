@@ -21,11 +21,11 @@
                             @canany(['admin','direktur'])
                                 <div style="display: flex; width: 100%">
                                     <div class="form-group">
-                                        <label for="filter-prakerin">Prakerin</label>
+                                        <label for="filter-prakerin">Semester</label>
                                         <select name="filter-prakerin" id="filter-prakerin" class="form-control" style="width: 120px">
                                             <option>Semua</option>
-                                            <option value="1">Ke-1</option>
-                                            <option value="2">Ke-2</option>
+                                            <option value="1">Ganjil</option>
+                                            <option value="2">Genap</option>
                                         </select>
                                     </div>
                                     <div class="form-group" style="margin-left: 10px;">

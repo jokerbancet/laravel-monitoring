@@ -19,10 +19,10 @@
                             </select>
                         </div>
                         <div class="form-group" style="width: 150px">
-                            <label for="prakerin-ke">Prakerin Ke</label>
+                            <label for="prakerin-ke">Semester</label>
                             <select name="" id="prakerin-ke" class="form-control">
-                                <option value="1">Ke Satu</option>
-                                <option value="2">Ke Dua</option>
+                                <option value="1">Ganjil</option>
+                                <option value="2">Genap</option>
                             </select>
                         </div>
                         @canany(['admin','direktur'])
